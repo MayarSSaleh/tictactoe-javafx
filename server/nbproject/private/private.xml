@@ -3,6 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+=======
+            <file>file:/F:/iti/Java/Project/Project/tictactoe-javafx/server/src/DTO/UsersDTO.java</file>
+>>>>>>> development
             <file>file:/F:/iti/Java/Project/Project/tictactoe-javafx/server/src/db/DataAccessLayer.java</file>
         </group>
     </open-files>
