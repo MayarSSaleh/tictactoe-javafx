@@ -20,10 +20,11 @@ public class Client extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-                       Parent root = new FXMLDocumentBase();
-        
+        //Parent root = new FXMLDocumentBase();
+        Parent root = new PlayingScreenDemo();
+
         Scene scene = new Scene(root);
-        
+        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
         stage.setScene(scene);
         stage.show();
     }
