@@ -1,0 +1,20 @@
+.btn{
+    -fx-background-radius: 50%;
+    
+    
+}
+.btnUsers
+{
+    -fx-background-color: #EF4C01;
+     -fx-background-radius: 5px;
+     
+}
+.btnUsers:hover
+{
+    -fx-background-color: #433FF1;
+    -fx-text-fill: black;
+}
+.circle
+{
+    
+}
