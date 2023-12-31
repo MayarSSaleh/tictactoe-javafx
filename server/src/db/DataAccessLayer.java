@@ -36,7 +36,7 @@ public class DataAccessLayer {
         con.close();
         return ret;
     }
-     public static int updateScore(UsersDTO user) throws SQLException
+ public static int updateScore(UsersDTO user) throws SQLException
      {
          int result = 0;
          
@@ -48,9 +48,10 @@ public class DataAccessLayer {
 
         // Statement
         PreparedStatement ps = con.prepareStatement(
-            "UPDATE Form users score WHERE ID=?"
+            "UPDATE users set score = ? WHERE ID=?"
         );
-        ps.setInt(1,user.getID());
+        ps.setInt(1,user.getScore());
+        ps.setInt(2,user.getID());
         result = ps.executeUpdate();
         ps.close();
         con.close();
