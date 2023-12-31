@@ -15,16 +15,27 @@ public class UsersDTO
     private String email;
     private String userPass;
     private int score;
+        private String status;
+
 
     public UsersDTO() {
     }
 
-    public UsersDTO(int ID, String userName, String email, String userPass, int score) {
+    public UsersDTO(int ID, String userName, String email, String userPass, int score,String status) {
         this.ID = ID;
         this.userName = userName;
         this.email = email;
         this.userPass = userPass;
         this.score = score;
+        this.status=status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     public UsersDTO(int id)
     {
