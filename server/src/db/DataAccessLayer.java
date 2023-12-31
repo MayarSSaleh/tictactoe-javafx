@@ -37,6 +37,36 @@ public class DataAccessLayer {
         return ret;
     }
 
+
+     
+    public static UsersDTO isLogin( String loginEmail, String  loginPass) throws SQLException{
+        UsersDTO userLogin= new UsersDTO();
+        userLogin.setID(-1);
+        DriverManager.registerDriver(new ClientDriver());
+        Connection con =DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","root","root");
+        
+        PreparedStatement ps = con.prepareStatement("select * from users where email = ?");
+        ps.setString(1, loginEmail); 
+        
+        ResultSet result = ps.executeQuery();
+     // ResultSet return data (string or int ) use only get string method or get int (write the column number or name)
+        if (result.next())
+        {
+            userLogin.setID(result.getInt(1));
+            userLogin.setUserName(result.getString(2));
+            userLogin.setEmail(result.getString(3));
+            userLogin.setScore(result.getInt(4));
+            userLogin.setUserPass(result.getString("USERPASS"));
+        }
+             ps.close();;
+           con.close();  
+        
+           return userLogin;
+    
+    }
+
+    
+
  public static int updateScore(UsersDTO user) throws SQLException
      {
          int result = 0;
@@ -91,3 +121,8 @@ public class DataAccessLayer {
 
 
 }
+
+
+
+
+
