@@ -13,17 +13,18 @@ public  class ServerMainUI extends AnchorPane {
     protected final Circle circleImg;
     protected final Label lblTitle;
     protected final Button btnServer;
-    protected final Button button;
+    protected final Button btnUsers;
     private boolean onRun=false;
     Image pause;
     Image start;
     Image hoverStart;
+    Image hoverPause;
     public ServerMainUI() {
 
         circleImg = new Circle();
         lblTitle = new Label();
         btnServer = new Button();
-        button = new Button();
+        btnUsers = new Button();
 
         setId("AnchorPane");
         setPrefHeight(249.0);
@@ -33,14 +34,15 @@ public  class ServerMainUI extends AnchorPane {
         circleImg.setFill(javafx.scene.paint.Color.DODGERBLUE);
         circleImg.setLayoutX(161.0);
         circleImg.setLayoutY(125.0);
-        circleImg.setRadius(55.0);
+        circleImg.setRadius(70.0);
         circleImg.setStroke(javafx.scene.paint.Color.BLACK);
         circleImg.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         circleImg.setStrokeWidth(0.0);
         circleImg.getStyleClass().add("circle");
         start =new Image("/assets/img/start.png");
-        pause =new Image("/assets/img/pause.png");
+        pause =new Image("/assets/img/hoverPause.png");
         hoverStart=new Image("/assets/img/hoverStart.png");
+        hoverPause=new Image("/assets/img/pause.png");
 
         circleImg.setFill(new ImagePattern(start));
         
@@ -54,6 +56,7 @@ public  class ServerMainUI extends AnchorPane {
         lblTitle.setText("TIC TAC TOE");
         lblTitle.setTextFill(javafx.scene.paint.Color.WHITE);
         lblTitle.setFont(new Font("Roboto Bold", 20.0));
+        
 
         btnServer.setLayoutX(106.0);
         btnServer.setLayoutY(70.0);
@@ -68,15 +71,18 @@ public  class ServerMainUI extends AnchorPane {
         btnServer.setStyle("-fx-background-radius: 50%;");
         btnServer.getStyleClass().add("btn");
 
-        button.setLayoutX(244.0);
-        button.setLayoutY(204.0);
-        button.setMnemonicParsing(false);
-        button.setText("Users");
+        btnUsers.setLayoutX(244.0);
+        btnUsers.setLayoutY(204.0);
+        btnUsers.setMnemonicParsing(false);
+        btnUsers.setTextFill(javafx.scene.paint.Color.WHITE);
+        btnUsers.setText("Users");
+        btnUsers.getStyleClass().add("btnUsers");
+        
 
         getChildren().add(circleImg);
         getChildren().add(lblTitle);
         getChildren().add(btnServer);
-        getChildren().add(button);
+        getChildren().add(btnUsers);
 
     }
 
@@ -100,6 +106,11 @@ public  class ServerMainUI extends AnchorPane {
              circleImg.setFill(new ImagePattern(hoverStart));
             
         }
+           else
+        {
+            circleImg.setFill(new ImagePattern(hoverPause));
+          
+        }
         
     }
        protected  void mouseIn(javafx.scene.input.MouseEvent mouseEvent)
@@ -107,6 +118,11 @@ public  class ServerMainUI extends AnchorPane {
            if(!onRun)
         {
              circleImg.setFill(new ImagePattern(hoverStart));
+            
+        }
+           else
+        {
+            circleImg.setFill(new ImagePattern(hoverPause));
             
         }
         
@@ -118,7 +134,14 @@ public  class ServerMainUI extends AnchorPane {
              circleImg.setFill(new ImagePattern(start));
             
         }
+           else
+        {
+            circleImg.setFill(new ImagePattern(pause));
+            
+        }
         
     }
+        
+    
 
 }
