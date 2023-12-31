@@ -1,0 +1,42 @@
+.root{
+    -fx-background-color: black;
+}
+.btn{
+    -fx-background-color: black; 
+    -fx-border-color: #00A8A8; 
+    -fx-border-radius: 30%; 
+    -fx-border-width: 3px;
+    -fx-text-fill: white; 
+    -fx-border-color: linear-gradient(to bottom, #33E9E9 100%, #FFFFFF);
+    -fx-background-radius: 15;
+}
+.btn:hover{
+
+    -fx-border-color: mediumslateblue;
+    -fx-translate-x: -3; 
+    -fx-translate-y: -3; 
+}
+
+.rec_game{
+ 
+     -fx-fill: black;
+}
+
+.rech{
+   
+      -fx-fill: linear-gradient(to right,#fff 5%,rgba(255,171,46,1),rgba(255,202,66,0.7), rgba(255,202,66,0.7),rgba(255,171,46,1),rgba(255,171,46,1),rgba(255,171,46,1),rgba(255,202,66,0.7),rgba(255,202,66,0.7),rgba(255,171,46,1),#fff 95%);
+      
+   
+  
+}
+.recv{
+   
+      -fx-fill: linear-gradient(to bottom,#fff 5%,rgba(255,171,46,1),rgba(255,202,66,0.7), rgba(255,202,66,0.7),rgba(255,171,46,1),rgba(255,171,46,1),rgba(255,171,46,1),rgba(255,202,66,0.7),rgba(255,202,66,0.7),rgba(255,171,46,1),#fff 95%);
+      
+   
+  
+}
+
+/*
+
+*/
