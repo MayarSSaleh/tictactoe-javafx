@@ -31,4 +31,26 @@ public class DataAccessLayer {
         con.close();
         return ret;
     }
+     public static int updateScore(UsersDTO user) throws SQLException
+     {
+         int result = 0;
+         
+          // Load the driver
+        DriverManager.registerDriver(new ClientDriver());
+
+        // Connection
+        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","root","root");
+
+        // Statement
+        PreparedStatement ps = con.prepareStatement(
+            "UPDATE Form users score WHERE ID=?"
+        );
+        ps.setInt(1,user.getID());
+        result = ps.executeUpdate();
+        ps.close();
+        con.close();
+         
+         return result;
+     }
+     
 }
