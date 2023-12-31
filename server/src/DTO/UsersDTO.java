@@ -16,6 +16,9 @@ public class UsersDTO
     private String userPass;
     private int score;
 
+    public UsersDTO() {
+    }
+
     public UsersDTO(int ID, String userName, String email, String userPass, int score) {
         this.ID = ID;
         this.userName = userName;
@@ -23,7 +26,10 @@ public class UsersDTO
         this.userPass = userPass;
         this.score = score;
     }
-
+    public UsersDTO(int id)
+    {
+    ID=id;
+    }
     public int getID() {
         return ID;
     }

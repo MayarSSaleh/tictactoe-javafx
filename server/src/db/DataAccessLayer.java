@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import org.apache.derby.jdbc.ClientDriver;
 
 
@@ -20,6 +21,10 @@ import org.apache.derby.jdbc.ClientDriver;
 public class DataAccessLayer {
      public static int Register(UsersDTO user) throws SQLException
     {
+//        ArrayList<UsersDTO>arr= new ArrayList<UsersDTO>();
+//        UsersDTO u = new UsersDTO();
+//        arr.add(u)
+                
         int ret=0;
         DriverManager.registerDriver(new ClientDriver());
         Connection con =DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","root","root");
