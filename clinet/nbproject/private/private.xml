@@ -2,15 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-            <file>file:/F:/iti/Java/Project/Project/tictactoe-javafx/clinet/src/client/AlertBox.java</file>
-            <file>file:/F:/iti/Java/Project/Project/tictactoe-javafx/clinet/src/client/FXMLDocumentController.java</file>
-            <file>file:/F:/iti/Java/Project/Project/tictactoe-javafx/clinet/src/client/FXMLDocumentBase.java</file>
-            <file>file:/F:/iti/Java/Project/Project/tictactoe-javafx/clinet/src/client/Client.java</file>
+            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/FXMLDocumentBase.java</file>
+            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/PlayingScreenDemo.java</file>
+            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/Client.java</file>
+            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/AlertBox.java</file>
         </group>
->>>>>>> 7741e9ec62eba882cda3b088a06b72e56457f651
     </open-files>
 </project-private>

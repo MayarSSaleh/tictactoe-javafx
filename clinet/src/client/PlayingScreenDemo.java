@@ -49,9 +49,17 @@ public class PlayingScreenDemo extends BorderPane {
     protected final ImageView imageView0;
     protected final DropShadow dropShadow;
     protected final DropShadow dropShadow0;
-
+    private char currentPlayer = 'X'; // Initial player is X
+    private char[][] board = new char[3][3];
     public PlayingScreenDemo() {
 
+             for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = ' ';
+            }
+        }
+
+        
         topFlow = new FlowPane();
         anchorPlayerX = new AnchorPane();
         lblPlayerX = new Label();
@@ -278,7 +286,7 @@ public class PlayingScreenDemo extends BorderPane {
         btn02.setPrefHeight(50.0);
         btn02.setPrefWidth(54.0);
         btn02.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btn02.setFont(new Font("System Bold", 24.0));
+        btn02.setFont(new Font( 24.0));
         btn02.getStyleClass().add("btn");
 
         btn12.setAlignment(javafx.geometry.Pos.CENTER);
@@ -375,6 +383,131 @@ public class PlayingScreenDemo extends BorderPane {
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
+        setButtonHandler(btn00, 0, 0);
+        setButtonHandler(btn01, 0, 1);
+        setButtonHandler(btn02, 0, 2);
+        setButtonHandler(btn10, 1, 0);
+        setButtonHandler(btn11, 1, 1);
+        setButtonHandler(btn12, 1, 2);
+        setButtonHandler(btn20, 2, 0);
+        setButtonHandler(btn21, 2, 1);
+        setButtonHandler(btn22, 2, 2);
+    }
+private void setButtonHandler(Button button, int row, int col) {
+    button.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            if (button.getText().isEmpty() && currentPlayer == 'X') {
+                button.setText("X");
+                board[row][col] = 'X';
+                checkGameStatus(row, col);
+                currentPlayer = 'O';
+            } else if (button.getText().isEmpty() && currentPlayer == 'O') {
+                button.setText("0");
+                board[row][col] = 'O';
+                checkGameStatus(row, col);
+                currentPlayer = 'X';
+            }
+        }
+    });
 
+}
+
+
+private void checkGameStatus(int row, int col) {
+    // Update row and col before checking for a win
+    if (checkRow(row) || checkColumn(col) || checkDiagonals()) {
+        // Display winner
+        System.out.println("Player " + currentPlayer + " wins!");
+        if (currentPlayer == 'X') {
+            new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png");
+        } else if (currentPlayer == 'O') {
+            new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png");
+        }
+        resetGame();
+
+    } else if (isBoardFull()) {
+        // Handle draw
+        System.out.println("It's a draw!");
+        resetGame();
+        new AlertBox().display("Title of the window", "Do you want to try again?", "/assets/misc.png");
+    } else {
+        // Switch player if the game is still ongoing
+        switchPlayer();
     }
 }
+
+private void switchPlayer() {
+    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+}
+
+    private boolean checkRow(int row) {
+        return board[row][0] == currentPlayer && board[row][1] == currentPlayer && board[row][2] == currentPlayer;
+    }
+
+    private boolean checkColumn(int col) {
+        return board[0][col] == currentPlayer && board[1][col] == currentPlayer && board[2][col] == currentPlayer;
+    }
+
+    private boolean checkDiagonals() {
+        return (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer)
+                || (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer);
+    }
+
+    private boolean isBoardFull() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void resetGame() {
+        // Clear the board and reset buttons
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = ' ';
+                getButton(i, j).setText("");
+            }
+        }
+        currentPlayer = 'X';
+    }
+
+    private Button getButton(int row, int col) {
+        switch (row) {
+            case 0:
+                switch (col) {
+                    case 0:
+                        return btn00;
+                    case 1:
+                        return btn01;
+                    case 2:
+                        return btn02;
+                }
+            case 1:
+                switch (col) {
+                    case 0:
+                        return btn10;
+                    case 1:
+                        return btn11;
+                    case 2:
+                        return btn12;
+                }
+            case 2:
+                switch (col) {
+                    case 0:
+                        return btn20;
+                    case 1:
+                        return btn21;
+                    case 2:
+                        return btn22;
+                }
+        }
+        return null;
+    }
+
+}
+ 
