@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,7 +27,7 @@ public class AlertBox {
 
     
 
-    public void display(String title, String message ,String image) {
+    public void display(String title, String message ,String image , Stage stage) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -54,11 +55,21 @@ public class AlertBox {
         label.setText(message);
         label.getStyleClass().add("alert-label");
 
-        Button closeButton = new Button("Close");
+        Button closeButton = new Button("play");
         closeButton.getStyleClass().add("btn2");
         closeButton.setOnAction(e -> window.close());
 
-        Button stopButton = new Button("Stop");
+        Button stopButton = new Button("cancel");
+//                closeButton.setOnAction((e) ->
+//                 Parent pane = new mainScreen(stage);
+//            stage.getScene().setRoot(pane);
+//                );
+stopButton.setOnAction((e)->{
+        Parent pane = new MainScreen(stage);
+           stage.getScene().setRoot(pane);
+           window.close();
+});
+
         stopButton.getStyleClass().add("btn-stop");
 
         HBox buttonBox = new HBox(10); // Horizontal box for the buttons

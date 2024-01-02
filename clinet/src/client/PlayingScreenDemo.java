@@ -54,22 +54,14 @@ public class PlayingScreenDemo extends BorderPane {
     private char[][] board = new char[3][3];
  static int counterx;
  static int countero;
-//    public void PlayingScreenDemo() 
-//    {
-//    counterx=0;
-//    countero=0;
-//             for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 3; j++) {
-//                board[i][j] = ' ';
-//            }
-//        }
-//    }
+Stage stage;
     
 
     
 
     public PlayingScreenDemo(Stage stage) {
-
+        
+        this.stage = stage;
         countero=0;
         counterx=0;
           for (int i = 0; i < 3; i++) {
@@ -445,11 +437,11 @@ private void checkGameStatus(int row, int col) {
         // Display winner
         System.out.println("Player " + currentPlayer + " wins!");
         if (currentPlayer == 'X') {
-            new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png");
+            new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png" , stage);
             counterx++;
             
         } else if (currentPlayer == 'O') {
-            new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png");
+            new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png" , stage);
             countero++;
         }
         lblScoreO.setText(String.valueOf(countero));
@@ -460,7 +452,7 @@ private void checkGameStatus(int row, int col) {
         // Handle draw
         System.out.println("It's a draw!");
         resetGame();
-        new AlertBox().display("Title of the window", "Do you want to try again?", "/assets/misc.png");
+        new AlertBox().display("Title of the window", "Do you want to try again?", "/assets/misc.png" ,stage);
     } else {
         // Switch player if the game is still ongoing
         switchPlayer();
