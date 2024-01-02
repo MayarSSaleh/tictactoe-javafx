@@ -24,7 +24,7 @@ public  class FXMLDocumentBase extends AnchorPane {
         button.setLayoutY(90);
         //    button.setOnAction(e-> new AlertBox().display("title of the window", "do you want to try again"));
         AlertBox ab=new AlertBox();
-        button.setOnAction(e-> ab.display("title of the window", "do you want to try again"));
+      //  button.setOnAction(e-> ab.display("title of the window", "do you want to try again"));
         button.setText("Click Me!");
 
         label.setLayoutX(126);

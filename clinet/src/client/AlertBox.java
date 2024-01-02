@@ -6,6 +6,8 @@
 package client;
 
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import video.Video;
 
 public class AlertBox {
 
@@ -72,5 +75,19 @@ public class AlertBox {
 
         window.setScene(scene);
         window.showAndWait();
+        
+        
+        
+        stopButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+         Video v = new Video();
+         v.start();
+         
+
+            }
+        });
+        
     }
 }
+
