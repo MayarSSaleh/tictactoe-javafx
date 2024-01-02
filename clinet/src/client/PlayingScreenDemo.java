@@ -49,20 +49,34 @@ public class PlayingScreenDemo extends BorderPane {
     protected final ImageView imageView0;
     protected final DropShadow dropShadow;
     protected final DropShadow dropShadow0;
+
     private char currentPlayer = 'X'; // Initial player is X
     private char[][] board = new char[3][3];
  static int counterx;
  static int countero;
-    public PlayingScreenDemo() {
-    counterx=0;
-    countero=0;
-             for (int i = 0; i < 3; i++) {
+//    public void PlayingScreenDemo() 
+//    {
+//    counterx=0;
+//    countero=0;
+//             for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 3; j++) {
+//                board[i][j] = ' ';
+//            }
+//        }
+//    }
+    
+
+    
+
+    public PlayingScreenDemo(Stage stage) {
+
+        countero=0;
+        counterx=0;
+          for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = ' ';
             }
         }
-
-        
         topFlow = new FlowPane();
         anchorPlayerX = new AnchorPane();
         lblPlayerX = new Label();
@@ -386,7 +400,7 @@ public class PlayingScreenDemo extends BorderPane {
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
-        setButtonHandler(btn00, 0, 0);
+       setButtonHandler(btn00, 0, 0);
         setButtonHandler(btn01, 0, 1);
         setButtonHandler(btn02, 0, 2);
         setButtonHandler(btn10, 1, 0);
@@ -407,20 +421,12 @@ private void setButtonHandler(Button button, int row, int col) {
                 checkGameStatus(row, col);
                 currentPlayer = 'O';
             } 
-//            else if (button.getText().isEmpty() && currentPlayer == 'O') {
-//                button.setText("0");
-//                System.out.println(button.getStyleClass().contains("btno"));
-//                board[row][col] = 'O';
-//                button.getStyleClass().add("btno");
-//
-//                checkGameStatus(row, col);
-//                currentPlayer = 'X';
-//            }
               else if (!button.getStyleClass().contains("btno")&&!button.getStyleClass().contains("btnx") && currentPlayer == 'O') {
                 //button.setText("0");
-                System.out.println(button.getStyleClass().contains("btno"));
+              
                 board[row][col] = 'O';
                 button.getStyleClass().add("btno");
+
 
                 checkGameStatus(row, col);
                 currentPlayer = 'X';

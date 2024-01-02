@@ -1,14 +1,17 @@
-package mainscreen;
+package client;
 
+//import mainscreen.*;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
-public  class FXMLDocumentBase extends BorderPane {
+public  class MainScreen extends BorderPane {
 
     protected final FlowPane flowPane;
     protected final ImageView XphotoMain;
@@ -16,9 +19,9 @@ public  class FXMLDocumentBase extends BorderPane {
     protected final Button btnOnline;
     protected final Button btnLocal;
     protected final Button btnComputer;
-
-    public FXMLDocumentBase() {
-
+public Stage stage;
+    public MainScreen(Stage stage) {
+        this.stage=stage;
         flowPane = new FlowPane();
         XphotoMain = new ImageView();
         TICTACTOE = new ImageView();
@@ -41,7 +44,7 @@ public  class FXMLDocumentBase extends BorderPane {
         XphotoMain.setFitWidth(308.0);
         XphotoMain.setPickOnBounds(true);
         XphotoMain.setPreserveRatio(true);
-        XphotoMain.setImage(new Image(getClass().getResource("Untitled.png").toExternalForm()));
+        XphotoMain.setImage(new Image(getClass().getResource("/assets/Untitled.png").toExternalForm()));
         FlowPane.setMargin(XphotoMain, new Insets(5.0, 100.0, 0.0, 70.0));
         setCenter(flowPane);
 
@@ -50,7 +53,7 @@ public  class FXMLDocumentBase extends BorderPane {
         TICTACTOE.setFitWidth(318.0);
         TICTACTOE.setPickOnBounds(true);
         TICTACTOE.setPreserveRatio(true);
-        TICTACTOE.setImage(new Image(getClass().getResource("Group%209.png").toExternalForm()));
+        TICTACTOE.setImage(new Image(getClass().getResource("/assets/Group9.png").toExternalForm()));
         BorderPane.setMargin(TICTACTOE, new Insets(20.0, 0.0, 0.0, 0.0));
         setTop(TICTACTOE);
 
@@ -67,6 +70,10 @@ public  class FXMLDocumentBase extends BorderPane {
         btnLocal.setPrefHeight(31.0);
         btnLocal.setPrefWidth(73.0);
         btnLocal.setText("Local");
+        btnLocal.setOnAction((e)->{
+            Parent pane = new PlayingScreenDemo(stage);
+            stage.getScene().setRoot(pane);
+        });
         BorderPane.setMargin(btnLocal, new Insets(110.0, 0.0, 0.0, 28.0));
         setLeft(btnLocal);
 
@@ -84,5 +91,10 @@ public  class FXMLDocumentBase extends BorderPane {
         btnLocal.getStyleClass().add("btnMainScreeen");
         btnOnline.getStyleClass().add("btnMainScreeen");
 
+    }
+    public void playLocal()
+    {
+        Parent pane = new PlayingScreenDemo(stage);
+            stage.getScene().setRoot(pane);
     }
 }

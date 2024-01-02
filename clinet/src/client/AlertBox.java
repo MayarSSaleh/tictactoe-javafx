@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import video.Video;
+//import video.Video;
 
 public class AlertBox {
 
@@ -81,8 +81,7 @@ public class AlertBox {
         stopButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-         Video v = new Video();
-         v.start();
+
          
 
             }
