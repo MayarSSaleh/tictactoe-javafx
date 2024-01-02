@@ -49,8 +49,9 @@ public class PlayingScreenDemo extends BorderPane {
     protected final ImageView imageView0;
     protected final DropShadow dropShadow;
     protected final DropShadow dropShadow0;
+    private final Stage stage;
 
-    public PlayingScreenDemo() {
+    public PlayingScreenDemo(Stage stage) {
 
         topFlow = new FlowPane();
         anchorPlayerX = new AnchorPane();
@@ -375,6 +376,7 @@ public class PlayingScreenDemo extends BorderPane {
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
+        this.stage = stage;
 
     }
 }
