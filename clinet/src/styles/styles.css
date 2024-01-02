@@ -10,6 +10,11 @@
     -fx-border-color: linear-gradient(to bottom, #33E9E9 100%, #FFFFFF);
     -fx-background-radius: 15;
 }
+.btnMainScreeen{
+      -fx-border-color: #EF4C01; 
+    
+    
+}
 .btn:hover{
 
     -fx-border-color: mediumslateblue;
