@@ -23,7 +23,7 @@ public class AlertBox {
 
     
 
-    public void display(String title, String message,String image) {
+    public void display(String title, String message ,String image) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -32,7 +32,7 @@ public class AlertBox {
         window.setHeight(400);
 
         // Create an ImageView for the background image (Star asset image)
-        ImageView backgroundImage = new ImageView(new Image(getClass().getResourceAsStream("/assets/Star asset.png")));
+        ImageView backgroundImage = new ImageView(new Image(getClass().getResourceAsStream(image)));
         backgroundImage.setFitWidth(100); // Set the width of the background image
         backgroundImage.setFitHeight(100); // Set the height of the background image
 

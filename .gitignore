@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-/clinet/dist/
 /clinet/build/
-=======
-/clinet/build/
+/server/dist/
 /clinet/dist/
 /server/build/
-/server/dist/
->>>>>>> aa5a66a60680c91a123c3021412640caff961aca

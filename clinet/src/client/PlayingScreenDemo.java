@@ -49,9 +49,20 @@ public class PlayingScreenDemo extends BorderPane {
     protected final ImageView imageView0;
     protected final DropShadow dropShadow;
     protected final DropShadow dropShadow0;
-
+    private char currentPlayer = 'X'; // Initial player is X
+    private char[][] board = new char[3][3];
+ static int counterx;
+ static int countero;
     public PlayingScreenDemo() {
+    counterx=0;
+    countero=0;
+             for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = ' ';
+            }
+        }
 
+        
         topFlow = new FlowPane();
         anchorPlayerX = new AnchorPane();
         lblPlayerX = new Label();
@@ -119,7 +130,7 @@ public class PlayingScreenDemo extends BorderPane {
 
         lblScoreX.setPrefHeight(0.0);
         lblScoreX.setPrefWidth(0.0);
-        lblScoreX.setText("1");
+        lblScoreX.setText(String.valueOf(counterx));
         lblScoreX.setFont(new Font("System Bold", 24.0));
         lblScoreX.setTextFill(javafx.scene.paint.Color.valueOf("#FFD56A"));
 
@@ -137,7 +148,7 @@ public class PlayingScreenDemo extends BorderPane {
 
         lblScoreO.setPrefHeight(35.0);
         lblScoreO.setPrefWidth(25.0);
-        lblScoreO.setText("0");
+        lblScoreO.setText(String.valueOf(countero));
         lblScoreO.setFont(new Font("System Bold", 24.0));
         lblScoreO.setTextFill(javafx.scene.paint.Color.valueOf("#FFD56A"));
 
@@ -261,25 +272,25 @@ public class PlayingScreenDemo extends BorderPane {
         btn00.setFont(new Font(24.0));
         btn00.getStyleClass().add("btn");
     
-        btn01.setAlignment(javafx.geometry.Pos.CENTER);
-        btn01.setLayoutX(342.0);
-        btn01.setLayoutY(31.0);
-        btn01.setMnemonicParsing(false);
-        btn01.setPrefHeight(50.0);
-        btn01.setPrefWidth(54.0);
-        btn01.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btn01.setFont(new Font(24.0));
-        btn01.getStyleClass().add("btn");
-
         btn02.setAlignment(javafx.geometry.Pos.CENTER);
-        btn02.setLayoutX(262.0);
+        btn02.setLayoutX(342.0);
         btn02.setLayoutY(31.0);
         btn02.setMnemonicParsing(false);
         btn02.setPrefHeight(50.0);
         btn02.setPrefWidth(54.0);
         btn02.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btn02.setFont(new Font("System Bold", 24.0));
+        btn02.setFont(new Font(24.0));
         btn02.getStyleClass().add("btn");
+
+        btn01.setAlignment(javafx.geometry.Pos.CENTER);
+        btn01.setLayoutX(262.0);
+        btn01.setLayoutY(31.0);
+        btn01.setMnemonicParsing(false);
+        btn01.setPrefHeight(50.0);
+        btn01.setPrefWidth(54.0);
+        btn01.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        btn01.setFont(new Font( 24.0));
+        btn01.getStyleClass().add("btn");
 
         btn12.setAlignment(javafx.geometry.Pos.CENTER);
         btn12.setLayoutX(342.0);
@@ -375,6 +386,174 @@ public class PlayingScreenDemo extends BorderPane {
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
+        setButtonHandler(btn00, 0, 0);
+        setButtonHandler(btn01, 0, 1);
+        setButtonHandler(btn02, 0, 2);
+        setButtonHandler(btn10, 1, 0);
+        setButtonHandler(btn11, 1, 1);
+        setButtonHandler(btn12, 1, 2);
+        setButtonHandler(btn20, 2, 0);
+        setButtonHandler(btn21, 2, 1);
+        setButtonHandler(btn22, 2, 2);
+    }
+private void setButtonHandler(Button button, int row, int col) {
+    button.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            if (!button.getStyleClass().contains("btnx") &&!button.getStyleClass().contains("btno") && currentPlayer == 'X') {
+                //button.setText("X");
+                button.getStyleClass().add("btnx");
+                board[row][col] = 'X';
+                checkGameStatus(row, col);
+                currentPlayer = 'O';
+            } 
+//            else if (button.getText().isEmpty() && currentPlayer == 'O') {
+//                button.setText("0");
+//                System.out.println(button.getStyleClass().contains("btno"));
+//                board[row][col] = 'O';
+//                button.getStyleClass().add("btno");
+//
+//                checkGameStatus(row, col);
+//                currentPlayer = 'X';
+//            }
+              else if (!button.getStyleClass().contains("btno")&&!button.getStyleClass().contains("btnx") && currentPlayer == 'O') {
+                //button.setText("0");
+                System.out.println(button.getStyleClass().contains("btno"));
+                board[row][col] = 'O';
+                button.getStyleClass().add("btno");
 
+                checkGameStatus(row, col);
+                currentPlayer = 'X';
+            }
+        }
+    });
+
+}
+
+
+private void checkGameStatus(int row, int col) {
+    // Update row and col before checking for a win
+    //System.out.println("checkRow(row) : "+checkRow(row)+"checkColumn(col) :" + checkColumn(col)+ " checkDiagonals1() : "+ checkDiagonals1()+" checkDiagonals2() : " + checkDiagonals2());
+   // printBoard();
+    if (checkRow(row) || checkColumn(col) || checkDiagonals1()||checkDiagonals2()) {
+        // Display winner
+        System.out.println("Player " + currentPlayer + " wins!");
+        if (currentPlayer == 'X') {
+            new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png");
+            counterx++;
+            
+        } else if (currentPlayer == 'O') {
+            new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png");
+            countero++;
+        }
+        lblScoreO.setText(String.valueOf(countero));
+        lblScoreX.setText(String.valueOf(counterx));
+        resetGame();
+
+    } else if (isBoardFull()) {
+        // Handle draw
+        System.out.println("It's a draw!");
+        resetGame();
+        new AlertBox().display("Title of the window", "Do you want to try again?", "/assets/misc.png");
+    } else {
+        // Switch player if the game is still ongoing
+        switchPlayer();
     }
 }
+
+private void switchPlayer() {
+    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+}
+
+    private boolean checkRow(int row) {
+        return board[row][0] == currentPlayer && board[row][1] == currentPlayer && board[row][2] == currentPlayer;
+    }
+
+    private boolean checkColumn(int col) {
+        return board[0][col] == currentPlayer && board[1][col] == currentPlayer && board[2][col] == currentPlayer;
+    }
+
+    private boolean checkDiagonals1() {
+        return  (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer);
+    }
+    private boolean checkDiagonals2() {
+        return  (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer);
+    }
+
+    private boolean isBoardFull() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+     private void printBoard() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j]);
+            }
+            System.out.println();
+        }
+        
+    }
+
+
+    private void resetGame() {
+        // Clear the board and reset buttons
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = ' ';
+                getButton(i, j).setText("");
+            }
+        }
+        btn00.getStyleClass().removeAll("btno","btnx");
+        btn01.getStyleClass().removeAll("btno","btnx");
+        btn02.getStyleClass().removeAll("btno","btnx");
+        btn10.getStyleClass().removeAll("btno","btnx");
+        btn11.getStyleClass().removeAll("btno","btnx");
+        btn12.getStyleClass().removeAll("btno","btnx");
+        btn20.getStyleClass().removeAll("btno","btnx");
+        btn21.getStyleClass().removeAll("btno","btnx");
+        btn22.getStyleClass().removeAll("btno","btnx");
+
+        currentPlayer = 'X';
+    }
+
+    private Button getButton(int row, int col) {
+        switch (row) {
+            case 0:
+                switch (col) {
+                    case 0:
+                        return btn00;
+                    case 1:
+                        return btn01;
+                    case 2:
+                        return btn02;
+                }
+            case 1:
+                switch (col) {
+                    case 0:
+                        return btn10;
+                    case 1:
+                        return btn11;
+                    case 2:
+                        return btn12;
+                }
+            case 2:
+                switch (col) {
+                    case 0:
+                        return btn20;
+                    case 1:
+                        return btn21;
+                    case 2:
+                        return btn22;
+                }
+        }
+        return null;
+    }
+
+}
+ 

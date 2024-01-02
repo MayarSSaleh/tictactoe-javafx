@@ -7,14 +7,53 @@
     -fx-border-radius: 30%; 
     -fx-border-width: 3px;
     -fx-text-fill: white; 
-    -fx-border-color: linear-gradient(to bottom, #33E9E9 100%, #FFFFFF);
-    -fx-background-radius: 15;
+    
+    
+/*            -fx-border-color: linear-gradient(to bottom, #33E9E9 100%, #FFFFFF);*/
+/*    -fx-background-radius: 15;*/
+    -fx-font-size: 16px; 
+    -fx-font-family: "serif";
+     -fx-padding: 15 20; 
+/*      -fx-font-size: 16px;  Adjust the font size as needed 
+    -fx-font-family: "Arial";  Specify the font family as needed 
+    -fx-text-fill: linear-gradient(to bottom, #33E9E9, #00FFFF);  Neon color gradient 
+    -fx-background-color: black;  Background color of the button 
+    -fx-border-color: #00FFFF;  Neon color border 
+    -fx-border-width: 1.5;  Adjust the border width as needed 
+    -fx-padding: 10 20;  Adjust the padding as needed 
+    -fx-effect: dropshadow(gaussian, #33E9E9, 10, 0, 0, 0),  Neon glow effect 
+                dropshadow(gaussian, #33E9E9, 0, 0, 0, 5);  Neon shadow effect */
 }
 .btn:hover{
 
     -fx-border-color: mediumslateblue;
     -fx-translate-x: -3; 
     -fx-translate-y: -3; 
+}
+.btno{
+        
+            -fx-background-image: url(../assets/OO.png);
+}
+.btnx
+{
+             -fx-background-image: url(../assets/XX.png);
+
+}
+
+.neon-button {
+    -fx-font-size: 16px; /* Adjust the font size as needed */
+    -fx-font-family: "Arial"; /* Specify the font family as needed */
+    -fx-text-fill: linear-gradient(to bottom, #33E9E9, #00FFFF); /* Neon color gradient */
+    -fx-background-color: black; /* Background color of the button */
+    -fx-border-color: #00FFFF; /* Neon color border */
+    -fx-border-width: 1.5; /* Adjust the border width as needed */
+    -fx-padding: 10 20; /* Adjust the padding as needed */
+    -fx-effect: dropshadow(gaussian, #33E9E9, 10, 0, 0, 0), /* Neon glow effect */
+                dropshadow(gaussian, #33E9E9, 0, 0, 0, 5); /* Neon shadow effect */
+}
+
+.neon-button:hover {
+    -fx-background-color: #111111; /* Background color on hover */
 }
 
 .rec_game{
