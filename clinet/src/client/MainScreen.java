@@ -80,7 +80,7 @@ public Stage stage;
         BorderPane.setAlignment(btnComputer, javafx.geometry.Pos.CENTER);
         btnComputer.setMnemonicParsing(false);
         btnComputer.setPrefHeight(30.0);
-        btnComputer.setPrefWidth(83.0);
+        btnComputer.setPrefWidth(120.0);
         btnComputer.setText("Computer");
         BorderPane.setMargin(btnComputer, new Insets(0.0, 0.0, 35.0, 25.0));
         setBottom(btnComputer);
