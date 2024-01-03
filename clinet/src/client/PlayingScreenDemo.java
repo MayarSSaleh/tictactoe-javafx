@@ -437,11 +437,11 @@ private void checkGameStatus(int row, int col) {
         // Display winner
         System.out.println("Player " + currentPlayer + " wins!");
         if (currentPlayer == 'X') {
-            new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png" , stage);
+            new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png" , stage , "/assets/crown.png" , "/assets/b.mp4");
             counterx++;
             
         } else if (currentPlayer == 'O') {
-            new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png" , stage);
+            new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png" , stage , "/assets/crown.png" , "/assets/b.mp4");
             countero++;
         }
         lblScoreO.setText(String.valueOf(countero));
@@ -452,7 +452,7 @@ private void checkGameStatus(int row, int col) {
         // Handle draw
         System.out.println("It's a draw!");
         resetGame();
-        new AlertBox().display("Title of the window", "Do you want to try again?", "/assets/misc.png" ,stage);
+        new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4");
     } else {
         // Switch player if the game is still ongoing
         switchPlayer();

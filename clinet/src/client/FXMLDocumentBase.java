@@ -27,7 +27,7 @@ public  class FXMLDocumentBase extends AnchorPane {
      //   AlertBox ab=new AlertBox();
         //button.setOnAction(e-> ab.display("title of the window", "do you want to try again"));
 
-        AlertBox ab=new AlertBox();
+//        AlertBox ab=new AlertBox();
       //  button.setOnAction(e-> ab.display("title of the window", "do you want to try again"));
 
         button.setText("Click Me!");

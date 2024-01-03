@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> mainScreen
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
         <file>
             <url>src/client/FXMLDocumentBase.java</url>
@@ -16,20 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-=======
-            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/styles/styles.css</file>
->>>>>>> mainScreen
-            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/FXMLDocumentBase.java</file>
-            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/PlayingScreenDemo.java</file>
+            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/assets/Untitled.png</file>
             <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/Client.java</file>
+            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/PlayingScreenDemo.java</file>
+            <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/MainScreen.java</file>
             <file>file:/E:/iti_matterial/java/tictactoe_final/clinet/src/client/AlertBox.java</file>
         </group>
     </open-files>
-<<<<<<< HEAD
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
->>>>>>> ea2558d783d05b54a9062063ee3d94c4736a1805
-=======
->>>>>>> mainScreen
 </project-private>
