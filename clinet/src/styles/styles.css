@@ -25,7 +25,12 @@
                 dropshadow(gaussian, #33E9E9, 0, 0, 0, 5);  Neon shadow effect */
 }
 .btnMainScreeen{
-      -fx-border-color: #EF4C01; 
+    -fx-background-color: orange;
+    -fx-text-fill: white;
+    -fx-border-color: orange;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 15px;
+    -fx-font-size: 14px;
     
     
 }
