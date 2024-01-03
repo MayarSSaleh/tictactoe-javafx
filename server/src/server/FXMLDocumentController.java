@@ -10,7 +10,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.shape.Circle;
 
 /**
  *
@@ -18,8 +21,13 @@ import javafx.scene.control.Label;
  */
 public class FXMLDocumentController implements Initializable {
     
-    @FXML
     private Label label;
+    @FXML
+    private Button btnServer;
+    @FXML
+    private Label lblTitle;
+    @FXML
+    private Circle circleImg;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -29,7 +37,7 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        lblTitle.setText("mostafa");
     }    
     
 }

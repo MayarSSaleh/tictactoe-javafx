@@ -1,2 +1,4 @@
-/clinet/dist/
 /clinet/build/
+/server/dist/
+/clinet/dist/
+/server/build/
