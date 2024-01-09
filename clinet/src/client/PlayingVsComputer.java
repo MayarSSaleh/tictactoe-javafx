@@ -67,6 +67,7 @@ public class PlayingVsComputer extends BorderPane {
                 board[i][j] = ' ';
             }
         }
+
         topFlow = new FlowPane();
         anchorPlayerX = new AnchorPane();
         lblPlayerX = new Label();
@@ -412,9 +413,10 @@ public class PlayingVsComputer extends BorderPane {
                     checkGameStatus(row, col);
                     currentPlayer = 'O';
                 } else if (!button.getStyleClass().contains("btno") && !button.getStyleClass().contains("btnx") && currentPlayer == 'O') {
+                  System.out.println("enter the o");
+
                     board[row][col] = 'O';
                     button.getStyleClass().add("btno");
-
                     checkGameStatus(row, col);
                     currentPlayer = 'X';
                 }
@@ -423,11 +425,14 @@ public class PlayingVsComputer extends BorderPane {
     }
 
     public void computerPlay() {
+        System.out.println("enter the computer play");
         //int non static method so cannot deal with static context
         Random random = new Random();
-        rowRandom = random.nextInt(2);
-        colRandom = random.nextInt(2);
+        rowRandom = random.nextInt(3);
+        colRandom = random.nextInt(3);
         Button wantedButton = getButton(rowRandom, colRandom);
+                System.out.println(wantedButton);
+
         setButtonHandler(wantedButton, rowRandom, colRandom);
     }
 
@@ -452,6 +457,7 @@ public class PlayingVsComputer extends BorderPane {
     private void switchPlayer() {
         currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
         if (currentPlayer == 'O') {
+            System.out.println("in switch o");
             computerPlay();
         }
     }
