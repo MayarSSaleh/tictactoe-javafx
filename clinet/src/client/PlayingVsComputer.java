@@ -1,6 +1,6 @@
 package client;
 
-import java.util.Random;
+import static client.PlayingScreenDemo.counterx;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,56 +12,60 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class PlayingVsComputer extends BorderPane {
 
-    protected final FlowPane topFlow;
-    protected final AnchorPane anchorPlayerX;
-    protected final Label lblPlayerX;
-    protected final ImageView imgX;
-    protected final Label lblScoreX;
-    protected final Label lblVs;
-    protected final Label lblScoreO;
-    protected final AnchorPane anchorPlayerO;
-    protected final Label lblPlayerO;
-    protected final ImageView imgO;
-    protected final AnchorPane anchorGame;
-    protected final Rectangle recGame;
-    protected final Rectangle recV1;
-    protected final Rectangle recV2;
-    protected final Rectangle recH1;
-    protected final Rectangle recH2;
-    protected final Button btn00;
-    protected final Button btn01;
-    protected final Button btn02;
-    protected final Button btn12;
-    protected final Button btn11;
-    protected final Button btn10;
-    protected final Button btn22;
-    protected final Button btn20;
-    protected final Button btn21;
-    protected final ImageView imageView;
-    protected final ImageView imageView0;
-    protected final DropShadow dropShadow;
-    protected final DropShadow dropShadow0;
+    private FlowPane topFlow;
+    private AnchorPane anchorPlayerX;
+    private Label lblPlayerX;
+    private ImageView imgX;
+    private Label lblScoreX;
+    private Label lblVs;
+    private Label lblScoreO;
+    private AnchorPane anchorPlayerO;
+    private Label lblPlayerO;
+    private ImageView imgO;
+    private AnchorPane anchorGame;
+    private Rectangle recGame;
+    private Rectangle recV1;
+    private Rectangle recV2;
+    private Rectangle recH1;
+    private Rectangle recH2;
+    private Button btn00;
+    private Button btn01;
+    private Button btn02;
+    private Button btn12;
+    private Button btn11;
+    private Button btn10;
+    private Button btn22;
+    private Button btn20;
+    private Button btn21;
+    private ImageView imageView;
+    private ImageView imageView0;
+    private DropShadow dropShadow;
+    private DropShadow dropShadow0;
 
     private char currentPlayer = 'X'; // Initial player is X
     private char[][] board = new char[3][3];
-    static int counterx;
-    static int countero;
+     static int counterX;
+     static int counterO;
+    private boolean playerTurn = true;
+    private boolean gameOver = false;
+
     Stage stage;
-    private int rowRandom, colRandom;
 
     public PlayingVsComputer(Stage stage) {
-
         this.stage = stage;
-        countero = 0;
-        counterx = 0;
+        counterO = 0;
+        counterX = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = ' ';
@@ -153,7 +157,7 @@ public class PlayingVsComputer extends BorderPane {
 
         lblScoreO.setPrefHeight(35.0);
         lblScoreO.setPrefWidth(25.0);
-        lblScoreO.setText(String.valueOf(countero));
+        lblScoreO.setText(String.valueOf(counterO));
         lblScoreO.setFont(new Font("System Bold", 24.0));
         lblScoreO.setTextFill(javafx.scene.paint.Color.valueOf("#FFD56A"));
 
@@ -223,13 +227,13 @@ public class PlayingVsComputer extends BorderPane {
         recV2.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recV2.setWidth(10.0);
         recV2.getStyleClass().add("rech");
-
+        
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
         dropShadow.setWidth(36.81);
         recV2.setEffect(dropShadow);
-
+        
         recH1.setArcHeight(12.0);
         recH1.setArcWidth(30.0);
         recH1.setHeight(234.0);
@@ -241,7 +245,8 @@ public class PlayingVsComputer extends BorderPane {
         recH1.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recH1.setWidth(10.0);
         recH1.getStyleClass().add("rech");
-
+        
+        
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
@@ -253,13 +258,13 @@ public class PlayingVsComputer extends BorderPane {
         recH2.setHeight(234.0);
         recH2.setLayoutX(284.0);
         recH2.setLayoutY(64.0);
-        recH2.setSmooth(false);
+        recH2.setSmooth(false);        
         recH2.setRotate(90.0);
         recH2.setStroke(javafx.scene.paint.Color.WHITE);
         recH2.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recH2.setWidth(10.0);
         recH2.getStyleClass().add("rech");
-
+        
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
@@ -275,7 +280,7 @@ public class PlayingVsComputer extends BorderPane {
         btn00.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         btn00.setFont(new Font(24.0));
         btn00.getStyleClass().add("btn");
-
+    
         btn02.setAlignment(javafx.geometry.Pos.CENTER);
         btn02.setLayoutX(342.0);
         btn02.setLayoutY(31.0);
@@ -293,7 +298,7 @@ public class PlayingVsComputer extends BorderPane {
         btn01.setPrefHeight(50.0);
         btn01.setPrefWidth(54.0);
         btn01.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btn01.setFont(new Font(24.0));
+        btn01.setFont(new Font( 24.0));
         btn01.getStyleClass().add("btn");
 
         btn12.setAlignment(javafx.geometry.Pos.CENTER);
@@ -390,7 +395,7 @@ public class PlayingVsComputer extends BorderPane {
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
-        //to set X or O
+        // Set button handlers
         setButtonHandler(btn00, 0, 0);
         setButtonHandler(btn01, 0, 1);
         setButtonHandler(btn02, 0, 2);
@@ -402,64 +407,91 @@ public class PlayingVsComputer extends BorderPane {
         setButtonHandler(btn22, 2, 2);
     }
 
-    private void setButtonHandler(Button button, int row, int col) {
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // to be sure the button is empety , then check the curent player
-                if (!button.getStyleClass().contains("btnx") && !button.getStyleClass().contains("btno") && currentPlayer == 'X') {
-                    button.getStyleClass().add("btnx");
-                    board[row][col] = 'X';
-                    checkGameStatus(row, col);
-                    currentPlayer = 'O';
-                } else if (!button.getStyleClass().contains("btno") && !button.getStyleClass().contains("btnx") && currentPlayer == 'O') {
-                  System.out.println("enter the o");
+private void setButtonHandler(Button button, int row, int col) {
+    button.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            if (!button.getStyleClass().contains("btnx") && !button.getStyleClass().contains("btno") && playerTurn) {
+                button.getStyleClass().add("btnx");
+                board[row][col] = 'X';
+                checkGameStatus(row, col);
+                playerTurn = false; // <-- This is fine for human player
+                computerMove();
+            }
+        }
+    });
+}
 
-                    board[row][col] = 'O';
-                    button.getStyleClass().add("btno");
-                    checkGameStatus(row, col);
-                    currentPlayer = 'X';
+private void computerMove() {
+    if (!gameOver) {
+        currentPlayer = 'O';
+        // Simulating computer move with a random but intelligent choice
+        int[] emptySpot = findEmptySpot();
+        if (emptySpot != null) {
+            int row = emptySpot[0];
+            int col = emptySpot[1];
+
+            Button computerButton = getButton(row, col);
+            computerButton.getStyleClass().add("btno");
+            board[row][col] = 'O';
+            checkGameStatus(row, col);
+        }
+        // Update currentPlayer after the computer move
+        currentPlayer = 'X';
+        playerTurn = true;
+    }
+}
+
+
+    private int[] findEmptySpot() {
+        List<int[]> emptySpots = new ArrayList<>();
+
+        // Find all empty spots on the board
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == ' ') {
+                    emptySpots.add(new int[]{i, j});
                 }
             }
-        });
-    }
+        }
 
-    public void computerPlay() {
-        System.out.println("enter the computer play");
-        //int non static method so cannot deal with static context
-        Random random = new Random();
-        rowRandom = random.nextInt(3);
-        colRandom = random.nextInt(3);
-        Button wantedButton = getButton(rowRandom, colRandom);
-                System.out.println(wantedButton);
-
-        setButtonHandler(wantedButton, rowRandom, colRandom);
+        // Choose a random empty spot
+        if (!emptySpots.isEmpty()) {
+            return emptySpots.get(new Random().nextInt(emptySpots.size()));
+        } else {
+            return null; // No empty spot available (board is full)
+        }
     }
 
     private void checkGameStatus(int row, int col) {
+        // Update row and col before checking for a win
         if (checkRow(row) || checkColumn(col) || checkDiagonals1() || checkDiagonals2()) {
-            System.out.println("Player " + currentPlayer + " wins!");
-            if (currentPlayer == 'X') {
-                new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
-            } else if (currentPlayer == 'O') {
-                new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4");
-            }
+            // Display winner
+            displayWinner();
             resetGame();
         } else if (isBoardFull()) {
-            System.out.println("It's a draw!");
+            // Handle draw
+            displayDraw();
             resetGame();
-            new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
-        } else {
-            switchPlayer();
         }
     }
 
-    private void switchPlayer() {
-        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
-        if (currentPlayer == 'O') {
-            System.out.println("in switch o");
-            computerPlay();
+    private void displayWinner() {
+        System.out.println("Player " + currentPlayer + " wins!");
+        if (currentPlayer == 'X') {
+            new AlertBox().display("Title of the window", "X wins! Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
+            counterX++;
+        } else if (currentPlayer== 'O') {
+            new AlertBox().display("Title of the window", "O wins! Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4");
+            counterO++;
         }
+        lblScoreO.setText(String.valueOf(counterO));
+        lblScoreX.setText(String.valueOf(counterX));
+    }
+
+    private void displayDraw() {
+        System.out.println("It's a draw!");
+        new AlertBox().display("Title of the window", "It's a draw! Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
     }
 
     private boolean checkRow(int row) {
@@ -489,17 +521,8 @@ public class PlayingVsComputer extends BorderPane {
         return true;
     }
 
-    private void printBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j]);
-            }
-            System.out.println();
-        }
-
-    }
-
     private void resetGame() {
+        gameOver = true;
         // Clear the board and reset buttons
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -518,6 +541,7 @@ public class PlayingVsComputer extends BorderPane {
         btn22.getStyleClass().removeAll("btno", "btnx");
 
         currentPlayer = 'X';
+        gameOver = false;
     }
 
     private Button getButton(int row, int col) {
@@ -552,5 +576,4 @@ public class PlayingVsComputer extends BorderPane {
         }
         return null;
     }
-
 }
