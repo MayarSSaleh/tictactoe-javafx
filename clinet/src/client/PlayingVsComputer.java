@@ -479,10 +479,10 @@ private void computerMove() {
     private void displayWinner() {
         System.out.println("Player " + currentPlayer + " wins!");
         if (currentPlayer == 'X') {
-            new AlertBox().display("Title of the window", "X wins! Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
+            new AlertBox().display("The game is over", "You wins! Do you want to play again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
             counterX++;
         } else if (currentPlayer== 'O') {
-            new AlertBox().display("Title of the window", "O wins! Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4");
+            new AlertBox().display("The game is over", "Computer wins! Do you want to try again?", "/assets/com.png", stage, "/assets/crown.png", "/assets/t.mp4");
             counterO++;
         }
         lblScoreO.setText(String.valueOf(counterO));
