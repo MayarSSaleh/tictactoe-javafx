@@ -122,7 +122,7 @@ public class PlayingVsComputer extends BorderPane {
         lblPlayerX.setLayoutY(77.0);
         lblPlayerX.setPrefHeight(35.0);
         lblPlayerX.setPrefWidth(101.0);
-        lblPlayerX.setText("Player X");
+        lblPlayerX.setText("Player");
         lblPlayerX.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         lblPlayerX.setTextFill(javafx.scene.paint.Color.valueOf("#FFAB2D"));
         lblPlayerX.setFont(new Font("System Bold", 18.0));
@@ -172,7 +172,7 @@ public class PlayingVsComputer extends BorderPane {
         lblPlayerO.setLayoutY(77.0);
         lblPlayerO.setPrefHeight(35.0);
         lblPlayerO.setPrefWidth(101.0);
-        lblPlayerO.setText("Player O");
+        lblPlayerO.setText("Computer");
         lblPlayerO.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         lblPlayerO.setTextFill(javafx.scene.paint.Color.valueOf("#FFAB2D"));
         lblPlayerO.setFont(new Font("System Bold", 18.0));
@@ -183,7 +183,7 @@ public class PlayingVsComputer extends BorderPane {
         imgO.setLayoutY(7.0);
         imgO.setPickOnBounds(true);
         imgO.setPreserveRatio(true);
-        imgO.setImage(new Image(getClass().getResource("/assets/misc.png").toExternalForm()));
+        imgO.setImage(new Image(getClass().getResource("/assets/com.png").toExternalForm()));
         FlowPane.setMargin(anchorPlayerO, new Insets(0.0));
         setTop(topFlow);
 
