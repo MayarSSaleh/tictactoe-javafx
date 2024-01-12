@@ -1,5 +1,4 @@
 package client;
-  
 
 //import mainscreen.*;
 import java.io.IOException;
@@ -90,10 +89,10 @@ public class MainScreen extends BorderPane {
         });
 
         btnOnline.setOnAction(e -> {
-        //to solve (java.lang.IllegalStateException: Not on FX application thread)indicates that you're attempting to 
-        //update the JavaFX scene graph from a thread other than the JavaFX Application
-        //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
-        //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
+            //to solve (java.lang.IllegalStateException: Not on FX application thread)indicates that you're attempting to 
+            //update the JavaFX scene graph from a thread other than the JavaFX Application
+            //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
+            //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
             class RecordPageMain extends Application {
 
                 @Override
