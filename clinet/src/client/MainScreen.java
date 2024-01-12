@@ -121,6 +121,11 @@ public class MainScreen extends BorderPane {
             });
             // Start the thread
             recordPageThread.start();
+
+
+        btnLocal.setOnAction((e) -> {
+            Parent pane = new PlayingScreenDemo(stage);
+            stage.getScene().setRoot(pane);
         });
         BorderPane.setAlignment(btnComputer, javafx.geometry.Pos.CENTER);
         btnComputer.setMnemonicParsing(false);
@@ -129,10 +134,35 @@ public class MainScreen extends BorderPane {
         btnComputer.setText("Computer");
         BorderPane.setMargin(btnComputer, new Insets(0.0, 0.0, 35.0, 25.0));
         setBottom(btnComputer);
+
         flowPane.getChildren().add(XphotoMain);
+
+        
+        
+        
+        // the new
+        btnComputer.setOnAction((e) -> {
+            Parent pane = new PlayingVsComputer(stage);
+            stage.getScene().setRoot(pane);
+        });
+        
+
+        
+        
+        
+        flowPane.getChildren().add(XphotoMain);
+
+
         btnComputer.getStyleClass().add("btnMainScreeen");
         btnLocal.getStyleClass().add("btnMainScreeen");
         btnOnline.getStyleClass().add("btnMainScreeen");
 
     }
+
+
+    public void playLocal() {
+        Parent pane = new PlayingScreenDemo(stage);
+        stage.getScene().setRoot(pane);
+    }
+
 }
