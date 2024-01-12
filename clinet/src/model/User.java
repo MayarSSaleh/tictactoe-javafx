@@ -3,25 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DTO;
+package model;
+
 /**
  *
  * @author mosta
  */
-public class UsersDTO 
+public class User
 {
     private int ID;
     private String userName;
     private String email;
     private String userPass;
     private int score;
-        private String status;
+    private String status;
 
 
-    public UsersDTO() {
+    public User() {
     }
 
-    public UsersDTO(int ID, String userName, String email, String userPass, int score,String status) {
+    public User(int ID, String userName, String email, String userPass, int score,String status) {
         this.ID = ID;
         this.userName = userName;
         this.email = email;
@@ -37,7 +38,7 @@ public class UsersDTO
     public void setStatus(String status) {
         this.status = status;
     }
-    public UsersDTO(int id)
+    public User(int id)
     {
     ID=id;
     }
