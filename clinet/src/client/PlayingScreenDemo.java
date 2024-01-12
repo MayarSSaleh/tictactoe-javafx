@@ -52,15 +52,16 @@ public class PlayingScreenDemo extends BorderPane {
 
     private char currentPlayer = 'X'; // Initial player is X
     private char[][] board = new char[3][3];
- static int counterx;
- static int countero;
-Stage stage;
+    static int counterx;
+    static int countero;
+    Stage stage;
+    GamePlay game ;
     
 
     
 
     public PlayingScreenDemo(Stage stage) {
-        
+        game = new GamePlay();
         this.stage = stage;
         countero=0;
         counterx=0;
@@ -392,7 +393,7 @@ Stage stage;
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
-       setButtonHandler(btn00, 0, 0);
+        setButtonHandler(btn00, 0, 0);
         setButtonHandler(btn01, 0, 1);
         setButtonHandler(btn02, 0, 2);
         setButtonHandler(btn10, 1, 0);
@@ -406,152 +407,75 @@ private void setButtonHandler(Button button, int row, int col) {
     button.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            if (!button.getStyleClass().contains("btnx") &&!button.getStyleClass().contains("btno") && currentPlayer == 'X') {
-                //button.setText("X");
-                button.getStyleClass().add("btnx");
-                board[row][col] = 'X';
-                checkGameStatus(row, col);
-                currentPlayer = 'O';
+            char ch=' ';
+            if (!((Button)event.getTarget()).getStyleClass().contains("btnx") &&!((Button)event.getTarget()).getStyleClass().contains("btno") && game.getCurrentPlayer() == 'X')
+            {
+               ((Button)event.getTarget()).getStyleClass().add("btnx");           
+                game.setBoard(row, col, 'X');
+                ch=game.checkGameStatus(row, col);
+                if(ch=='N')
+                {    
+                game.setCurrentPlayer('O');
+                }
+                else if(ch=='X')
+                {
+                 new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png" , stage , "/assets/crown.png" , "/assets/b.mp4");
+                 lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
+                 lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
+                 game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
+                }
+                
+                else if(ch=='D')
+                {
+                    game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
+                  new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4");
+                }
+                
+                
             } 
-              else if (!button.getStyleClass().contains("btno")&&!button.getStyleClass().contains("btnx") && currentPlayer == 'O') {
-                //button.setText("0");
-              
-                board[row][col] = 'O';
-                button.getStyleClass().add("btno");
+            else if (!((Button)event.getTarget()).getStyleClass().contains("btno")&&!((Button)event.getTarget()).getStyleClass().contains("btnx") && game.getCurrentPlayer() == 'O')
+            {
+                
+                ((Button)event.getTarget()).getStyleClass().add("btno");
+                game.setBoard(row, col, 'O');
+                ch= game.checkGameStatus(row, col);
+                if(ch=='N')
+                {    
+                game.setCurrentPlayer('X');
+                }
+                else if(ch=='O')
+                {
+                    
+                 
+                 new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png" , stage , "/assets/crown.png" , "/assets/b.mp4");
 
+                 lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
+                 lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
+                 game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
 
-                checkGameStatus(row, col);
-                currentPlayer = 'X';
+                }
+                
+                else if(ch=='D')
+                {
+                    
+                    game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
+                  new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4");
+                }  
+               
+            
             }
+        
+
+
+            
+                
         }
     });
 
 }
-
-
-private void checkGameStatus(int row, int col) {
-    // Update row and col before checking for a win
-    //System.out.println("checkRow(row) : "+checkRow(row)+"checkColumn(col) :" + checkColumn(col)+ " checkDiagonals1() : "+ checkDiagonals1()+" checkDiagonals2() : " + checkDiagonals2());
-   // printBoard();
-    if (checkRow(row) || checkColumn(col) || checkDiagonals1()||checkDiagonals2()) {
-        // Display winner
-        System.out.println("Player " + currentPlayer + " wins!");
-        if (currentPlayer == 'X') {
-            new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png" , stage , "/assets/crown.png" , "/assets/b.mp4");
-            counterx++;
-            
-        } else if (currentPlayer == 'O') {
-            new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png" , stage , "/assets/crown.png" , "/assets/b.mp4");
-            countero++;
-        }
-        lblScoreO.setText(String.valueOf(countero));
-        lblScoreX.setText(String.valueOf(counterx));
-        resetGame();
-
-    } else if (isBoardFull()) {
-        // Handle draw
-        System.out.println("It's a draw!");
-        resetGame();
-        new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4");
-    } else {
-        // Switch player if the game is still ongoing
-        switchPlayer();
-    }
 }
 
-private void switchPlayer() {
-    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
-}
-
-    private boolean checkRow(int row) {
-        return board[row][0] == currentPlayer && board[row][1] == currentPlayer && board[row][2] == currentPlayer;
-    }
-
-    private boolean checkColumn(int col) {
-        return board[0][col] == currentPlayer && board[1][col] == currentPlayer && board[2][col] == currentPlayer;
-    }
-
-    private boolean checkDiagonals1() {
-        return  (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer);
-    }
-    private boolean checkDiagonals2() {
-        return  (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer);
-    }
-
-    private boolean isBoardFull() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (board[i][j] == ' ') {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-     private void printBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j]);
-            }
-            System.out.println();
-        }
-        
-    }
 
 
-    private void resetGame() {
-        // Clear the board and reset buttons
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                board[i][j] = ' ';
-                getButton(i, j).setText("");
-            }
-        }
-        btn00.getStyleClass().removeAll("btno","btnx");
-        btn01.getStyleClass().removeAll("btno","btnx");
-        btn02.getStyleClass().removeAll("btno","btnx");
-        btn10.getStyleClass().removeAll("btno","btnx");
-        btn11.getStyleClass().removeAll("btno","btnx");
-        btn12.getStyleClass().removeAll("btno","btnx");
-        btn20.getStyleClass().removeAll("btno","btnx");
-        btn21.getStyleClass().removeAll("btno","btnx");
-        btn22.getStyleClass().removeAll("btno","btnx");
 
-        currentPlayer = 'X';
-    }
-
-    private Button getButton(int row, int col) {
-        switch (row) {
-            case 0:
-                switch (col) {
-                    case 0:
-                        return btn00;
-                    case 1:
-                        return btn01;
-                    case 2:
-                        return btn02;
-                }
-            case 1:
-                switch (col) {
-                    case 0:
-                        return btn10;
-                    case 1:
-                        return btn11;
-                    case 2:
-                        return btn12;
-                }
-            case 2:
-                switch (col) {
-                    case 0:
-                        return btn20;
-                    case 1:
-                        return btn21;
-                    case 2:
-                        return btn22;
-                }
-        }
-        return null;
-    }
-
-}
  
