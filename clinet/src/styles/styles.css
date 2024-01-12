@@ -84,6 +84,7 @@
       -fx-fill: linear-gradient(to bottom,#fff 5%,rgba(255,171,46,1),rgba(255,202,66,0.7), rgba(255,202,66,0.7),rgba(255,171,46,1),rgba(255,171,46,1),rgba(255,171,46,1),rgba(255,202,66,0.7),rgba(255,202,66,0.7),rgba(255,171,46,1),#fff 95%);
   
 }
+
 .errorFeild{
     -fx-border-color: red;
     -fx-border-radius: 5;
@@ -112,3 +113,4 @@
 /*
 
 */
+
