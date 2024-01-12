@@ -2,6 +2,7 @@ package client;
 
 import static client.LoginUi.patternMatches;
 import com.google.gson.Gson;
+import conn.SocketDTO;
 
 import java.util.regex.Pattern;
 import javafx.geometry.Insets;
@@ -331,10 +332,10 @@ public class SignUpUi extends BorderPane {
         if(validEmail&&validName&&validPass)
         {
             User newUser= new User(-1,txtUserName.getText(),txtEmail.getText(),txtPass.getText(),0,"offline");
-//            Gson json=new Gson();
-//            String jsonObj=json.toJson(newUser);
-//            SocketDTO conn=new SocketDTO();
-//            conn.signUp(jsonObj);
+            Gson json=new Gson();
+            String jsonObj=json.toJson(newUser);
+            SocketDTO conn=new SocketDTO();
+            conn.signUp(jsonObj);
             
         }
         
