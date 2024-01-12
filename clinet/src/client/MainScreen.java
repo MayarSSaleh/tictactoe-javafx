@@ -62,6 +62,10 @@ public Stage stage;
         btnOnline.setPrefHeight(31.0);
         btnOnline.setPrefWidth(73.0);
         btnOnline.setText("Online");
+        btnOnline.setOnAction((e)->{
+            Parent pane = new PlayingScreenDemo(stage , "online");
+            stage.getScene().setRoot(pane);
+        });
         BorderPane.setMargin(btnOnline, new Insets(80.0, 40.0, 100.0, 0.0));
         setRight(btnOnline);
 
@@ -71,7 +75,7 @@ public Stage stage;
         btnLocal.setPrefWidth(73.0);
         btnLocal.setText("Local");
         btnLocal.setOnAction((e)->{
-            Parent pane = new PlayingScreenDemo(stage);
+            Parent pane = new PlayingScreenDemo(stage , "local");
             stage.getScene().setRoot(pane);
         });
         BorderPane.setMargin(btnLocal, new Insets(110.0, 0.0, 0.0, 28.0));
@@ -94,7 +98,7 @@ public Stage stage;
     }
     public void playLocal()
     {
-        Parent pane = new PlayingScreenDemo(stage);
+        Parent pane = new PlayingScreenDemo(stage ,"local");
             stage.getScene().setRoot(pane);
     }
 }

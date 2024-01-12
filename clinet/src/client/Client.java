@@ -22,7 +22,7 @@ public class Client extends Application {
     public void start(Stage stage) throws Exception {
         //Parent root = new FXMLDocumentBase();
         Parent root = new MainScreen(stage);
-
+         // Parent root = new PlayingScreenDemo(stage , "local");
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
         stage.setScene(scene);
