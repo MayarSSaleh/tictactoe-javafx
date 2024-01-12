@@ -11,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
-public  class MainScreen extends BorderPane {
+public class MainScreen extends BorderPane {
 
     protected final FlowPane flowPane;
     protected final ImageView XphotoMain;
@@ -19,9 +19,10 @@ public  class MainScreen extends BorderPane {
     protected final Button btnOnline;
     protected final Button btnLocal;
     protected final Button btnComputer;
-public Stage stage;
+    public Stage stage;
+
     public MainScreen(Stage stage) {
-        this.stage=stage;
+        this.stage = stage;
         flowPane = new FlowPane();
         XphotoMain = new ImageView();
         TICTACTOE = new ImageView();
@@ -70,13 +71,13 @@ public Stage stage;
         btnLocal.setPrefHeight(31.0);
         btnLocal.setPrefWidth(73.0);
         btnLocal.setText("Local");
-        btnLocal.setOnAction((e)->{
-            Parent pane = new PlayingScreenDemo(stage);
-            stage.getScene().setRoot(pane);
-        });
         BorderPane.setMargin(btnLocal, new Insets(110.0, 0.0, 0.0, 28.0));
         setLeft(btnLocal);
 
+        btnLocal.setOnAction((e) -> {
+            Parent pane = new PlayingScreenDemo(stage);
+            stage.getScene().setRoot(pane);
+        });
         BorderPane.setAlignment(btnComputer, javafx.geometry.Pos.CENTER);
         btnComputer.setMnemonicParsing(false);
         btnComputer.setPrefHeight(30.0);
@@ -84,17 +85,29 @@ public Stage stage;
         btnComputer.setText("Computer");
         BorderPane.setMargin(btnComputer, new Insets(0.0, 0.0, 35.0, 25.0));
         setBottom(btnComputer);
-
-        flowPane.getChildren().add(XphotoMain);
         
-        btnComputer. getStyleClass().add("btnMainScreeen");
+        
+        
+        // the new
+        btnComputer.setOnAction((e) -> {
+            Parent pane = new PlayingVsComputer(stage);
+            stage.getScene().setRoot(pane);
+        });
+        
+
+        
+        
+        
+        flowPane.getChildren().add(XphotoMain);
+
+        btnComputer.getStyleClass().add("btnMainScreeen");
         btnLocal.getStyleClass().add("btnMainScreeen");
         btnOnline.getStyleClass().add("btnMainScreeen");
 
     }
-    public void playLocal()
-    {
+
+    public void playLocal() {
         Parent pane = new PlayingScreenDemo(stage);
-            stage.getScene().setRoot(pane);
+        stage.getScene().setRoot(pane);
     }
 }
