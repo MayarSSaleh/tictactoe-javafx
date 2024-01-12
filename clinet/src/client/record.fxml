@@ -15,7 +15,7 @@
          <font>
             <Font size="22.0" />
          </font></Label>
-      <Button fx:id="btnplayNewGame" layoutX="465.0" layoutY="335.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" text="Play New Game" />
+      <Button fx:id="btnplayNewGame" layoutX="465.0" layoutY="335.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" text="Play New Game" style="-fx-background-color: orange;"/>
       <ImageView fx:id="ImageTICTACTOE" fitHeight="45.0" fitWidth="400.0" layoutX="166.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Group9_1.png" />
