@@ -1,5 +1,5 @@
 
-package con;
+package conn;
 
 import java.io.DataInputStream;
 import java.io.IOException;
