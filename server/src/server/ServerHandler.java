@@ -5,6 +5,7 @@
  */
 package server;
 
+import DTO.UsersDTO;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -46,6 +47,7 @@ class RouteHandler extends Thread
 {
         DataInputStream listenFromClient;
         PrintStream printedMessageToClient;
+        UsersDTO user;
         static Vector<RouteHandler> clientsVector =new Vector<RouteHandler>(); 
         
         public RouteHandler(Socket s)
