@@ -117,111 +117,70 @@ stopButton.setOnAction((e)->{
 
         
     }
+
+        public void onlineWaitingAlert(String title,String message, Stage stage) {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+        window.setMaxWidth(400);
+        window.setWidth(300);
+        window.setHeight(200);
+
+        Label label = new Label(message);
+        label.getStyleClass().add("alert-label");
+
+        VBox layout = new VBox(20);
+        layout.getStyleClass().add("alert-box");
+        layout.getChildren().addAll(label);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        scene.getStylesheets().add(getClass().getResource("/styles/alert.css").toExternalForm());
+
+        window.setScene(scene);
+        window.showAndWait();
+    }
+        
+  public void onlineAcceptanceAlert(String title, Stage stage) {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+        window.setMaxWidth(400);
+        window.setWidth(300);
+        window.setHeight(200);
+
+        Label label = new Label("do you want to accept invitation");
+        label.getStyleClass().add("alert-label");
+
+        Button yesButton = new Button("Yes");
+        yesButton.setOnAction(e -> {
+            // Handle Yes button action
+            window.close();
+        });
+        yesButton.getStyleClass().add("btn-stop");
+
+        Button noButton = new Button("No");
+        noButton.setOnAction(e -> {
+            // Handle No button action
+            window.close();
+            // Add your logic here
+        });
+        noButton.getStyleClass().add("btn-stop");
+
+        HBox buttonBox = new HBox(10);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.getChildren().addAll(yesButton, noButton);
+
+        VBox layout = new VBox(20);
+        layout.getStyleClass().add("alert-box");
+        layout.getChildren().addAll(label, buttonBox);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        scene.getStylesheets().add(getClass().getResource("/styles/alert.css").toExternalForm());
+
+        window.setScene(scene);
+        window.showAndWait();
+    }
 }
 
-
-//import client.MainScreen;
-//import javafx.application.Platform;
-//import javafx.geometry.Insets;
-//import javafx.geometry.Pos;
-//import javafx.scene.Parent;
-//import javafx.scene.Scene;
-//import javafx.scene.control.Button;
-//import javafx.scene.control.Label;
-//import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
-//import javafx.scene.layout.HBox;
-//import javafx.scene.layout.VBox;
-//import javafx.scene.media.Media;
-//import javafx.scene.media.MediaPlayer;
-//import javafx.scene.media.MediaView;
-//import javafx.stage.Modality;
-//import javafx.stage.Stage;
-//
-//public class AlertBox {
-//
-//    private MediaView mediaView;
-//    private MediaPlayer mediaPlayer;
-//
-//    public void display(String title, String message, String image, Stage stage) {
-//        
-//        playVideo();
-//        Stage window = new Stage();
-//        window.initModality(Modality.APPLICATION_MODAL);
-//        window.setTitle(title);
-//        window.setMaxWidth(1000);
-//        window.setWidth(1000);
-//        window.setHeight(700);
-//
-//        ImageView backgroundImage = new ImageView(new Image(getClass().getResourceAsStream(image)));
-//        backgroundImage.setFitWidth(100);
-//        backgroundImage.setFitHeight(100);
-//
-//        ImageView smallImage = new ImageView(new Image(getClass().getResourceAsStream("/assets/crown.png")));
-//        smallImage.setFitWidth(50);
-//        smallImage.setFitHeight(50);
-//
-//        VBox imageBox = new VBox(10);
-//        imageBox.setAlignment(Pos.CENTER);
-//        imageBox.getChildren().addAll(smallImage, backgroundImage);
-//        VBox.setMargin(smallImage, new Insets(-10, 0, 0, 0));
-//
-//        Label label = new Label();
-//        label.setText(message);
-//        label.getStyleClass().add("alert-label");
-//
-//        Button closeButton = new Button("Play");
-//        closeButton.getStyleClass().add("btn2");
-//        closeButton.setOnAction(e -> {
-//            stopVideo();
-//            window.close();
-//        });
-//
-//        Button stopButton = new Button("Cancel");
-//        stopButton.getStyleClass().add("btn-stop");
-//        stopButton.setOnAction(e -> {
-//            Parent pane = new MainScreen(stage);
-//            stage.getScene().setRoot(pane);
-//                       // stopVideo();
-//            window.close();
-//        });
-//
-//        HBox buttonBox = new HBox(10);
-//        buttonBox.setAlignment(Pos.CENTER);
-//        buttonBox.getChildren().addAll(closeButton, stopButton);
-//
-//        mediaView = new MediaView();
-//        mediaView.setFitWidth(600);
-//        mediaView.setFitHeight(400);
-//
-//        VBox video = new VBox(20);
-//        video.getChildren().add(mediaView);
-//
-//        VBox layout = new VBox(20);
-//        layout.getStyleClass().add("alert-box");
-//        layout.getChildren().addAll(imageBox, label, buttonBox, video);
-//        layout.setAlignment(Pos.CENTER);
-//
-//        Scene scene = new Scene(layout);
-//        scene.getStylesheets().add(getClass().getResource("/styles/alert.css").toExternalForm());
-//
-//        window.setScene(scene);
-//        window.showAndWait();
-//    }
-//
-//    private void playVideo() {
-//        if (mediaPlayer == null) {
-//            mediaPlayer = new MediaPlayer(new Media(getClass().getResource("/assets/t.mp4").toExternalForm()));
-//            mediaView.setMediaPlayer(mediaPlayer);
-//            mediaPlayer.setOnError(() -> System.out.println("Media error: " + mediaPlayer.getError()));
-//        }
-//
-//        mediaPlayer.setAutoPlay(true);
-//    }
-//    
-//    private void stopVideo() {
-//    if (mediaPlayer != null) {
-//        mediaPlayer.stop();
-//    }
-//}
-//}

@@ -23,6 +23,13 @@ public class Client extends Application {
         //Parent root = new FXMLDocumentBase();
         Parent root = new MainScreen(stage);
          // Parent root = new PlayingScreenDemo(stage , "local");
+       // Parent root = new FXMLDocumentBase();
+//        Parent root = new MainScreen(stage);
+       //Parent root =new SignUpUi();
+
+       
+       
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
         stage.setScene(scene);
