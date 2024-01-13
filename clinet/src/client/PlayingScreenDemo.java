@@ -1,5 +1,7 @@
 package client;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -45,7 +47,7 @@ public class PlayingScreenDemo extends BorderPane {
     protected final Button btn22;
     protected final Button btn20;
     protected final Button btn21;
-    protected final Button btnRecord;  
+    protected final Button btnRecord;
     protected final ImageView imageView;
     protected final ImageView imageView0;
     protected final DropShadow dropShadow;
@@ -55,14 +57,12 @@ public class PlayingScreenDemo extends BorderPane {
     static int counterx;
     static int countero;
     Stage stage;
-    GamePlay game ;
+    GamePlay game;
 
-
-    
-
-    public PlayingScreenDemo(Stage stage , String pageName) {
-        btnRecord = new Button();  
-          if(pageName.equals("online")){
+    public PlayingScreenDemo(Stage stage, String pageName) {
+        btnRecord = new Button();
+        boolean recordTheGame = false;
+        if (pageName.equals("online")) {
             BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
             btnRecord.setMnemonicParsing(false);
             btnRecord.setLayoutX(470.0);
@@ -73,20 +73,20 @@ public class PlayingScreenDemo extends BorderPane {
             setBottom(btnRecord);
             BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 35.0, 25.0));
             btnRecord.getStyleClass().add("btnRec");
+
+            btnRecord.setOnAction((e) -> {
+                recordTheGame = true;
+            });
+
+        } else if (pageName.equals("local")) {
+            btnRecord.getStyleClass().add("btnRecLoc");
         }
-          else if(pageName.equals("local")){
-            btnRecord.getStyleClass().add("btnRecLoc"); 
-         }
-    
 
-    
-
-   
         game = new GamePlay();
         this.stage = stage;
-        countero=0;
-        counterx=0;
-          for (int i = 0; i < 3; i++) {
+        countero = 0;
+        counterx = 0;
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = ' ';
             }
@@ -120,8 +120,7 @@ public class PlayingScreenDemo extends BorderPane {
         imageView0 = new ImageView();
         dropShadow = new DropShadow();
         dropShadow0 = new DropShadow();
-       
-        
+
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -247,13 +246,13 @@ public class PlayingScreenDemo extends BorderPane {
         recV2.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recV2.setWidth(10.0);
         recV2.getStyleClass().add("rech");
-        
+
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
         dropShadow.setWidth(36.81);
         recV2.setEffect(dropShadow);
-        
+
         recH1.setArcHeight(12.0);
         recH1.setArcWidth(30.0);
         recH1.setHeight(234.0);
@@ -265,8 +264,7 @@ public class PlayingScreenDemo extends BorderPane {
         recH1.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recH1.setWidth(10.0);
         recH1.getStyleClass().add("rech");
-        
-        
+
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
@@ -278,13 +276,13 @@ public class PlayingScreenDemo extends BorderPane {
         recH2.setHeight(234.0);
         recH2.setLayoutX(284.0);
         recH2.setLayoutY(64.0);
-        recH2.setSmooth(false);        
+        recH2.setSmooth(false);
         recH2.setRotate(90.0);
         recH2.setStroke(javafx.scene.paint.Color.WHITE);
         recH2.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recH2.setWidth(10.0);
         recH2.getStyleClass().add("rech");
-        
+
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
@@ -300,7 +298,7 @@ public class PlayingScreenDemo extends BorderPane {
         btn00.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         btn00.setFont(new Font(24.0));
         btn00.getStyleClass().add("btn");
-    
+
         btn02.setAlignment(javafx.geometry.Pos.CENTER);
         btn02.setLayoutX(342.0);
         btn02.setLayoutY(31.0);
@@ -318,7 +316,7 @@ public class PlayingScreenDemo extends BorderPane {
         btn01.setPrefHeight(50.0);
         btn01.setPrefWidth(54.0);
         btn01.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btn01.setFont(new Font( 24.0));
+        btn01.setFont(new Font(24.0));
         btn01.getStyleClass().add("btn");
 
         btn12.setAlignment(javafx.geometry.Pos.CENTER);
@@ -415,8 +413,8 @@ public class PlayingScreenDemo extends BorderPane {
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
-        anchorGame.getChildren().add(btnRecord);        
-       setButtonHandler(btn00, 0, 0);
+        anchorGame.getChildren().add(btnRecord);
+        setButtonHandler(btn00, 0, 0);
 
         setButtonHandler(btn01, 0, 1);
         setButtonHandler(btn02, 0, 2);
@@ -427,79 +425,68 @@ public class PlayingScreenDemo extends BorderPane {
         setButtonHandler(btn21, 2, 1);
         setButtonHandler(btn22, 2, 2);
     }
-private void setButtonHandler(Button button, int row, int col) {
-    button.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            char ch=' ';
-            if (!((Button)event.getTarget()).getStyleClass().contains("btnx") &&!((Button)event.getTarget()).getStyleClass().contains("btno") && game.getCurrentPlayer() == 'X')
-            {
-               ((Button)event.getTarget()).getStyleClass().add("btnx");           
-                game.setBoard(row, col, 'X');
-                ch=game.checkGameStatus(row, col);
-                if(ch=='N')
-                {    
-                game.setCurrentPlayer('O');
-                }
-                else if(ch=='X')
-                {
-                 new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png" , stage , "/assets/crown.png" , "/assets/b.mp4");
-                 lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
-                 lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
-                 game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
-                }
-                
-                else if(ch=='D')
-                {
-                    game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
-                  new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4");
-                }
-                
-                
-            } 
-            else if (!((Button)event.getTarget()).getStyleClass().contains("btno")&&!((Button)event.getTarget()).getStyleClass().contains("btnx") && game.getCurrentPlayer() == 'O')
-            {
-                
-                ((Button)event.getTarget()).getStyleClass().add("btno");
-                game.setBoard(row, col, 'O');
-                ch= game.checkGameStatus(row, col);
-                if(ch=='N')
-                {    
-                game.setCurrentPlayer('X');
-                }
-                else if(ch=='O')
-                {
-                    
-                 
-                 new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png" , stage , "/assets/crown.png" , "/assets/b.mp4");
 
-                 lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
-                 lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
-                 game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
+    private void setButtonHandler(Button button, int row, int col) {
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                char ch = ' ';
+                if (!((Button) event.getTarget()).getStyleClass().contains("btnx") && !((Button) event.getTarget()).getStyleClass().contains("btno") && game.getCurrentPlayer() == 'X') {
+                    ((Button) event.getTarget()).getStyleClass().add("btnx");
+                    game.setBoard(row, col, 'X');
 
+                    if (recordTheGame) {
+                        record(row, col, 'X');
+                    }
+
+                    ch = game.checkGameStatus(row, col);
+                    if (ch == 'N') {
+                        game.setCurrentPlayer('O');
+                    } else if (ch == 'X') {
+                        new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
+                        lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
+                        lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
+                        game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
+                    } else if (ch == 'D') {
+                        game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
+                        new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
+                    }
+
+                } else if (!((Button) event.getTarget()).getStyleClass().contains("btno") && !((Button) event.getTarget()).getStyleClass().contains("btnx") && game.getCurrentPlayer() == 'O') {
+                    ((Button) event.getTarget()).getStyleClass().add("btno");
+                    game.setBoard(row, col, 'O');
+
+                    if (recordTheGame) {
+                        record(row, col, 'O');
+                    }
+
+                    ch = game.checkGameStatus(row, col);
+                    if (ch == 'N') {
+                        game.setCurrentPlayer('X');
+                    } else if (ch == 'O') {
+                        new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4");
+
+                        lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
+                        lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
+                        game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
+                    } else if (ch == 'D') {
+                        game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
+                        new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
+                    }
                 }
-                
-                else if(ch=='D')
-                {
-                    
-                    game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
-                  new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4");
-                }  
-               
-            
             }
-        
+        });
+    }
 
+// this method is void til handle the method we will show the game
+    private void record(int row, int col, char sign) {
 
-            
-                
-        }
-    });
+        ArrayList<int[]> recordTheSteps = new ArrayList<>();
+        ArrayList<Character> recordTheSign = new ArrayList<>();
+
+        recordTheSteps.add(new int[]{row, col});
+        recordTheSign.add(sign);
+
+    }
 
 }
-}
-
-
-
-
- 
