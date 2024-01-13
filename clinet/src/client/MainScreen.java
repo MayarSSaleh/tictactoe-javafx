@@ -1,8 +1,17 @@
 package client;
 
 //import mainscreen.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -78,36 +87,56 @@ public class MainScreen extends BorderPane {
             Parent pane = new PlayingScreenDemo(stage);
             stage.getScene().setRoot(pane);
         });
+
+        btnOnline.setOnAction(e -> {
+            //to solve (java.lang.IllegalStateException: Not on FX application thread)indicates that you're attempting to 
+            //update the JavaFX scene graph from a thread other than the JavaFX Application
+            //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
+            //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
+            class RecordPageMain extends Application {
+
+                @Override
+                public void start(Stage stage) throws Exception {
+                    Parent root = FXMLLoader.load(getClass().getResource("record.fxml"));
+                    Scene scene = new Scene(root);
+                    scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }
+            // Create a new thread to launch the new application
+            Thread recordPageThread = new Thread(() -> {
+                try {
+                    // Launch the RecordPageMain application
+                    Platform.runLater(() -> {
+                        try {// it is better to make inner class
+                            new RecordPageMain().start(stage); // 'stage' is my existing stage  
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    });
+                } catch (Exception ex) {
+                    ex.printStackTrace(); // Handle the exception according to your needs
+                }
+            });
+            // Start the thread
+            recordPageThread.start();
+        });
         BorderPane.setAlignment(btnComputer, javafx.geometry.Pos.CENTER);
         btnComputer.setMnemonicParsing(false);
         btnComputer.setPrefHeight(30.0);
         btnComputer.setPrefWidth(120.0);
         btnComputer.setText("Computer");
-        BorderPane.setMargin(btnComputer, new Insets(0.0, 0.0, 35.0, 25.0));
-        setBottom(btnComputer);
-        
-        
-        
-        // the new
-        btnComputer.setOnAction((e) -> {
+             btnComputer.setOnAction((e) -> {
             Parent pane = new PlayingVsComputer(stage);
             stage.getScene().setRoot(pane);
         });
-        
-
-        
-        
-        
+        BorderPane.setMargin(btnComputer, new Insets(0.0, 0.0, 35.0, 25.0));
+        setBottom(btnComputer);
         flowPane.getChildren().add(XphotoMain);
-
         btnComputer.getStyleClass().add("btnMainScreeen");
         btnLocal.getStyleClass().add("btnMainScreeen");
         btnOnline.getStyleClass().add("btnMainScreeen");
 
-    }
-
-    public void playLocal() {
-        Parent pane = new PlayingScreenDemo(stage);
-        stage.getScene().setRoot(pane);
     }
 }

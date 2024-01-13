@@ -21,9 +21,9 @@ public class Client extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        // Parent root = new FXMLDocumentBase();
-//        Parent root = new MainScreen(stage);
+        Parent root = new MainScreen(stage);
        //Parent root =new SignUpUi();
-        Parent root =new Profile();
+//        Parent root =new Profile();
 
        
        
