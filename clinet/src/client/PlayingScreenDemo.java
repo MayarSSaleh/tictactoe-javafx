@@ -45,22 +45,43 @@ public class PlayingScreenDemo extends BorderPane {
     protected final Button btn22;
     protected final Button btn20;
     protected final Button btn21;
+    protected final Button btnRecord;  
     protected final ImageView imageView;
     protected final ImageView imageView0;
     protected final DropShadow dropShadow;
     protected final DropShadow dropShadow0;
-
     private char currentPlayer = 'X'; // Initial player is X
     private char[][] board = new char[3][3];
     static int counterx;
     static int countero;
     Stage stage;
     GamePlay game ;
+
+
+    
+
+    public PlayingScreenDemo(Stage stage , String pageName) {
+        btnRecord = new Button();  
+          if(pageName.equals("online")){
+            BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
+            btnRecord.setMnemonicParsing(false);
+            btnRecord.setLayoutX(470.0);
+            btnRecord.setLayoutY(239.0);
+            btnRecord.setPrefHeight(31.0);
+            btnRecord.setPrefWidth(85.0);
+            btnRecord.setText("Record");
+            setBottom(btnRecord);
+            BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 35.0, 25.0));
+            btnRecord.getStyleClass().add("btnRec");
+        }
+          else if(pageName.equals("local")){
+            btnRecord.getStyleClass().add("btnRecLoc"); 
+         }
     
 
     
 
-    public PlayingScreenDemo(Stage stage) {
+   
         game = new GamePlay();
         this.stage = stage;
         countero=0;
@@ -99,6 +120,7 @@ public class PlayingScreenDemo extends BorderPane {
         imageView0 = new ImageView();
         dropShadow = new DropShadow();
         dropShadow0 = new DropShadow();
+       
         
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -393,7 +415,9 @@ public class PlayingScreenDemo extends BorderPane {
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
-        setButtonHandler(btn00, 0, 0);
+        anchorGame.getChildren().add(btnRecord);        
+       setButtonHandler(btn00, 0, 0);
+
         setButtonHandler(btn01, 0, 1);
         setButtonHandler(btn02, 0, 2);
         setButtonHandler(btn10, 1, 0);

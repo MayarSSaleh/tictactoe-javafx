@@ -84,7 +84,7 @@ public class MainScreen extends BorderPane {
         setLeft(btnLocal);
 
         btnLocal.setOnAction((e) -> {
-            Parent pane = new PlayingScreenDemo(stage);
+            Parent pane = new PlayingScreenDemo(stage , "local");
             stage.getScene().setRoot(pane);
         });
 
