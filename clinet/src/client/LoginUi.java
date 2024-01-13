@@ -1,5 +1,6 @@
 package client;
 
+import conn.ClintSide;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import model.User;
 
 public class LoginUi extends BorderPane {
 
@@ -40,9 +42,11 @@ public class LoginUi extends BorderPane {
     public String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
     private boolean validEmail;
     private boolean validPass;
+     private ClintSide con;
+     private User data;
 
-    public LoginUi() {
-
+    public LoginUi(ClintSide con) {
+        this.con=con;
         hBox = new HBox();
         label = new Label();
         lblSignIn = new Label();
@@ -174,7 +178,8 @@ public class LoginUi extends BorderPane {
 
     protected void login(ActionEvent event)
     {
-        System.out.println("dsadsadsad");
+        //return user data;
+        
     }
     protected  void press(javafx.scene.input.KeyEvent keyEvent)
     {

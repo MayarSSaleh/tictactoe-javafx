@@ -1,6 +1,8 @@
 
 package conn;
 
+import RouteHandler.Handler;
+import com.google.gson.Gson;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -9,6 +11,7 @@ import java.net.SocketException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.User;
 
 
 public class ClintSide extends Thread{
@@ -31,10 +34,6 @@ public class ClintSide extends Thread{
     {
         printedMessageToServer.println(msg);
     }
-    public void connSwitch(String msg)
-    {
-      
-    }
 
     @Override
     public void run() {
@@ -43,7 +42,10 @@ public class ClintSide extends Thread{
                 try {
                    
                     String msg = listenFromServer.readLine();
-                    connSwitch(msg);
+                    Gson json = new Gson();
+                     SocketDTO recive= json.fromJson(msg, SocketDTO.class);
+                     
+                    Handler.connSwitch(recive.getRoute(),recive.getMessage());
                    
                 } 
                 catch(SocketException c)
@@ -60,6 +62,10 @@ public class ClintSide extends Thread{
                 }
             }
     }
+    
+    
+    
+
     
     
 }

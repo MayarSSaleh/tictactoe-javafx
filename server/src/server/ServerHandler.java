@@ -7,8 +7,12 @@
  */
 package server;
 
+
 import DTO.SocketDTO;
 import com.google.gson.Gson;
+
+import DTO.UsersDTO;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -53,7 +57,9 @@ class RouteHandler extends Thread
 {
         DataInputStream listenFromClient;
         PrintStream printedMessageToClient;
+
         String Email;
+
         static Vector<RouteHandler> clientsVector =new Vector<RouteHandler>(); 
         
         public RouteHandler(Socket s)
@@ -83,8 +89,7 @@ class RouteHandler extends Thread
                         Gson json = new Gson();
                         SocketDTO clint = json.fromJson(message, SocketDTO.class);
                         Email=clint.Email;
-                       // System.out.println("dsadas");
-                        //System.out.println(Email);
+                      
                         sendMessageToAll(message);
                 } catch (IOException ex) 
                 {

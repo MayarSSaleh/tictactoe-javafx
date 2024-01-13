@@ -16,7 +16,7 @@ public class Handler {
     
     private static Gson json;
     
-   public void connSwitch(String route,String msg)
+   public  static void connSwitch(String route,String msg)
     {
         
       switch(route)
