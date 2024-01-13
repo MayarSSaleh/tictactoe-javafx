@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package conn;
+package DTO;
 
 /**
  *
@@ -11,26 +11,14 @@ package conn;
  */
 public class SocketDTO {
     
-    private String Email;
+    public String Email;
     private String route;
     private String message;
     private String input;
     
     
-    public void login(String msg)
-    {
-        route="signUp";
-        message=msg;
-        
-    }
-    public void signUp(String Email,String msg)
-    {   this.Email=Email;
-        route="login";
-        message=msg;
-        
-    }
-
    
+
 
     public String getRoute() {
         return route;

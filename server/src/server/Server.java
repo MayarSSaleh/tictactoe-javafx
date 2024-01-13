@@ -25,11 +25,21 @@ public class Server extends Application {
         scene.getStylesheets().add(getClass().getResource("/styles/style.css").toString());
         stage.setScene(scene);
         stage.show();
+                
+
     }
 
     /**
      * @param args the command line arguments
      */
+    
+    @Override
+    public void init() throws Exception {
+        super.init(); //To change body of generated methods, choose Tools | Templates.
+       
+       
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

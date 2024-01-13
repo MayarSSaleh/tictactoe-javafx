@@ -2,6 +2,7 @@ package client;
 
 import static client.LoginUi.patternMatches;
 import com.google.gson.Gson;
+import conn.ClintSide;
 import conn.SocketDTO;
 
 import java.util.regex.Pattern;
@@ -46,9 +47,10 @@ public class SignUpUi extends BorderPane {
     private  boolean validEmail;
     private  boolean validName;
     private  boolean validPass;
+    private ClintSide s;
 
-    public SignUpUi() {
-
+    public SignUpUi(ClintSide s) {
+        this.s=s;
         hBox = new HBox();
         label = new Label();
         lblResgister = new Label();
@@ -335,7 +337,11 @@ public class SignUpUi extends BorderPane {
             Gson json=new Gson();
             String jsonObj=json.toJson(newUser);
             SocketDTO conn=new SocketDTO();
-            conn.signUp(jsonObj);
+           
+            conn.signUp(txtEmail.getText(),jsonObj);
+            s.sendMassage(json.toJson(conn));
+            
+            
             
         }
         

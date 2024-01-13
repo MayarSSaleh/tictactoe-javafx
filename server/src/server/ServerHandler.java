@@ -1,10 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license header, ch
+ *
+ * @author mostaoose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package server;
 
+import DTO.SocketDTO;
+import com.google.gson.Gson;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -20,10 +24,13 @@ import java.util.logging.Logger;
  */
 public class ServerHandler {
     ServerSocket serverSocket;
-        public ServerHandler(){
+    
+        public ServerHandler()
+        {
    
             try {
                 serverSocket = new ServerSocket(2000);
+                
                 while(true){
                     Socket clientSocket = serverSocket.accept();
                     new RouteHandler(clientSocket);
@@ -46,12 +53,15 @@ class RouteHandler extends Thread
 {
         DataInputStream listenFromClient;
         PrintStream printedMessageToClient;
+        String Email;
         static Vector<RouteHandler> clientsVector =new Vector<RouteHandler>(); 
         
         public RouteHandler(Socket s)
         {
+            
             try 
             {
+                
                 listenFromClient = new DataInputStream(s.getInputStream());
                 printedMessageToClient = new PrintStream(s.getOutputStream());
                 RouteHandler.clientsVector.add(this);
@@ -70,7 +80,11 @@ class RouteHandler extends Thread
                 try 
                 {
                         String message = listenFromClient.readLine();
-                        System.out.println(message);
+                        Gson json = new Gson();
+                        SocketDTO clint = json.fromJson(message, SocketDTO.class);
+                        Email=clint.Email;
+                       // System.out.println("dsadas");
+                        //System.out.println(Email);
                         sendMessageToAll(message);
                 } catch (IOException ex) 
                 {
@@ -79,11 +93,27 @@ class RouteHandler extends Thread
             }
         }
         
+        
+        public void connectionSwitsh()
+        {
+            
+        }
+        
+//        void sendMessageToAll(String msg)
+//        {
+//            for(int i=0 ; i<clientsVector.size() ; i++)
+//            {
+//                 clientsVector.get(i).printedMessageToClient.println(msg);
+//                 
+//            }
+//        }
+                
         void sendMessageToAll(String msg)
         {
             for(int i=0 ; i<clientsVector.size() ; i++)
             {
-                 clientsVector.get(i).printedMessageToClient.println(msg);
+                 System.out.println(i +"    "+clientsVector.get(i).Email);
+                   
                  
             }
         }

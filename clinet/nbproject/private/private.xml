@@ -14,10 +14,12 @@
         <group>
             <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/client/MainScreen.java</file>
             <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/client/SignUpUi.java</file>
+            <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/conn/ClintSide.java</file>
             <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/client/PlayingScreenDemo.java</file>
             <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/client/AlertBox.java</file>
             <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/styles/styles.css</file>
             <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/client/Client.java</file>
+            <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/conn/SocketDTO.java</file>
             <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/styles/alert.css</file>
             <file>file:/M:/ITI_mobileNative/tictactoe-javafx/clinet/src/styles/clinet.css</file>
         </group>

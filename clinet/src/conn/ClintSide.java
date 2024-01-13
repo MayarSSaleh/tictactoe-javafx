@@ -1,5 +1,5 @@
 
-package con;
+package conn;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -15,11 +15,11 @@ public class ClintSide extends Thread{
     Socket serverSide;
     DataInputStream listenFromServer;
     PrintStream printedMessageToServer;
+    
     public ClintSide()
     {
         try {
             serverSide = new Socket("127.0.0.1", 2000);
-            
             listenFromServer = new DataInputStream(serverSide.getInputStream());
             printedMessageToServer = new PrintStream(serverSide.getOutputStream());
         } catch (IOException ex) {

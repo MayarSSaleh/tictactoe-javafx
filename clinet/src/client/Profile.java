@@ -1,5 +1,6 @@
 package client;
 
+import conn.ClintSide;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -222,7 +223,7 @@ public class Profile extends BorderPane {
 
     protected  void HandleExit(javafx.event.ActionEvent actionEvent)
     {
-        
+        ClintSide clintSide= new ClintSide();
     }
 
 }
