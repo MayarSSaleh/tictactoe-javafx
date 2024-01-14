@@ -58,8 +58,9 @@ public class DataAccessLayer {
             userLogin.setScore(result.getInt(4));
             userLogin.setUserPass(result.getString("USERPASS"));
         }
-             ps.close();;
-           con.close();  
+             ps.close();
+           con.close();
+           //System.out.println(userLogin.getEmail());
         
            return userLogin;
     

@@ -1,6 +1,9 @@
 package client;
 
+import RouteHandler.Handler;
+import com.google.gson.Gson;
 import conn.ClintSide;
+import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
@@ -18,6 +21,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import model.LoginDTO;
+
 import model.User;
 
 public class LoginUi extends BorderPane {
@@ -42,11 +47,13 @@ public class LoginUi extends BorderPane {
     public String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
     private boolean validEmail;
     private boolean validPass;
-     private ClintSide con;
+    private ClintSide con;
      private User data;
+     private Gson json;
 
     public LoginUi(ClintSide con) {
-        this.con=con;
+        this.con=new ClintSide();
+        json =new Gson();
         hBox = new HBox();
         label = new Label();
         lblSignIn = new Label();
@@ -179,6 +186,15 @@ public class LoginUi extends BorderPane {
     protected void login(ActionEvent event)
     {
         //return user data;
+        if(validEmail&&validPass)
+        {
+            
+        LoginDTO loginData=new LoginDTO(txtEmail.getText(), txtPass.getText()); 
+           
+        con.sendMassage("login",json.toJson(loginData));
+        //data=Handler.login();
+        
+        }
         
     }
     protected  void press(javafx.scene.input.KeyEvent keyEvent)

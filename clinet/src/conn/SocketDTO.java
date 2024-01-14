@@ -15,6 +15,15 @@ public class SocketDTO {
     private String route;
     private String message;
     private String input;
+
+    public SocketDTO(String route, String message) {
+        this.route = route;
+        this.message = message;
+    }
+
+    public SocketDTO() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     public void login(String msg)

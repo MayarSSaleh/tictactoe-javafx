@@ -12,6 +12,7 @@ import DTO.SocketDTO;
 import com.google.gson.Gson;
 
 import DTO.UsersDTO;
+import RouteHandler.Handler;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -80,17 +81,26 @@ class RouteHandler extends Thread
         }
 
         public void run()
-        {
+        {   Gson json = new Gson();
             while(true)
             {
                 try 
                 {
                         String message = listenFromClient.readLine();
-                        Gson json = new Gson();
+                        
                         SocketDTO clint = json.fromJson(message, SocketDTO.class);
-                        Email=clint.Email;
+                        Handler.connSwitch("login", clint.getMessage());
+                        UsersDTO data=Handler.login();
+                        SocketDTO send=null;
+                         if(data!=null)
+                         {   
+                            Email=data.getEmail();
+                            send = new SocketDTO("login", json.toJson(data));
+                             
+                            
+                         }
                       
-                        sendMessageToAll(message);
+                        sendMessageTo(json.toJson(send));
                 } catch (IOException ex) 
                 {
                     Logger.getLogger(RouteHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,9 +109,19 @@ class RouteHandler extends Thread
         }
         
         
-        public void connectionSwitsh()
+    
+        
+        void sendMessageTo(String msg)
         {
-            
+            for(int i=0 ; i<clientsVector.size()  ; i++)
+            {
+                if(clientsVector.get(i).Email==Email)
+                {
+                    
+                 clientsVector.get(i).printedMessageToClient.println(msg);
+                }
+                 
+            }
         }
         
 //        void sendMessageToAll(String msg)

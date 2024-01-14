@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package DTO;
 
 /**
  *
  * @author mosta
  */
-public class loginDTO {
+public class LoginDTO {
     private String Email;
     private String Pass;
 
@@ -29,12 +29,12 @@ public class loginDTO {
         this.Pass = Pass;
     }
 
-    public loginDTO(String Email, String Pass) {
+    public LoginDTO(String Email, String Pass) {
         this.Email = Email;
         this.Pass = Pass;
     }
 
-    public loginDTO() {
+    public LoginDTO() {
     }
     
     

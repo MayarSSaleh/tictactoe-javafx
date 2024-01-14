@@ -28,7 +28,8 @@ public class Client extends Application {
 
        // Parent root = new MainScreen(stage);
         ClintSide c= new ClintSide();
-       Parent root =new SignUpUi(c);
+      
+       Parent root =new LoginUi(c);
        // Parent root =new Profile();
 
 //        Parent root = new MainScreen(stage);

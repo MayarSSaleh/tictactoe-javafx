@@ -18,6 +18,7 @@ public class ClintSide extends Thread{
     Socket serverSide;
     DataInputStream listenFromServer;
     PrintStream printedMessageToServer;
+    Gson json = new Gson();
     
     public ClintSide()
     {
@@ -30,8 +31,16 @@ public class ClintSide extends Thread{
         }
     }
     
-    public void sendMassage(String msg)
+    public void sendMassage(String route,String msg)
     {
+       
+        SocketDTO send= new SocketDTO(route,msg);
+        printedMessageToServer.println(json.toJson(send));
+    }
+    public void sendMassageTo(String msg)
+    {
+        
+        
         printedMessageToServer.println(msg);
     }
 
@@ -42,7 +51,7 @@ public class ClintSide extends Thread{
                 try {
                    
                     String msg = listenFromServer.readLine();
-                    Gson json = new Gson();
+                    
                      SocketDTO recive= json.fromJson(msg, SocketDTO.class);
                      
                     Handler.connSwitch(recive.getRoute(),recive.getMessage());

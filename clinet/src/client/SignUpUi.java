@@ -339,7 +339,7 @@ public class SignUpUi extends BorderPane {
             SocketDTO conn=new SocketDTO();
            
             conn.signUp(txtEmail.getText(),jsonObj);
-            s.sendMassage(json.toJson(conn));
+            s.sendMassageTo(json.toJson(conn));
             
             
             
