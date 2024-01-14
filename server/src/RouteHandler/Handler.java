@@ -6,6 +6,7 @@
 package RouteHandler;
 
 import DTO.LoginDTO;
+import DTO.SignUpDTO;
 import DTO.UsersDTO;
 import com.google.gson.Gson;
 import db.DataAccessLayer;
@@ -33,6 +34,9 @@ public class Handler {
               
               UsersDTO data=login();
               break;
+          case "signup":
+              int ret = SignUp();
+              break;
               default:
                   
               break;
@@ -50,6 +54,21 @@ public class Handler {
             }
             
        return user;
+    }
+    
+        public static int SignUp()
+    {
+        int ret = 0;
+       SignUpDTO myData= json.fromJson(msg, SignUpDTO.class);
+      
+            try {
+                ret =DataAccessLayer.Register(myData.getEmail(), myData.getUserName(), myData.getPass() );
+                //System.out.println(user.getEmail());
+            } catch (SQLException ex) {
+                Logger.getLogger(Handler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+       return ret;
     }
     
 }

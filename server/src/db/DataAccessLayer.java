@@ -19,7 +19,7 @@ import org.apache.derby.jdbc.ClientDriver;
  * @author mosta
  */
 public class DataAccessLayer {
-     public static int Register(UsersDTO user) throws SQLException
+     public static int Register(String email , String userName , String pass) throws SQLException
     {
 //        ArrayList<UsersDTO>arr= new ArrayList<UsersDTO>();
 //        UsersDTO u = new UsersDTO();
@@ -29,9 +29,9 @@ public class DataAccessLayer {
         DriverManager.registerDriver(new ClientDriver());
         Connection con =DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","root","root");
         PreparedStatement ps = con.prepareStatement("insert into users (username,email,userpass,score) values (?,?,?,0,offline)");
-        ps.setString(1, user.getUserName());
-        ps.setString(2, user.getEmail());
-        ps.setString(3, user.getUserPass());     
+        ps.setString(1, userName);
+        ps.setString(2, email);
+        ps.setString(3, pass);     
         ret=ps.executeUpdate();
         con.close();
         return ret;

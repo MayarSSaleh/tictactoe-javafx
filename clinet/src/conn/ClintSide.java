@@ -27,7 +27,7 @@ public class ClintSide extends Thread{
             listenFromServer = new DataInputStream(serverSide.getInputStream());
             printedMessageToServer = new PrintStream(serverSide.getOutputStream());
         } catch (IOException ex) {
-            Logger.getLogger(ClintSide.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     

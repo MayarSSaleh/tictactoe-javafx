@@ -89,7 +89,7 @@ class RouteHandler extends Thread
                         String message = listenFromClient.readLine();
                         
                         SocketDTO clint = json.fromJson(message, SocketDTO.class);
-                        Handler.connSwitch("login", clint.getMessage());
+                        Handler.connSwitch(clint.getRoute(), clint.getMessage());
                         UsersDTO data=Handler.login();
                         SocketDTO send=null;
                          if(data!=null)
