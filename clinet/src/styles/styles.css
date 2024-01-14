@@ -122,6 +122,30 @@
    -fx-border-radius: 10;
    
 }
+.btn2{
+    -fx-background-color: orange;
+    -fx-text-fill: white;
+    -fx-border-color: orange;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 15px;
+    -fx-font-size: 14px;
+}
+
+.btn2:hover, .btn-stop:hover {
+    -fx-background-color: #ff7f00;
+}
+
+.btn_Exit {
+    -fx-background-color: #989898; /* Dark gray */
+    -fx-text-fill: white;
+   
+    -fx-padding: 10px 15px;
+    -fx-font-size: 14px;
+}
+
+.btn_Exit:hover {
+    -fx-background-color: #333333; ; /* Darker gray for hover */
+}
 
 /*
 

@@ -42,16 +42,23 @@ public  class Cards extends HBox {
         lblScore.setFont(new Font(14.0));
 
         btnInvite.setMinHeight(30.0);
-        btnInvite.setMinWidth(50.0);
+        btnInvite.setMinWidth(80.0);
         btnInvite.setMnemonicParsing(false);
-        btnInvite.setStyle("-fx-background-radius: 5; -fx-border-radius: 5;");
+btnInvite.setStyle("    -fx-background-color: orange;\n" +
+"    -fx-text-fill: white;\n" +
+"    -fx-border-color: orange;\n" +
+"    -fx-border-radius: 5px;\n" +
+"    -fx-padding: 10px 15px;\n" +
+"    -fx-font-size: 14px;");
+
+
         btnInvite.setText("Invite");
         btnInvite.setTextFill(javafx.scene.paint.Color.WHITE);
         btnInvite.setOnAction((e)->{
             System.out.println("dasdasdas");
         });
         HBox.setMargin(btnInvite, new Insets(0.0, 0.0, 0.0, 40.0));
-       
+
         vBox.getChildren().add(lblName);
         vBox.getChildren().add(lblScore);
         getChildren().add(vBox);

@@ -66,7 +66,7 @@ public class Profile extends BorderPane {
         scrollPane = new ScrollPane();
         inviteList0 = new VBox();
         logo= new Image("/assets/Group9.png");
-        profileImg=new Image("/assets/profileIcon.png");
+        profileImg=new Image("/assets/Starasset.png");
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -114,8 +114,10 @@ public class Profile extends BorderPane {
         label.setTextFill(javafx.scene.paint.Color.WHITE);
         label.setFont(new Font(14.0));
 
-        txtuser.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
-        txtuser.setFont(new Font(14.0));
+      txtuser.setEditable(false);
+txtuser.setText("3Om_aar");
+txtuser.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
+txtuser.setFont(new Font(14.0));
 
         hBox1.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
         hBox1.setPrefHeight(100.0);
@@ -127,8 +129,10 @@ public class Profile extends BorderPane {
         label0.setTextFill(javafx.scene.paint.Color.WHITE);
         label0.setFont(new Font(14.0));
 
-        txtEmail.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
-        txtEmail.setFont(new Font(14.0));
+       txtEmail.setEditable(false);
+txtEmail.setText("omaaaarmohameds@gmail.com");
+txtEmail.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
+txtEmail.setFont(new Font(14.0));
 
         hBox2.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
         hBox2.setPrefHeight(100.0);
@@ -140,8 +144,10 @@ public class Profile extends BorderPane {
         label1.setTextFill(javafx.scene.paint.Color.WHITE);
         label1.setFont(new Font(14.0));
 
-        txtScore.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
-        txtScore.setFont(new Font(14.0));
+     txtScore.setEditable(false);
+    txtScore.setText("3");
+    txtScore.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
+    txtScore.setFont(new Font(14.0));
 
         hBox3.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
         hBox3.setPrefHeight(100.0);
@@ -154,7 +160,8 @@ public class Profile extends BorderPane {
         btnRecords.setMnemonicParsing(false);
         btnRecords.setOnAction(this::viewRecords);
         btnRecords.setText("Records");
-        btnRecords.setTextFill(javafx.scene.paint.Color.valueOf("#fffcfc"));
+            btnRecords.getStyleClass().add("btn2");
+
 
         hBox5.setAlignment(javafx.geometry.Pos.CENTER);
         hBox5.setPrefHeight(100.0);
@@ -166,6 +173,8 @@ public class Profile extends BorderPane {
         btnExit.setPrefWidth(57.0);
         btnExit.setText("Exit");
         btnExit.setTextFill(javafx.scene.paint.Color.WHITE);
+                    btnExit.getStyleClass().add("btn_Exit");
+
         vBox.setPadding(new Insets(10.0));
 
         inviteList.setAlignment(javafx.geometry.Pos.CENTER);
@@ -188,7 +197,8 @@ public class Profile extends BorderPane {
 
             Cards card= new Cards();
             
-            HBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
+    VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
+
 
             inviteList0.getChildren().add(card);
             
