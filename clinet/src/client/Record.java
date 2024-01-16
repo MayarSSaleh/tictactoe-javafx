@@ -90,7 +90,7 @@ public class Record {
         recordTheSign.add(sign);
 
     }
-
+//  
 //    public void addRecords(Record addNew) {
 //          // i make it only 5
 //        RecordArray[countRecords] = addNew;
