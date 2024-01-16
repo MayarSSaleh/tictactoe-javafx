@@ -30,7 +30,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.LoginDTO;
 
 import model.User;
 
@@ -51,7 +50,7 @@ public class LoginUi extends BorderPane {
     protected final Button btnLogin;
     protected final Rectangle recLogo;
     protected final Image logo;
-        public Stage stage;
+    public Stage stage;
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^(.+)@(\\S+) $.", Pattern.CASE_INSENSITIVE);
     public String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -88,7 +87,7 @@ public class LoginUi extends BorderPane {
         setMinHeight(USE_PREF_SIZE);
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
-        setPrefWidth(414.0);
+        setPrefWidth(600.0);
         setStyle("-fx-background-color: black;");
 
         BorderPane.setAlignment(hBox, javafx.geometry.Pos.CENTER);

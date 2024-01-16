@@ -3,7 +3,6 @@ package client;
 import static client.LoginUi.patternMatches;
 import com.google.gson.Gson;
 import conn.ClintSide;
-import conn.SocketDTO;
 
 import java.util.regex.Pattern;
 import javafx.geometry.Insets;
@@ -336,9 +335,9 @@ public class SignUpUi extends BorderPane {
             User newUser= new User(-1,txtUserName.getText(),txtEmail.getText(),txtPass.getText(),0,"offline");
             Gson json=new Gson();
             String jsonObj=json.toJson(newUser);
-            SocketDTO conn=new SocketDTO();
+//            SocketDTO conn=new SocketDTO();
            
-            conn.signUp(txtEmail.getText(),jsonObj);
+//            conn.signUp(txtEmail.getText(),jsonObj);
 //            s.sendMassageTo(json.toJson(conn));
             
             
