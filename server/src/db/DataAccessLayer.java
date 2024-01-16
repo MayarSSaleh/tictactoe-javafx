@@ -39,7 +39,8 @@ public class DataAccessLayer {
 
 
      
-    public static UsersDTO isLogin( String loginEmail, String  loginPass) throws SQLException{
+    public static int isLogin( String loginEmail, String  loginPass) throws SQLException{
+        int res = -1;
         UsersDTO userLogin= new UsersDTO();
         userLogin.setID(-1);
         DriverManager.registerDriver(new ClientDriver());
@@ -57,12 +58,18 @@ public class DataAccessLayer {
             userLogin.setEmail(result.getString(3));
             userLogin.setScore(result.getInt(4));
             userLogin.setUserPass(result.getString("USERPASS"));
+            if(loginPass.equals(userLogin.getUserPass()))
+            {
+                res = 1;
+            }else{
+                res = 0;
+            }
         }
              ps.close();
            con.close();
            //System.out.println(userLogin.getEmail());
         
-           return userLogin;
+           return res;
     
     }
 

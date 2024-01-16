@@ -3,11 +3,16 @@ package client;
 import RouteHandler.Handler;
 import com.google.gson.Gson;
 import conn.ClintSide;
+import conn.RequestDTO;
+import java.io.IOException;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -21,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import model.LoginDTO;
 
 import model.User;
@@ -42,7 +48,8 @@ public class LoginUi extends BorderPane {
     protected final Button btnLogin;
     protected final Rectangle recLogo;
     protected final Image logo;
-    
+        public Stage stage;
+
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^(.+)@(\\S+) $.", Pattern.CASE_INSENSITIVE);
     public String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
     private boolean validEmail;
@@ -51,7 +58,8 @@ public class LoginUi extends BorderPane {
      private User data;
      private Gson json;
 
-    public LoginUi(ClintSide con) {
+    public LoginUi(Stage stage) {
+        this.stage = stage;
         this.con=new ClintSide();
         json =new Gson();
         hBox = new HBox();
@@ -71,7 +79,7 @@ public class LoginUi extends BorderPane {
         logo= new Image("/assets/Group9.png");
         validEmail=false;
         validPass=false;
-
+        ClintSide.startConnection();
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -185,15 +193,35 @@ public class LoginUi extends BorderPane {
 
     protected void login(ActionEvent event)
     {
+        
         //return user data;
         if(validEmail&&validPass)
         {
             
-        LoginDTO loginData=new LoginDTO(txtEmail.getText(), txtPass.getText()); 
-           
-        con.sendMassage("login",json.toJson(loginData));
+        RequestDTO requestData=new RequestDTO(); 
+        requestData.setEmail(txtEmail.getText());
+        requestData.setPass(txtPass.getText());
+        requestData.setRoute("login");
+//        con.sendMassage("login",json.toJson(loginData));
         //data=Handler.login();
-        
+        Gson json = new Gson();
+         ClintSide.printedMessageToServer.println(json.toJson(requestData));
+         ClintSide.printedMessageToServer.flush();
+          new Thread(() -> {
+            try {
+                String response = ClintSide.listenFromServer.readLine();
+                System.out.println(response);
+                RequestDTO recived = json.fromJson(response, RequestDTO.class);
+                if ("confirmed".equals(recived.getValidation())) {
+                    Parent pane = new Profile();
+                    stage.getScene().setRoot(pane);
+                } else if ("invalid".equals(recived.getValidation())) {
+                    // Handle the case when validation is invalid
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }).start();
         }
         
     }
@@ -281,5 +309,7 @@ public static boolean patternMatches(String emailAddress, String regexPattern) {
       .matcher(emailAddress)
       .matches();
 }
+
+
 
 }

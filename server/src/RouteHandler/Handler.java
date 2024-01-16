@@ -28,21 +28,21 @@ public class Handler {
     {
         Handler.route=route;
         Handler.msg=msg;
-      switch(route)
-      {
-          case "login":
-              
-              UsersDTO data=login();
-              break;
-          case "signup":
-              int ret = SignUp();
-              break;
-              default:
-                  
-              break;
-      }
+//      switch(route)
+//      {
+//          case "login":
+//              
+//              UsersDTO data=login();
+//              break;
+//          case "signup":
+//              int ret = SignUp();
+//              break;
+//              default:
+//                  
+//              break;
+//      }
     }
-    public static UsersDTO login()
+    public static UsersDTO login(String msg)
     {
        LoginDTO myData= json.fromJson(msg, LoginDTO.class);
        UsersDTO user=null;
