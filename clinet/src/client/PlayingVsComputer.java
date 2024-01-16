@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class PlayingVsComputer extends BorderPane {
 
@@ -55,8 +57,8 @@ public class PlayingVsComputer extends BorderPane {
 
     private char currentPlayer = 'X'; // Initial player is X
     private char[][] board = new char[3][3];
-     static int counterX;
-     static int counterO;
+    static int counterX;
+    static int counterO;
     private boolean playerTurn = true;
     private boolean gameOver = false;
 
@@ -227,13 +229,13 @@ public class PlayingVsComputer extends BorderPane {
         recV2.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recV2.setWidth(10.0);
         recV2.getStyleClass().add("rech");
-        
+
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
         dropShadow.setWidth(36.81);
         recV2.setEffect(dropShadow);
-        
+
         recH1.setArcHeight(12.0);
         recH1.setArcWidth(30.0);
         recH1.setHeight(234.0);
@@ -245,8 +247,7 @@ public class PlayingVsComputer extends BorderPane {
         recH1.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recH1.setWidth(10.0);
         recH1.getStyleClass().add("rech");
-        
-        
+
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
@@ -258,13 +259,13 @@ public class PlayingVsComputer extends BorderPane {
         recH2.setHeight(234.0);
         recH2.setLayoutX(284.0);
         recH2.setLayoutY(64.0);
-        recH2.setSmooth(false);        
+        recH2.setSmooth(false);
         recH2.setRotate(90.0);
         recH2.setStroke(javafx.scene.paint.Color.WHITE);
         recH2.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recH2.setWidth(10.0);
         recH2.getStyleClass().add("rech");
-        
+
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
@@ -280,7 +281,7 @@ public class PlayingVsComputer extends BorderPane {
         btn00.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         btn00.setFont(new Font(24.0));
         btn00.getStyleClass().add("btn");
-    
+
         btn02.setAlignment(javafx.geometry.Pos.CENTER);
         btn02.setLayoutX(342.0);
         btn02.setLayoutY(31.0);
@@ -298,7 +299,7 @@ public class PlayingVsComputer extends BorderPane {
         btn01.setPrefHeight(50.0);
         btn01.setPrefWidth(54.0);
         btn01.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btn01.setFont(new Font( 24.0));
+        btn01.setFont(new Font(24.0));
         btn01.getStyleClass().add("btn");
 
         btn12.setAlignment(javafx.geometry.Pos.CENTER);
@@ -407,41 +408,47 @@ public class PlayingVsComputer extends BorderPane {
         setButtonHandler(btn22, 2, 2);
     }
 
-private void setButtonHandler(Button button, int row, int col) {
-    button.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            if (!button.getStyleClass().contains("btnx") && !button.getStyleClass().contains("btno") && playerTurn) {
-                button.getStyleClass().add("btnx");
-                board[row][col] = 'X';
-                checkGameStatus(row, col);
-                playerTurn = false; // <-- This is fine for human player
-                computerMove();
+    private void setButtonHandler(Button button, int row, int col) {
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!button.getStyleClass().contains("btnx") && !button.getStyleClass().contains("btno") && playerTurn) {
+                    button.getStyleClass().add("btnx");
+                    board[row][col] = 'X';
+                    checkGameStatus(row, col);
+                    playerTurn = false; // <-- This is fine for human player
+                    computerMove();
+                }
             }
-        }
-    });
-}
-
-private void computerMove() {
-    if (!gameOver) {
-        currentPlayer = 'O';
-        // Simulating computer move with a random but intelligent choice
-        int[] emptySpot = findEmptySpot();
-        if (emptySpot != null) {
-            int row = emptySpot[0];
-            int col = emptySpot[1];
-
-            Button computerButton = getButton(row, col);
-            computerButton.getStyleClass().add("btno");
-            board[row][col] = 'O';
-            checkGameStatus(row, col);
-        }
-        // Update currentPlayer after the computer move
-        currentPlayer = 'X';
-        playerTurn = true;
+        });
     }
-}
 
+    private void computerMove() {
+        if (!gameOver) {
+            currentPlayer = 'O';
+            // Simulating computer move with a random but intelligent choice
+
+            int[] emptySpot = findEmptySpot();
+            if (emptySpot != null) {
+                int row = emptySpot[0];
+                int col = emptySpot[1];
+
+                Button computerButton = getButton(row, col);
+                // when delay apply it open door for error (user play many time before computer)
+//                PauseTransition delay = new PauseTransition(Duration.seconds(.5));
+                
+//                delay.setOnFinished((ActionEvent e) -> {
+                    computerButton.getStyleClass().add("btno");
+                    board[row][col] = 'O';
+//                });
+//                delay.play();
+                checkGameStatus(row, col);
+            }
+            // Update currentPlayer after the computer move
+            currentPlayer = 'X';
+            playerTurn = true;
+        }
+    }
 
     private int[] findEmptySpot() {
         List<int[]> emptySpots = new ArrayList<>();
@@ -481,7 +488,7 @@ private void computerMove() {
         if (currentPlayer == 'X') {
             new AlertBox().display("The game is over", "You wins! Do you want to play again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
             counterX++;
-        } else if (currentPlayer== 'O') {
+        } else if (currentPlayer == 'O') {
             new AlertBox().display("The game is over", "Computer wins! Do you want to try again?", "/assets/com.png", stage, "/assets/crown.png", "/assets/t.mp4");
             counterO++;
         }

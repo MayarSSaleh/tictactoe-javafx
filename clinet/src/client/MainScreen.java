@@ -82,9 +82,9 @@ public class MainScreen extends BorderPane {
         btnLocal.setText("Local");
         BorderPane.setMargin(btnLocal, new Insets(110.0, 0.0, 0.0, 28.0));
         setLeft(btnLocal);
-
+// ADD new record only to make the path rigth . it only use if we repeat game
         btnLocal.setOnAction((e) -> {
-            Parent pane = new PlayingScreenDemo(stage , "local");
+            Parent pane = new PlayingScreenDemo(stage , "local", new Record());
             stage.getScene().setRoot(pane);
         });
 

@@ -1,7 +1,15 @@
 package client;
 
+import static client.Record.RecordArray;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class PlayingScreenDemo extends BorderPane {
 
@@ -48,6 +57,7 @@ public class PlayingScreenDemo extends BorderPane {
     protected final Button btn20;
     protected final Button btn21;
     protected final Button btnRecord;
+    protected final Button btnPlayRecord;
     protected final ImageView imageView;
     protected final ImageView imageView0;
     protected final DropShadow dropShadow;
@@ -58,10 +68,12 @@ public class PlayingScreenDemo extends BorderPane {
     static int countero;
     Stage stage;
     GamePlay game;
+    boolean recordTheGame = false;
+    Record newRecord = new Record();
 
-    public PlayingScreenDemo(Stage stage, String pageName) {
+    public PlayingScreenDemo(Stage stage, String pageName, Record newRecord) {
         btnRecord = new Button();
-        boolean recordTheGame = false;
+        btnPlayRecord = new Button();
         if (pageName.equals("online")) {
             BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
             btnRecord.setMnemonicParsing(false);
@@ -71,15 +83,38 @@ public class PlayingScreenDemo extends BorderPane {
             btnRecord.setPrefWidth(85.0);
             btnRecord.setText("Record");
             setBottom(btnRecord);
-            BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 35.0, 25.0));
+            BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 0.0, 0.0));
             btnRecord.getStyleClass().add("btnRec");
-
             btnRecord.setOnAction((e) -> {
                 recordTheGame = true;
+                System.out.println("record statr");
+                newRecord.setCurrentDate(LocalDate.now());
+                newRecord.setCurrentTime(LocalTime.now());
+//                System.out.print(""),
+            });
+            // the following cod made by mayar for testing the replaying function<keep it>
+            BorderPane.setAlignment(btnPlayRecord, javafx.geometry.Pos.CENTER);
+            btnPlayRecord.setMnemonicParsing(false);
+            btnPlayRecord.setPrefHeight(31.0);
+            btnPlayRecord.setPrefWidth(120.0);
+            btnPlayRecord.setText("playR");
+            BorderPane.setMargin(btnPlayRecord, new Insets(0.0, 0.0, 0.0, 0.0));
+            setLeft(btnPlayRecord);
+
+            btnPlayRecord.getStyleClass().add("btnRec");
+            btnPlayRecord.setOnAction((e) -> {
+                System.out.println("record show");
+                replayTheGame();
+                newRecord.setCurrentDate(LocalDate.now());
+                System.out.println(newRecord.getCurrentDate());
+                System.out.println("current time " + newRecord.getCurrentTime());
+
             });
 
         } else if (pageName.equals("local")) {
             btnRecord.getStyleClass().add("btnRecLoc");
+        } else if (pageName.equals("ReplayGame")) {
+            replayTheGame();
         }
 
         game = new GamePlay();
@@ -436,20 +471,25 @@ public class PlayingScreenDemo extends BorderPane {
                     game.setBoard(row, col, 'X');
 
                     if (recordTheGame) {
-                        record(row, col, 'X');
+                        newRecord.setclick(row, col, 'X');
                     }
 
                     ch = game.checkGameStatus(row, col);
                     if (ch == 'N') {
                         game.setCurrentPlayer('O');
                     } else if (ch == 'X') {
-                        new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
+                        new AlertBox().display("Game is over", "x wins Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
                         lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
                         lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
+
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
+
+//                        Record.addRecords(newRecord);
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
-                        new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
+                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
+
+//                        Record.addRecords(newRecord);
                     }
 
                 } else if (!((Button) event.getTarget()).getStyleClass().contains("btno") && !((Button) event.getTarget()).getStyleClass().contains("btnx") && game.getCurrentPlayer() == 'O') {
@@ -457,36 +497,91 @@ public class PlayingScreenDemo extends BorderPane {
                     game.setBoard(row, col, 'O');
 
                     if (recordTheGame) {
-                        record(row, col, 'O');
+                        newRecord.setclick(row, col, 'O');
                     }
 
                     ch = game.checkGameStatus(row, col);
                     if (ch == 'N') {
                         game.setCurrentPlayer('X');
                     } else if (ch == 'O') {
-                        new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4");
+                        new AlertBox().display("Game is over", "o wins Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4");
 
                         lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
                         lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
+
+//                        Record.addRecords(newRecord);
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
-                        new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
+                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
+//                        Record.addRecords(newRecord);
+
                     }
                 }
             }
         });
     }
 
-// this method is void til handle the method we will show the game
-    private void record(int row, int col, char sign) {
+    // it should take the object but for now,it will deal with the current used object
+    public void replayTheGame() {
+// the follwoing comment for treasing
+//        System.out.println("inside repley");
+        ArrayList<int[]> gameSteps = newRecord.getRecordTheSteps();
+        for (int x = 0; x < gameSteps.size(); x++) {
+            ArrayList<Character> signs = newRecord.getRecordTheSign();
+            char currentSign = signs.get(x);
+            int[] array = gameSteps.get(x);
+            int row = array[0];
+            int col = array[1];
 
-        ArrayList<int[]> recordTheSteps = new ArrayList<>();
-        ArrayList<Character> recordTheSign = new ArrayList<>();
+// the follwoing comment for treasing
+            System.out.println("Replaying step: " + row + ", " + col + " - " + currentSign);
 
-        recordTheSteps.add(new int[]{row, col});
-        recordTheSign.add(sign);
-
+            Button playButton = getButton(row, col);
+//            PauseTransition delay = new PauseTransition(Duration.seconds(.5));
+//            delay.setOnFinished((ActionEvent e) -> {
+            if (currentSign == 'X') {
+                playButton.getStyleClass().add("btnx");
+                board[row][col] = 'X';
+            } else if (currentSign == 'O') {
+                playButton.getStyleClass().add("btno");
+                board[row][col] = 'O';
+            }
+//            });
+//            delay.play();
+        }
     }
 
+    private Button getButton(int row, int col) {
+        switch (row) {
+            case 0:
+                switch (col) {
+                    case 0:
+                        return btn00;
+                    case 1:
+                        return btn01;
+                    case 2:
+                        return btn02;
+                }
+            case 1:
+                switch (col) {
+                    case 0:
+                        return btn10;
+                    case 1:
+                        return btn11;
+                    case 2:
+                        return btn12;
+                }
+            case 2:
+                switch (col) {
+                    case 0:
+                        return btn20;
+                    case 1:
+                        return btn21;
+                    case 2:
+                        return btn22;
+                }
+        }
+        return null;
+    }
 }

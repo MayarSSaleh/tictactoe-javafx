@@ -12,38 +12,35 @@ import javafx.scene.control.Button;
  *
  * @author mosta
  */
-public class GamePlay 
-{
-    private char[][] board ;
+public class GamePlay {
+
+    private char[][] board;
     private boolean turn;
     private static int p1Score;
     private static int p2Score;
     private char currentPlayer;
 
-    
-
-    public GamePlay() 
-    {
-       board= new char[3][3];
-       p1Score=0;
-       p2Score=0;
-       currentPlayer='X';
-       turn=false;
-            for (int i = 0; i < 3; i++) {
+    public GamePlay() {
+        board = new char[3][3];
+        p1Score = 0;
+        p2Score = 0;
+        currentPlayer = 'X';
+        turn = false;
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = ' ';
             }
         }
-       
+
     }
-    public void print ()
-    {
-            for (int i = 0; i < 3; i++) {
+
+    public void print() {
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j]+" ");
-                
+                System.out.print(board[i][j] + " ");
+
             }
-                System.out.println();
+            System.out.println();
         }
     }
 
@@ -60,7 +57,7 @@ public class GamePlay
     }
 
     public static void setP1Score(int score) {
-        GamePlay.p1Score=score;
+        GamePlay.p1Score = score;
     }
 
     public static int getP2Score() {
@@ -68,7 +65,7 @@ public class GamePlay
     }
 
     public static void setP2Score(int score) {
-        GamePlay.p2Score=score;
+        GamePlay.p2Score = score;
     }
 
     public char getCurrentPlayer() {
@@ -78,70 +75,64 @@ public class GamePlay
     public void setCurrentPlayer(char currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
-   
+
     public char checkGameStatus(int row, int col) {
-        System.out.println("row "+checkRow(row));
-        System.out.println("col "+checkRow(col));
-        System.out.println("d1  "+checkDiagonals1());
-        System.out.println("d1  "+checkDiagonals2());
+        System.out.println("row " + checkRow(row));
+        System.out.println("col " + checkRow(col));
+        System.out.println("d1  " + checkDiagonals1());
+        System.out.println("d1  " + checkDiagonals2());
         System.out.println();
 
+        if (checkRow(row) || checkColumn(col) || checkDiagonals1() || checkDiagonals2()) {
 
+            if (currentPlayer == 'X') {
+                p1Score++;
+                return 'X';
 
+            } else if (currentPlayer == 'O') {
+                p2Score++;
+                return 'O';
+            }
+        } else if (isBoardFull()) {
+            // Handle draw
+            System.out.println("It's a draw!");
+            return 'D';
 
-    if (checkRow(row) || checkColumn(col) || checkDiagonals1()||checkDiagonals2()) 
-    {
-       
-        if (currentPlayer == 'X') {
-            p1Score++;
-            return 'X';
-            
-        } 
-        else if (currentPlayer == 'O') {
-            p2Score++;
-            return 'O';
+        } else {
+            switchPlayer();
         }
-    } 
-    else if (isBoardFull()) {
-        // Handle draw
-        System.out.println("It's a draw!");
-        return 'D';
-        
-    } else {
-        switchPlayer(); 
-    }
         return 'N';
-}
+    }
 
     public char[][] getBoard() {
         return board;
     }
 
-    public void setBoard(int row ,int col,char ch) {
+    public void setBoard(int row, int col, char ch) {
         //this.board = board;
-        this.board[row][col]=ch;
+        this.board[row][col] = ch;
     }
-    
-   public void resetGame(Button ...btn) {
+
+    public void resetGame(Button... btn) {
         // Clear the board and reset buttons
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = ' ';
-               // btn.setText("");
+                // btn.setText("");
             }
         }
-       for(int i=0;i<btn.length;i++)
-       { 
-        btn[i].getStyleClass().removeAll("btno","btnx");
-       }
-     
+        for (int i = 0; i < btn.length; i++) {
+            btn[i].getStyleClass().removeAll("btno", "btnx");
+        }
 
         currentPlayer = 'X';
     }
+
     public void switchPlayer() {
-    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
     }
-   private boolean checkRow(int row) {
+
+    private boolean checkRow(int row) {
         return board[row][0] == currentPlayer && board[row][1] == currentPlayer && board[row][2] == currentPlayer;
     }
 
@@ -150,12 +141,14 @@ public class GamePlay
     }
 
     private boolean checkDiagonals1() {
-        return  (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer);
+        return (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer);
     }
+
     private boolean checkDiagonals2() {
-        return  (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer);
+        return (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer);
     }
-        private boolean isBoardFull() {
+
+    private boolean isBoardFull() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j] == ' ') {
