@@ -9,13 +9,10 @@ package server;
 
 
 import DTO.RequestDTO;
-import DTO.SocketDTO;
 import com.google.gson.Gson;
 
 import DTO.UsersDTO;
-import RouteHandler.Handler;
-import static RouteHandler.Handler.SignUp;
-import static RouteHandler.Handler.login;
+
 import db.DataAccessLayer;
 
 import java.io.DataInputStream;
@@ -92,8 +89,6 @@ class RouteHandler extends Thread
                 {
                         String message = listenFromClient.readLine();
                         System.out.print(message);
-//                        SocketDTO clint = json.fromJson(message, SocketDTO.class);
-//                        Handler.connSwitch(clint.getRoute(), clint.getMessage());
                            RequestDTO clint = json.fromJson(message, RequestDTO.class);
 
             route = clint.getRoute();
@@ -101,42 +96,15 @@ class RouteHandler extends Thread
         {
             case "login":
                  login(clint);
-//                 data=login(clint.getMessage());
-                
-//                 if(data != null)
-//                 {
-//                     email = data.getEmail();
-//                     RouteHandler.clientsVector.add(this);
-//
-//                 }
-//                 SocketDTO send=null;
-//                         if(data!=null)
-//                         {   
-//                            email=data.getEmail();
-//                            send = new SocketDTO("login", json.toJson(data));
-//                             RouteHandler.clientsVector.add(this);
-//                             sendMessageTo(json.toJson(send) , email);
-//
-//                         }
                 break;
             case "signup":
-                int ret = SignUp();
+                
                 break;
                 default:
 
                 break;
         }
-//                      UsersDTO data=Handler.login();
-//                         System.out.print(data.getEmail());
-                        
-                      
-//System.out.println("Before calling sendMessageTo with Email: " + Email);
-//System.out.println("After calling sendMessageTo");
-//                            sendMessageToAll(json.toJson(send));
-////                            printedMessageToClient.println("hi omar");
-//                clientsVector.get(1).printedMessageToClient.println("hi omar");
 
-//                            printedMessageToClient.flush();
                 } catch (IOException ex) 
                 {
                     ex.printStackTrace();
@@ -171,15 +139,7 @@ void sendMessageTo(String msg , String email) {
     }
 }
 
-        
-//        void sendMessageToAll(String msg)
-//        {
-//            for(int i=0 ; i<clientsVector.size() ; i++)
-//            {
-//                 clientsVector.get(i).printedMessageToClient.println(msg);
-//                 
-//            }
-//        }
+
                 
         void sendMessageToAll(String msg)
         {
@@ -194,19 +154,25 @@ void sendMessageTo(String msg , String email) {
         
         void login(RequestDTO clint){
             try {
+                
              int res = DataAccessLayer.isLogin(clint.getEmail(), clint.getPass());
              RequestDTO response = new RequestDTO();
                           response.setRoute("login");
-                                         Gson json = new Gson();  
+               Gson json = new Gson();  
 
              if(res ==1){
+             UsersDTO userData = DataAccessLayer.getUserDataByEmail(clint.getEmail());
              response.setValidation("confirmed");
+             response.setEmail(clint.getEmail());
+             response.setUserName(userData.getUserName());
+             response.setScore(userData.getScore());
                String msg = json.toJson(response);
              printedMessageToClient.println(msg);
               printedMessageToClient.flush(); 
-             }else if(res == 0){
+             }else if(res == -1){
              response.setValidation("invalid");
                String msg = json.toJson(response);
+               System.out.println(res + msg);
              printedMessageToClient.println(msg);
               printedMessageToClient.flush(); 
              }

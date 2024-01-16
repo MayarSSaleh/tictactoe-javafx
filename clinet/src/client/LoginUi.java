@@ -3,16 +3,19 @@ package client;
 import RouteHandler.Handler;
 import com.google.gson.Gson;
 import conn.ClintSide;
-import conn.RequestDTO;
+import model.RequestDTO;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -207,21 +210,31 @@ public class LoginUi extends BorderPane {
         Gson json = new Gson();
          ClintSide.printedMessageToServer.println(json.toJson(requestData));
          ClintSide.printedMessageToServer.flush();
-          new Thread(() -> {
-            try {
-                String response = ClintSide.listenFromServer.readLine();
-                System.out.println(response);
-                RequestDTO recived = json.fromJson(response, RequestDTO.class);
-                if ("confirmed".equals(recived.getValidation())) {
-                    Parent pane = new Profile();
-                    stage.getScene().setRoot(pane);
-                } else if ("invalid".equals(recived.getValidation())) {
-                    // Handle the case when validation is invalid
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }).start();
+new Thread(() -> {
+    try {
+        String response = ClintSide.listenFromServer.readLine();
+        System.out.println(response);
+        RequestDTO recived = json.fromJson(response, RequestDTO.class);
+        if ("confirmed".equals(recived.getValidation())) {
+            Platform.runLater(() -> {
+                Parent pane = new Profile(recived.getUserName() , recived.getEmail() , recived.getScore());
+                stage.getScene().setRoot(pane);
+            });
+        } else if ("invalid".equals(recived.getValidation())) {
+            // Handle the case when validation is invalid
+            Platform.runLater(() -> {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid");
+                alert.showAndWait();
+            });
+        }
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+}).start();
+
         }
         
     }

@@ -73,7 +73,28 @@ public class DataAccessLayer {
     
     }
 
+  public static UsersDTO getUserDataByEmail(String email) throws SQLException {
+    UsersDTO user = null;
     
+    DriverManager.registerDriver(new ClientDriver());
+    try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe", "root", "root");
+         PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE email = ?")) {
+        
+        ps.setString(1, email);
+        ResultSet result = ps.executeQuery();
+        
+        if (result.next()) {
+            user = new UsersDTO();
+            user.setID(result.getInt(1));
+            user.setUserName(result.getString(2));
+            user.setEmail(result.getString(3));
+            user.setScore(result.getInt(4));
+            user.setUserPass(result.getString("USERPASS"));
+        }
+    }
+    
+    return user;
+}  
 
  public static int updateScore(UsersDTO user) throws SQLException
      {

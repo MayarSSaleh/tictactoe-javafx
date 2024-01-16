@@ -22,6 +22,7 @@ public class Client extends Application {
     public void start(Stage stage) throws Exception {
         //Parent root = new FXMLDocumentBase();
        // Parent root = new PlayingScreenDemo(stage , "online");
+//        Parent root = new PlayingScreenDemo(stage , "online");
          // Parent root = new PlayingScreenDemo(stage , "local");
        // Parent root = new FXMLDocumentBase();
 
@@ -46,9 +47,7 @@ public class Client extends Application {
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String[] args) {
         launch(args);
     }
