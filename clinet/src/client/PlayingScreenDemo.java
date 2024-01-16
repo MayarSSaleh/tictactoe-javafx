@@ -28,6 +28,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.util.Duration;
 
 public class PlayingScreenDemo extends BorderPane {
 
@@ -85,13 +91,15 @@ public class PlayingScreenDemo extends BorderPane {
             setBottom(btnRecord);
             BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 0.0, 0.0));
             btnRecord.getStyleClass().add("btnRec");
+
             btnRecord.setOnAction((e) -> {
                 recordTheGame = true;
                 System.out.println("record statr");
                 newRecord.setCurrentDate(LocalDate.now());
                 newRecord.setCurrentTime(LocalTime.now());
-//                System.out.print(""),
+
             });
+
             // the following cod made by mayar for testing the replaying function<keep it>
             BorderPane.setAlignment(btnPlayRecord, javafx.geometry.Pos.CENTER);
             btnPlayRecord.setMnemonicParsing(false);
@@ -100,8 +108,8 @@ public class PlayingScreenDemo extends BorderPane {
             btnPlayRecord.setText("playR");
             BorderPane.setMargin(btnPlayRecord, new Insets(0.0, 0.0, 0.0, 0.0));
             setLeft(btnPlayRecord);
-
             btnPlayRecord.getStyleClass().add("btnRec");
+
             btnPlayRecord.setOnAction((e) -> {
                 System.out.println("record show");
                 replayTheGame();
@@ -524,32 +532,51 @@ public class PlayingScreenDemo extends BorderPane {
 
     // it should take the object but for now,it will deal with the current used object
     public void replayTheGame() {
-// the follwoing comment for treasing
-//        System.out.println("inside repley");
+                    
         ArrayList<int[]> gameSteps = newRecord.getRecordTheSteps();
-        for (int x = 0; x < gameSteps.size(); x++) {
-            ArrayList<Character> signs = newRecord.getRecordTheSign();
-            char currentSign = signs.get(x);
-            int[] array = gameSteps.get(x);
-            int row = array[0];
-            int col = array[1];
+        // this comment and the following is for make delay by another way. 2method make delay
+//        Timeline timeline = new Timeline();
+        Thread replayThread = new Thread(() -> {
+            for (int x = 0; x < gameSteps.size(); x++) {
+                ArrayList<Character> signs = newRecord.getRecordTheSign();
+                char currentSign = signs.get(x);
+                int[] array = gameSteps.get(x);
+                int row = array[0];
+                int col = array[1];
+//            KeyFrame keyFrame = new KeyFrame(
+//                    Duration.seconds(x + 0.5), // Add a delay of 0.5 seconds for each step
+//                    new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+                Platform.runLater(() -> {
+                    System.out.println("Replaying step: " + row + ", " + col + " - " + currentSign);
+                    Button playButton = getButton(row, col);
+                    if (currentSign == 'X') {
+                        playButton.getStyleClass().add("btnx");
+                        board[row][col] = 'X';
+                    } else if (currentSign == 'O') {
+                        playButton.getStyleClass().add("btno");
+                        board[row][col] = 'O';
 
-// the follwoing comment for treasing
-            System.out.println("Replaying step: " + row + ", " + col + " - " + currentSign);
+//            }}});
+//            timeline.getKeyFrames().add(keyFrame);
+//        }Start the timeline
+//        timeline.play();}
 
-            Button playButton = getButton(row, col);
-//            PauseTransition delay = new PauseTransition(Duration.seconds(.5));
-//            delay.setOnFinished((ActionEvent e) -> {
-            if (currentSign == 'X') {
-                playButton.getStyleClass().add("btnx");
-                board[row][col] = 'X';
-            } else if (currentSign == 'O') {
-                playButton.getStyleClass().add("btno");
-                board[row][col] = 'O';
+                    }
+                });
+
+                try {
+                    // Add a delay in the separate thread
+                    Thread.sleep(500); // 500 milliseconds (0.5 seconds) delay
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-//            });
-//            delay.play();
-        }
+        });
+
+        // Start the replay thread
+        replayThread.start();
     }
 
     private Button getButton(int row, int col) {
