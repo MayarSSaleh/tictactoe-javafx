@@ -14,7 +14,7 @@ public class Cards extends HBox {
     protected final Label lblScore;
     protected final Button btnInvite;
 
-    public Cards() {
+    public Cards(String playerName, int score) {
 
         vBox = new VBox();
         lblName = new Label();
@@ -33,12 +33,12 @@ public class Cards extends HBox {
 
         lblName.setPrefHeight(17.0);
         lblName.setPrefWidth(102.0);
-        lblName.setText("MOSTAFA");
+        lblName.setText(playerName);
         lblName.setFont(new Font(14.0));
 
         lblScore.setPrefHeight(17.0);
         lblScore.setPrefWidth(100.0);
-        lblScore.setText("Score : 50");
+        lblScore.setText("Score : "+ score);
         lblScore.setFont(new Font(14.0));
 
         btnInvite.setMinHeight(30.0);

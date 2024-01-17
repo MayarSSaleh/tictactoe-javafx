@@ -117,24 +117,21 @@ public class DataAccessLayer {
     public static ArrayList<UsersDTO> getAllOnline() throws SQLException {
 
         ArrayList<UsersDTO> arr = new ArrayList<UsersDTO>();
-
         UsersDTO user;
-
         DriverManager.registerDriver(new ClientDriver());
-
         Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe", "root", "root");
-
         PreparedStatement ps = con.prepareStatement("select * from users where status = ?");
-        ps.setString(1, "online");
+        ps.setString(1, "Avilable");
         ResultSet result = ps.executeQuery();
+
         while (result.next()) {
-            user = new UsersDTO(result.getInt(1), result.getString(2), result.getString(3), result.getString(5), result.getInt(4), result.getString(6));
+            user = new UsersDTO(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4));
             arr.add(user);
         }
 
         con.close();
+        System.out.println(arr.size());
         return arr;
     }
-
 
 }

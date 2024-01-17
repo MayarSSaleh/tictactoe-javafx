@@ -21,6 +21,14 @@ public class UsersDTO {
     public UsersDTO() {
     }
 
+    public UsersDTO(int ID, String userName, String email, int score) {
+        this.ID = ID;
+        this.userName = userName;
+        this.email = email;
+        this.score = score;
+
+    }
+
     public UsersDTO(int ID, String userName, String email, String userPass, int score, String status) {
         this.ID = ID;
         this.userName = userName;

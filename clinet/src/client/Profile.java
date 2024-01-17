@@ -1,7 +1,9 @@
 package client;
 
+import com.google.gson.Gson;
 import conn.ClintSide;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import model.RequestDTO;
+import model.UsersDTO;
 
 public class Profile extends BorderPane {
 
@@ -43,6 +47,7 @@ public class Profile extends BorderPane {
     protected final VBox inviteList0;
     protected final Image profileImg;
     protected final Image logo;
+    protected ArrayList<UsersDTO> availablePlayersList;
 
     public Profile(String userName, String email, int score) {
 
@@ -160,7 +165,8 @@ public class Profile extends BorderPane {
         hBox4.setPrefWidth(200.0);
 
         btnRecords.setMnemonicParsing(false);
-        btnRecords.setOnAction(this::viewRecords);
+//        not made yet
+//        btnRecords.setOnAction(this::viewRecords);
         btnRecords.setText("Records");
         btnRecords.getStyleClass().add("btn2");
 
@@ -169,7 +175,8 @@ public class Profile extends BorderPane {
         hBox5.setPrefWidth(200.0);
 
         btnExit.setMnemonicParsing(false);
-        btnExit.setOnAction(this::HandleExit);
+//        not made yet
+//        btnExit.setOnAction(this::HandleExit);
         btnExit.setPrefHeight(30.0);
         btnExit.setPrefWidth(57.0);
         btnExit.setText("Exit");
@@ -193,16 +200,6 @@ public class Profile extends BorderPane {
         inviteList0.setPadding(new Insets(10.0));
         scrollPane.setContent(inviteList0);
         setCenter(hBox);
-        
-        for (int i = 0; i < 10; i++) {
-
-            Cards card = new Cards();
-
-            VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
-
-            inviteList0.getChildren().add(card);
-
-        }
 
         vBox.getChildren().add(recProfileImg);
         hBox0.getChildren().add(label);
@@ -223,14 +220,31 @@ public class Profile extends BorderPane {
         inviteList.getChildren().add(scrollPane);
         hBox.getChildren().add(inviteList);
 
+        RequestDTO requestAviable = new RequestDTO();
+        requestAviable.setRoute("getAvialblePlayers");
+        Gson json = new Gson();
+        ClintSide.printedMessageToServer.println(json.toJson(requestAviable));
+        ClintSide.printedMessageToServer.flush();
+        new Thread(() -> {
+            try {
+                String response = ClintSide.listenFromServer.readLine();
+                System.out.println(response);
+                RequestDTO recived = json.fromJson(response, RequestDTO.class);
+                availablePlayersList = recived.getAvailablePlayers();
+            } catch (IOException ex) {
+                Logger.getLogger(ProfileUpdateVersion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            for (UsersDTO user : availablePlayersList) {
+                // Access each UsersDTO object using the 'user' variable
+                System.out.println(user.getUserName() + user.getScore());
+                if ( !userName.equals(user.getUserName()))
+                {
+                Cards card = new Cards(user.getUserName(), user.getScore());
+                VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
+                inviteList0.getChildren().add(card);
+                }
+            }
+        }).start();
+
     }
-
-    protected void viewRecords(javafx.event.ActionEvent actionEvent) {
-
-    }
-
-    protected void HandleExit(javafx.event.ActionEvent actionEvent) {
-        ClintSide clintSide = new ClintSide();
-    }
-
 }
