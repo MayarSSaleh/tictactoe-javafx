@@ -83,6 +83,11 @@ public  class ServerMainUI extends AnchorPane {
         getChildren().add(lblTitle);
         getChildren().add(btnServer);
         getChildren().add(btnUsers);
+        
+        new Thread(()->{
+            ServerHandler s=new ServerHandler();
+        }).start();
+          
 
     }
 
