@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import model.User;
+import model.UsersDTO;
 
 public class SignUpUi extends BorderPane {
 
@@ -332,7 +332,7 @@ public class SignUpUi extends BorderPane {
     {
         if(validEmail&&validName&&validPass)
         {
-            User newUser= new User(-1,txtUserName.getText(),txtEmail.getText(),txtPass.getText(),0,"offline");
+            UsersDTO newUser= new UsersDTO(-1,txtUserName.getText(),txtEmail.getText(),txtPass.getText(),0,"offline");
             Gson json=new Gson();
             String jsonObj=json.toJson(newUser);
 //            SocketDTO conn=new SocketDTO();

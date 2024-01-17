@@ -1,5 +1,7 @@
 package client;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -12,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import model.RequestDTO;
+import model.UsersDTO;
 
 public class ProfileUpdateVersion extends BorderPane {
 
@@ -183,10 +187,24 @@ public class ProfileUpdateVersion extends BorderPane {
         hBox.getChildren().add(vBox);
         inviteList.getChildren().add(listOnline);
         hBox.getChildren().add(inviteList);
+     
+        RequestDTO requestAviable = new RequestDTO();
+        requestAviable.setRoute("getAvialblePlayers");
         
-        //enter the profile , so request show the online user
+        
+        
 
     }
     
-
+ public static void printAvilableUser() {
+//        try {
+////            ArrayList<UsersDTO> availablePlayers = ;
+////            for (UsersDTO user : availablePlayers) {
+//                // loop to use all emails as you want
+////              System.out.println(user.getEmail());
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+    }
 }

@@ -4,30 +4,30 @@
  * and open the template in the editor.
  */
 package DTO;
+
 /**
  *
  * @author mosta
  */
-public class UsersDTO 
-{
+public class UsersDTO {
+
     private int ID;
     private String userName;
     private String email;
     private String userPass;
     private int score;
-        private String status;
-private strinarra
+    private String status;
 
     public UsersDTO() {
     }
 
-    public UsersDTO(int ID, String userName, String email, String userPass, int score,String status) {
+    public UsersDTO(int ID, String userName, String email, String userPass, int score, String status) {
         this.ID = ID;
         this.userName = userName;
         this.email = email;
         this.userPass = userPass;
         this.score = score;
-        this.status=status;
+        this.status = status;
     }
 
     public String getStatus() {
@@ -37,9 +37,9 @@ private strinarra
     public void setStatus(String status) {
         this.status = status;
     }
-    public UsersDTO(int id)
-    {
-    ID=id;
+
+    public UsersDTO(int id) {
+        ID = id;
     }
 
 //    public UsersDTO(int aInt, String string, String string0, String string1, int aInt0, String string2) {
@@ -84,10 +84,9 @@ private strinarra
     public void setScore(int score) {
         this.score = score;
     }
-  public void incrementScore()
-    {
+
+    public void incrementScore() {
         score++;
-    }  
-    
-    
+    }
+
 }

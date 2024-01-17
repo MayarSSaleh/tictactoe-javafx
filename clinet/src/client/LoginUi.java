@@ -31,7 +31,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import model.User;
+import model.UsersDTO;
 
 public class LoginUi extends BorderPane {
 
@@ -57,7 +57,7 @@ public class LoginUi extends BorderPane {
     private boolean validEmail;
     private boolean validPass;
     private ClintSide con;
-    private User data;
+    private UsersDTO data;
     private Gson json;
 
     public LoginUi(Stage stage) {

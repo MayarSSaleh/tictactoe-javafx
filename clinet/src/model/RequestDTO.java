@@ -1,21 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
-/**
- *
- * @author Lenovo
- */
+import java.util.ArrayList;
+
+
 public class RequestDTO {
-       private String Email;
+
+    private String Email;
     private String route;
     private String pass;
     private String validation;
     private int score;
     private String userName;
+    private ArrayList<UsersDTO> availablePlayers;
+
+    public ArrayList<UsersDTO> getAvailablePlayers() {
+        return availablePlayers;
+    }
+
+    public void setAvailablePlayers(ArrayList<UsersDTO> availablePlayers) {
+        this.availablePlayers = availablePlayers;
+    }
 
     public int getScore() {
         return score;
@@ -32,7 +37,7 @@ public class RequestDTO {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
+
     public String getValidation() {
         return validation;
     }
@@ -41,7 +46,6 @@ public class RequestDTO {
         this.validation = validation;
     }
 
-    
     public String getEmail() {
         return Email;
     }
@@ -65,5 +69,5 @@ public class RequestDTO {
     public void setPass(String pass) {
         this.pass = pass;
     }
-    
+
 }
