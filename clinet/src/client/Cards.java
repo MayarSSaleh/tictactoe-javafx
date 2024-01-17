@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public  class Cards extends HBox {
+public class Cards extends HBox {
 
     protected final VBox vBox;
     protected final Label lblName;
@@ -44,17 +44,16 @@ public  class Cards extends HBox {
         btnInvite.setMinHeight(30.0);
         btnInvite.setMinWidth(80.0);
         btnInvite.setMnemonicParsing(false);
-btnInvite.setStyle("    -fx-background-color: orange;\n" +
-"    -fx-text-fill: white;\n" +
-"    -fx-border-color: orange;\n" +
-"    -fx-border-radius: 5px;\n" +
-"    -fx-padding: 10px 15px;\n" +
-"    -fx-font-size: 14px;");
-
+        btnInvite.setStyle("    -fx-background-color: orange;\n"
+                + "    -fx-text-fill: white;\n"
+                + "    -fx-border-color: orange;\n"
+                + "    -fx-border-radius: 5px;\n"
+                + "    -fx-padding: 10px 15px;\n"
+                + "    -fx-font-size: 14px;");
 
         btnInvite.setText("Invite");
         btnInvite.setTextFill(javafx.scene.paint.Color.WHITE);
-        btnInvite.setOnAction((e)->{
+        btnInvite.setOnAction((e) -> {
             System.out.println("dasdasdas");
         });
         HBox.setMargin(btnInvite, new Insets(0.0, 0.0, 0.0, 40.0));

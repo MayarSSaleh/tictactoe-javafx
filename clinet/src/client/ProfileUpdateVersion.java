@@ -141,7 +141,7 @@ public class ProfileUpdateVersion extends BorderPane {
         hBox4.setPrefWidth(200.0);
 
         btnRecords.setMnemonicParsing(false);
-        btnRecords.setOnAction(this::viewRecords);
+//        btnRecords.setOnAction(this::viewRecords);
         btnRecords.setText("Records");
         btnRecords.setTextFill(javafx.scene.paint.Color.valueOf("#fffcfc"));
 
@@ -150,7 +150,7 @@ public class ProfileUpdateVersion extends BorderPane {
         hBox5.setPrefWidth(200.0);
 
         btnExit.setMnemonicParsing(false);
-        btnExit.setOnAction(this::HandleExit);
+//        btnExit.setOnAction(this::HandleExit);
         btnExit.setPrefHeight(30.0);
         btnExit.setPrefWidth(57.0);
         btnExit.setText("Exit");
@@ -162,29 +162,8 @@ public class ProfileUpdateVersion extends BorderPane {
         inviteList.setPrefWidth(287.0);
 
         listOnline.setPrefHeight(302.0);
-        listOnline.setPrefWidth(271.0);
-
-        String[] records= 
-                
-        String[] records = {"Record date: 12/1/2024", "Record date: 1/1/2024", "Record date: 12/12/2023",
-            "Record date: 30/5/2023", "Record date: 12/1/2024", "Record date: 1/1/2024", "Record date: 12/12/2023", "Record date: 30/5/2023",
-            "Record date: 12/1/2024", "Record date: 1/1/2024", "Record date: 12/12/2023", "Record date: 30/5/2023"};
-        String currentRecordDate;
-        
-            listOnline.getItems().addAll(records);
-        listOnline.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-                currentRecordDate = listOnline.getSelectionModel().getSelectedItem();
-                // the logic of redirection
-//                if currentRecordDate ==....
-            }
-        });
-        
-        
-        
-
-        setCenter(hBox);
+        listOnline.setPrefWidth(271.0);    
+       setCenter(hBox);
 
         vBox.getChildren().add(recProfileImg);
         hBox0.getChildren().add(label);
@@ -204,7 +183,10 @@ public class ProfileUpdateVersion extends BorderPane {
         hBox.getChildren().add(vBox);
         inviteList.getChildren().add(listOnline);
         hBox.getChildren().add(inviteList);
+        
+        //enter the profile , so request show the online user
 
     }
+    
 
 }
