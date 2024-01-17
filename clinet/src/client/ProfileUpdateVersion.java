@@ -1,24 +1,19 @@
 package client;
 
-import conn.ClintSide;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.fxml.FXMLLoader;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
-public class Profile extends BorderPane {
+public class ProfileUpdateVersion extends BorderPane {
 
     protected final Rectangle recLogo;
     protected final HBox hBox;
@@ -39,12 +34,9 @@ public class Profile extends BorderPane {
     protected final HBox hBox5;
     protected final Button btnExit;
     protected final VBox inviteList;
-    protected final ScrollPane scrollPane;
-    protected final VBox inviteList0;
-    protected final Image profileImg;
-    protected final Image logo;
+    protected final ListView <String> listOnline;
 
-    public Profile(String userName, String email, int score) {
+    public ProfileUpdateVersion() {
 
         recLogo = new Rectangle();
         hBox = new HBox();
@@ -65,10 +57,7 @@ public class Profile extends BorderPane {
         hBox5 = new HBox();
         btnExit = new Button();
         inviteList = new VBox();
-        scrollPane = new ScrollPane();
-        inviteList0 = new VBox();
-        logo = new Image("/assets/Group9.png");
-        profileImg = new Image("/assets/Starasset.png");
+        listOnline = new ListView();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -86,7 +75,6 @@ public class Profile extends BorderPane {
         recLogo.setStroke(javafx.scene.paint.Color.BLACK);
         recLogo.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         recLogo.setWidth(315.0);
-        recLogo.setFill(new ImagePattern(logo));
         setTop(recLogo);
 
         BorderPane.setAlignment(hBox, javafx.geometry.Pos.CENTER);
@@ -100,11 +88,10 @@ public class Profile extends BorderPane {
         recProfileImg.setArcHeight(5.0);
         recProfileImg.setArcWidth(5.0);
         recProfileImg.setFill(javafx.scene.paint.Color.DODGERBLUE);
-        recProfileImg.setHeight(100.0);
+        recProfileImg.setHeight(73.0);
         recProfileImg.setStroke(javafx.scene.paint.Color.BLACK);
         recProfileImg.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
-        recProfileImg.setWidth(100.0);
-        recProfileImg.setFill(new ImagePattern(profileImg));
+        recProfileImg.setWidth(126.0);
 
         hBox0.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
         hBox0.setPrefHeight(100.0);
@@ -116,8 +103,6 @@ public class Profile extends BorderPane {
         label.setTextFill(javafx.scene.paint.Color.WHITE);
         label.setFont(new Font(14.0));
 
-        txtuser.setEditable(false);
-        txtuser.setText(userName);
         txtuser.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
         txtuser.setFont(new Font(14.0));
 
@@ -131,8 +116,6 @@ public class Profile extends BorderPane {
         label0.setTextFill(javafx.scene.paint.Color.WHITE);
         label0.setFont(new Font(14.0));
 
-        txtEmail.setEditable(false);
-        txtEmail.setText(email);
         txtEmail.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
         txtEmail.setFont(new Font(14.0));
 
@@ -146,8 +129,6 @@ public class Profile extends BorderPane {
         label1.setTextFill(javafx.scene.paint.Color.WHITE);
         label1.setFont(new Font(14.0));
 
-        txtScore.setEditable(false);
-        txtScore.setText(String.valueOf(score));
         txtScore.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
         txtScore.setFont(new Font(14.0));
 
@@ -162,7 +143,7 @@ public class Profile extends BorderPane {
         btnRecords.setMnemonicParsing(false);
         btnRecords.setOnAction(this::viewRecords);
         btnRecords.setText("Records");
-        btnRecords.getStyleClass().add("btn2");
+        btnRecords.setTextFill(javafx.scene.paint.Color.valueOf("#fffcfc"));
 
         hBox5.setAlignment(javafx.geometry.Pos.CENTER);
         hBox5.setPrefHeight(100.0);
@@ -174,35 +155,36 @@ public class Profile extends BorderPane {
         btnExit.setPrefWidth(57.0);
         btnExit.setText("Exit");
         btnExit.setTextFill(javafx.scene.paint.Color.WHITE);
-        btnExit.getStyleClass().add("btn_Exit");
-
         vBox.setPadding(new Insets(10.0));
 
         inviteList.setAlignment(javafx.geometry.Pos.CENTER);
         inviteList.setPrefHeight(317.0);
         inviteList.setPrefWidth(287.0);
 
-        scrollPane.setPrefHeight(316.0);
-        scrollPane.setPrefWidth(271.0);
-        scrollPane.setStyle("-fx-background-color: black;");
+        listOnline.setPrefHeight(302.0);
+        listOnline.setPrefWidth(271.0);
 
-        inviteList0.setAlignment(javafx.geometry.Pos.TOP_CENTER);
-        inviteList0.setPrefHeight(315.0);
-        inviteList0.setPrefWidth(255.0);
-        inviteList0.setStyle("-fx-background-color: black;");
-        inviteList0.setPadding(new Insets(10.0));
-        scrollPane.setContent(inviteList0);
-        setCenter(hBox);
+        String[] records= 
+                
+        String[] records = {"Record date: 12/1/2024", "Record date: 1/1/2024", "Record date: 12/12/2023",
+            "Record date: 30/5/2023", "Record date: 12/1/2024", "Record date: 1/1/2024", "Record date: 12/12/2023", "Record date: 30/5/2023",
+            "Record date: 12/1/2024", "Record date: 1/1/2024", "Record date: 12/12/2023", "Record date: 30/5/2023"};
+        String currentRecordDate;
         
-        for (int i = 0; i < 10; i++) {
+            listOnline.getItems().addAll(records);
+        listOnline.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+                currentRecordDate = listOnline.getSelectionModel().getSelectedItem();
+                // the logic of redirection
+//                if currentRecordDate ==....
+            }
+        });
+        
+        
+        
 
-            Cards card = new Cards();
-
-            VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
-
-            inviteList0.getChildren().add(card);
-
-        }
+        setCenter(hBox);
 
         vBox.getChildren().add(recProfileImg);
         hBox0.getChildren().add(label);
@@ -220,17 +202,9 @@ public class Profile extends BorderPane {
         hBox3.getChildren().add(hBox5);
         vBox.getChildren().add(hBox3);
         hBox.getChildren().add(vBox);
-        inviteList.getChildren().add(scrollPane);
+        inviteList.getChildren().add(listOnline);
         hBox.getChildren().add(inviteList);
 
-    }
-
-    protected void viewRecords(javafx.event.ActionEvent actionEvent) {
-
-    }
-
-    protected void HandleExit(javafx.event.ActionEvent actionEvent) {
-        ClintSide clintSide = new ClintSide();
     }
 
 }
