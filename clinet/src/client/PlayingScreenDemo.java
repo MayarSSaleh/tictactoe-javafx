@@ -171,6 +171,7 @@ public class PlayingScreenDemo extends BorderPane {
         setPrefHeight(400.0);
         setPrefWidth(600.0);
 
+        
         BorderPane.setAlignment(topFlow, javafx.geometry.Pos.CENTER);
         topFlow.setPrefHeight(103.0);
         topFlow.setPrefWidth(600.0);
