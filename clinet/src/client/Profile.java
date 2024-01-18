@@ -1,5 +1,6 @@
 package client;
 
+import conn.ClintSide;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class Profile extends BorderPane {
     protected final VBox inviteList0;
     protected  final Image profileImg;
     protected final Image logo;
-    public Profile() {
+    public Profile(String userName , String email , int score ) {
 
         recLogo = new Rectangle();
         hBox = new HBox();
@@ -115,7 +116,7 @@ public class Profile extends BorderPane {
         label.setFont(new Font(14.0));
 
       txtuser.setEditable(false);
-txtuser.setText("3Om_aar");
+txtuser.setText(userName);
 txtuser.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
 txtuser.setFont(new Font(14.0));
 
@@ -130,7 +131,7 @@ txtuser.setFont(new Font(14.0));
         label0.setFont(new Font(14.0));
 
        txtEmail.setEditable(false);
-txtEmail.setText("omaaaarmohameds@gmail.com");
+txtEmail.setText(email);
 txtEmail.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
 txtEmail.setFont(new Font(14.0));
 
@@ -145,7 +146,7 @@ txtEmail.setFont(new Font(14.0));
         label1.setFont(new Font(14.0));
 
      txtScore.setEditable(false);
-    txtScore.setText("3");
+    txtScore.setText(String.valueOf(score));
     txtScore.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
     txtScore.setFont(new Font(14.0));
 
@@ -232,7 +233,7 @@ txtEmail.setFont(new Font(14.0));
 
     protected  void HandleExit(javafx.event.ActionEvent actionEvent)
     {
-        
+        ClintSide clintSide= new ClintSide();
     }
 
 }

@@ -19,7 +19,7 @@ import org.apache.derby.jdbc.ClientDriver;
  * @author mosta
  */
 public class DataAccessLayer {
-     public static int Register(UsersDTO user) throws SQLException
+     public static int Register(String email , String userName , String pass) throws SQLException
     {
 //        ArrayList<UsersDTO>arr= new ArrayList<UsersDTO>();
 //        UsersDTO u = new UsersDTO();
@@ -29,9 +29,9 @@ public class DataAccessLayer {
         DriverManager.registerDriver(new ClientDriver());
         Connection con =DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","root","root");
         PreparedStatement ps = con.prepareStatement("insert into users (username,email,userpass,score) values (?,?,?,0,offline)");
-        ps.setString(1, user.getUserName());
-        ps.setString(2, user.getEmail());
-        ps.setString(3, user.getUserPass());     
+        ps.setString(1, userName);
+        ps.setString(2, email);
+        ps.setString(3, pass);     
         ret=ps.executeUpdate();
         con.close();
         return ret;
@@ -39,7 +39,8 @@ public class DataAccessLayer {
 
 
      
-    public static UsersDTO isLogin( String loginEmail, String  loginPass) throws SQLException{
+    public static int isLogin( String loginEmail, String  loginPass) throws SQLException{
+        int res = -1;
         UsersDTO userLogin= new UsersDTO();
         userLogin.setID(-1);
         DriverManager.registerDriver(new ClientDriver());
@@ -57,15 +58,43 @@ public class DataAccessLayer {
             userLogin.setEmail(result.getString(3));
             userLogin.setScore(result.getInt(4));
             userLogin.setUserPass(result.getString("USERPASS"));
+            if(loginPass.equals(userLogin.getUserPass()))
+            {
+                res = 1;
+            }else{
+                res = 0;
+            }
         }
-             ps.close();;
-           con.close();  
+             ps.close();
+           con.close();
+           //System.out.println(userLogin.getEmail());
         
-           return userLogin;
+           return res;
     
     }
 
+  public static UsersDTO getUserDataByEmail(String email) throws SQLException {
+    UsersDTO user = null;
     
+    DriverManager.registerDriver(new ClientDriver());
+    try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe", "root", "root");
+         PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE email = ?")) {
+        
+        ps.setString(1, email);
+        ResultSet result = ps.executeQuery();
+        
+        if (result.next()) {
+            user = new UsersDTO();
+            user.setID(result.getInt(1));
+            user.setUserName(result.getString(2));
+            user.setEmail(result.getString(3));
+            user.setScore(result.getInt(4));
+            user.setUserPass(result.getString("USERPASS"));
+        }
+    }
+    
+    return user;
+}  
 
  public static int updateScore(UsersDTO user) throws SQLException
      {
