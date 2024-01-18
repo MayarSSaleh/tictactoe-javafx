@@ -1,6 +1,4 @@
-
 package model;
-
 
 public class UsersDTO {
 
@@ -10,6 +8,15 @@ public class UsersDTO {
     private String userPass;
     private int score;
     private String status;
+    private String sendInvetationToEmail;
+
+    public String getSendInvetationToEmail() {
+        return sendInvetationToEmail;
+    }
+
+    public void setSendInvetationToEmail(String sendInvetationToEmail) {
+        this.sendInvetationToEmail = sendInvetationToEmail;
+    }
 
     public UsersDTO() {
     }

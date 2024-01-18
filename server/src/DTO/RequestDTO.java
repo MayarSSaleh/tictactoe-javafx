@@ -9,11 +9,20 @@ public class RequestDTO {
     private String pass;
     private String validation;
     private int score;
-    private String userName;
+    private String userNamewhoSentInvetation;
     private ArrayList<UsersDTO> availablePlayers;
     private String invetPlayer;
     private String playerWhoSendInvetationName;
     private int playerWhoSendInvetationScore;
+    private String sendInvetationToEmail;
+
+    public String getSendInvetationToEmail() {
+        return sendInvetationToEmail;
+    }
+
+    public void setSendInvetationToEmail(String sendInvetationToEmail) {
+        this.sendInvetationToEmail = sendInvetationToEmail;
+    }
 
     public String getPlayerWhoSendInvetationName() {
         return playerWhoSendInvetationName;
@@ -69,12 +78,12 @@ public class RequestDTO {
         this.score = score;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getuserNamewhoSentInvetation() {
+        return userNamewhoSentInvetation;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setuserNamewhoSentInvetation(String userNamewhoSentInvetation) {
+        this.userNamewhoSentInvetation = userNamewhoSentInvetation;
     }
 
     public String getValidation() {

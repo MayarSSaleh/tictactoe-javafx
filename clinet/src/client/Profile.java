@@ -240,7 +240,7 @@ public class Profile extends BorderPane {
                 // Access each UsersDTO object using the 'user' variable
                 System.out.println(user.getUserName() + user.getScore());
                 if (!userName.equals(user.getUserName())) {
-                    Cards card = new Cards(user.getUserName(), user.getScore(), stage, userName, score);
+                    Cards card = new Cards(user.getUserName(), user.getScore(),user.getEmail(), stage, score);
                     VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
                     inviteList0.getChildren().add(card);
                 }
@@ -251,34 +251,45 @@ public class Profile extends BorderPane {
 
         new Thread(() -> {
 
-            String response = ClintSide.listenFromServer.readLine();
-            System.out.println(response);
-            RequestDTO recived = json.fromJson(response, RequestDTO.class);
+            try {
+                String response = ClintSide.listenFromServer.readLine();
+                System.out.println(response);
+                
+                RequestDTO recived = json.fromJson(response, RequestDTO.class);
 
-            switch (recived.getRoute()) {
-                case "youGetInvetation":
-                    RequestDTO responseToInvetation = new AlertBox().onlineAcceptanceAlert(recived, stage, recived.getPlayerWhoSendInvetationName(), recived.getPlayerWhoSendInvetationScore());
-                    // reforord the response to server to resent it to the first player
-                    ///
-                    ////
-                    break;
+                switch (recived.getRoute()) {
+                    case "youGetInvetation":
+                        System.out.println("i get invetation");
+                        //the next step not work write but the invetation is sent to server and server resend to another player
+                        RequestDTO responseToInvetation =
+                        new AlertBox().onlineAcceptanceAlert(recived, stage, recived.getPlayerWhoSendInvetationName(), recived.getPlayerWhoSendInvetationScore());
+                        // reforord the response to server to resent it to the first player
+                        ///
+                        ////
+                        break;
 
-                case "responeOnInvetation":
-                    if (recived.isInvitationRespons()) {
-                        Platform.runLater(() -> {
-                            Parent pane = new PlayingScreenDemo(stage, "online");
-                            stage.getScene().setRoot(pane);
-                        });
-                    } else {
-                        Platform.runLater(() -> {
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Invitation Response");
-                            alert.setHeaderText(null);
-                            alert.setContentText("Sorry the invitation not accepted, let's player with another one");
-                            alert.showAndWait();
-                        });
-                    }}
-            }). start();
+                    case "responeOnInvetation":
+                        System.out.println("i get responseOnInvetation");
 
-        }
+                        if (recived.isInvitationRespons()) {
+                            Platform.runLater(() -> {
+                                Parent pane = new PlayingScreenDemo(stage, "online");
+                                stage.getScene().setRoot(pane);
+                            });
+                        } else {
+                            Platform.runLater(() -> {
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Invitation Response");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Sorry the invitation not accepted, let's player with another one");
+                                alert.showAndWait();
+                            });
+                        }
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).start();
+
     }
+}

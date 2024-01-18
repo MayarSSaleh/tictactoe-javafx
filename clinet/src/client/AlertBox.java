@@ -170,5 +170,6 @@ public class AlertBox {
 
         window.setScene(scene);
         window.showAndWait();
+        return recived;
     }}
 

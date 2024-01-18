@@ -22,7 +22,7 @@ public class Cards extends HBox {
     protected final Label lblScore;
     protected final Button btnInvite;
 
-    public Cards(String playerName, int score, Stage stage, String invertingName, int invertingScore) {
+    public Cards(String playerName, int score, String invetedEmail, Stage stage, int invertingScore) {
 
         vBox = new VBox();
         lblName = new Label();
@@ -65,9 +65,9 @@ public class Cards extends HBox {
 
             RequestDTO requestSendInvetation = new RequestDTO();
             requestSendInvetation.setRoute("sendInvetation");
-            requestSendInvetation.setInvetPlayer(playerName);
-            requestSendInvetation.setUserName(invertingName);
+            requestSendInvetation.setuserNamewhoSentInvetation(playerName);
             requestSendInvetation.setScore(invertingScore);
+            requestSendInvetation.setSendInvetationToEmail(invetedEmail);
 
             Gson SendInvetation = new Gson();
             ClintSide.printedMessageToServer.println(SendInvetation.toJson(requestSendInvetation));

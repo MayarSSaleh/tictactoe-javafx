@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package db;
 
 import DTO.UsersDTO;
@@ -14,10 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.derby.jdbc.ClientDriver;
 
-/**
- *
- * @author mosta
- */
+
 public class DataAccessLayer {
 
     public static int Register(String email, String userName, String pass) throws SQLException {

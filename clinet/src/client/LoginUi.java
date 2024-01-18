@@ -214,7 +214,7 @@ public class LoginUi extends BorderPane {
                     RequestDTO recived = json.fromJson(response, RequestDTO.class);
                     if ("confirmed".equals(recived.getValidation())) {
                         Platform.runLater(() -> {
-                            Parent pane = new Profile(recived.getUserName(), recived.getEmail(), recived.getScore(), stage);
+                            Parent pane = new Profile(recived.getuserNamewhoSentInvetation(), recived.getEmail(), recived.getScore(), stage);
                             stage.getScene().setRoot(pane);
                         });
                     } else if ("invalid".equals(recived.getValidation())) {

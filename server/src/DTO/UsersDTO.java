@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package DTO;
 
-/**
- *
- * @author mosta
- */
 public class UsersDTO {
 
     private int ID;
@@ -17,7 +9,15 @@ public class UsersDTO {
     private String userPass;
     private int score;
     private String status;
+  private String sendInvetationToEmail;
 
+    public String getSendInvetationToEmail() {
+        return sendInvetationToEmail;
+    }
+
+    public void setSendInvetationToEmail(String sendInvetationToEmail) {
+        this.sendInvetationToEmail = sendInvetationToEmail;
+    }
     public UsersDTO() {
     }
 

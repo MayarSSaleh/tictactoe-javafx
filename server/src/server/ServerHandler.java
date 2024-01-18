@@ -1,10 +1,3 @@
-/*
- * To change this license header, ch
- *
- * @author mostaoose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package server;
 
 import DTO.RequestDTO;
@@ -26,10 +19,6 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author mosta
- */
 public class ServerHandler {
 
     ServerSocket serverSocket;
@@ -108,19 +97,17 @@ class RouteHandler extends Thread {
                         break;
 
                     case "sendInvetation":
-                        transInvetationTo(clint.getInvetPlayer(), clint.getEmail(), clint.getScore());
+                        transInvetationTo(clint);
                         break;
 
-                    default:
+                    case "youGetInvetation":
                         break;
                 }
-
             } catch (IOException ex) {
                 ex.printStackTrace();
             } catch (SQLException ex) {
                 Logger.getLogger(RouteHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
     }
 
@@ -147,19 +134,28 @@ class RouteHandler extends Thread {
         }
     }
 
-    void transInvetationTo(String intvitedEmail, String invitingEmail, int invitingScore) {
-        System.out.println("sendInvetationTo");
-        for (RouteHandler root : clientsVector) {
-            if (root.email.equals(intvitedEmail)) {
+    public void transInvetationTo(RequestDTO clint) throws SQLException {
+        System.out.println( clint.getuserNamewhoSentInvetation()+ "sendInvetationTo" + clint.getSendInvetationToEmail());
+        System.out.println("  ------------");
+
+        for (UsersDTO root : getAllOnline()) {
+//            it print twice as there are 2 online in DB
+//            System.out.println(clint.getSendInvetationToEmail());
+//            System.out.println("  ---in the loop-----");
+
+            if (root.getEmail().equals(clint.getSendInvetationToEmail())) {
+                System.out.println("i reach to inveted email");
 
                 RequestDTO resendIinvetation = new RequestDTO();
-                resendIinvetation.setPlayerWhoSendInvetationName(invitingEmail);
-                resendIinvetation.setPlayerWhoSendInvetationScore(invitingScore);
+                resendIinvetation.setPlayerWhoSendInvetationScore(clint.getScore());
+                resendIinvetation.setuserNamewhoSentInvetation(clint.getuserNamewhoSentInvetation());
+
                 resendIinvetation.setRoute("youGetInvetation");
                 Gson jsonAvailable = new Gson();
                 String msg = jsonAvailable.toJson(resendIinvetation);
-                root.printedMessageToClient.println(msg);
-                root.printedMessageToClient.flush();
+                
+               printedMessageToClient.println(msg);
+               printedMessageToClient.flush();
 
             }
         }
@@ -188,7 +184,7 @@ class RouteHandler extends Thread {
                 UsersDTO userData = DataAccessLayer.getUserDataByEmail(clint.getEmail());
                 response.setValidation("confirmed");
                 response.setEmail(clint.getEmail());
-                response.setUserName(userData.getUserName());
+                response.setuserNamewhoSentInvetation(userData.getUserName());
                 response.setScore(userData.getScore());
                 String msg = json.toJson(response);
                 printedMessageToClient.println(msg);
