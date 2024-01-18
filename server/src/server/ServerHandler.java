@@ -107,8 +107,8 @@ class RouteHandler extends Thread {
                         printedMessageToClient.flush();
                         break;
 
-                    case "makeInvetation":
-
+                    case "sendInvetation":
+                        transInvetationTo(clint.getInvetPlayer(), clint.getEmail(), clint.getScore());
                         break;
 
                     default:
@@ -120,11 +120,11 @@ class RouteHandler extends Thread {
             } catch (SQLException ex) {
                 Logger.getLogger(RouteHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
-       
-    }}
 
-    void sendMessageTo(String msg, String email
-    ) {
+        }
+    }
+
+    void sendMessageTo(String msg, String email) {
         System.out.println("Inside sendMessageTo");
         String omarEmail = "omaaar@gmail.com";
         if (email != null) {
@@ -134,9 +134,8 @@ class RouteHandler extends Thread {
                 if (root.email.equals(email)) {
                     System.out.println("found");
                     System.out.println(msg);
-
                     root.printedMessageToClient.println(msg);
-                    System.out.println("kkk");
+                    root.printedMessageToClient.flush();
 
                 } else {
                     System.out.println("false");
@@ -146,6 +145,25 @@ class RouteHandler extends Thread {
         } else {
             System.out.println("Email is null");
         }
+    }
+
+    void transInvetationTo(String intvitedEmail, String invitingEmail, int invitingScore) {
+        System.out.println("sendInvetationTo");
+        for (RouteHandler root : clientsVector) {
+            if (root.email.equals(intvitedEmail)) {
+
+                RequestDTO resendIinvetation = new RequestDTO();
+                resendIinvetation.setPlayerWhoSendInvetationName(invitingEmail);
+                resendIinvetation.setPlayerWhoSendInvetationScore(invitingScore);
+                resendIinvetation.setRoute("youGetInvetation");
+                Gson jsonAvailable = new Gson();
+                String msg = jsonAvailable.toJson(resendIinvetation);
+                root.printedMessageToClient.println(msg);
+                root.printedMessageToClient.flush();
+
+            }
+        }
+
     }
 
     void sendMessageToAll(String msg

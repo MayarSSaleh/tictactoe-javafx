@@ -1,11 +1,19 @@
 package client;
 
+import com.google.gson.Gson;
+import conn.ClintSide;
+import java.io.IOException;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import model.RequestDTO;
 
 public class Cards extends HBox {
 
@@ -14,7 +22,7 @@ public class Cards extends HBox {
     protected final Label lblScore;
     protected final Button btnInvite;
 
-    public Cards(String playerName, int score) {
+    public Cards(String playerName, int score, Stage stage, String invertingName, int invertingScore) {
 
         vBox = new VBox();
         lblName = new Label();
@@ -38,7 +46,7 @@ public class Cards extends HBox {
 
         lblScore.setPrefHeight(17.0);
         lblScore.setPrefWidth(100.0);
-        lblScore.setText("Score : "+ score);
+        lblScore.setText("Score : " + score);
         lblScore.setFont(new Font(14.0));
 
         btnInvite.setMinHeight(30.0);
@@ -54,7 +62,19 @@ public class Cards extends HBox {
         btnInvite.setText("Invite");
         btnInvite.setTextFill(javafx.scene.paint.Color.WHITE);
         btnInvite.setOnAction((e) -> {
-            System.out.println("dasdasdas");
+
+            RequestDTO requestSendInvetation = new RequestDTO();
+            requestSendInvetation.setRoute("sendInvetation");
+            requestSendInvetation.setInvetPlayer(playerName);
+            requestSendInvetation.setUserName(invertingName);
+            requestSendInvetation.setScore(invertingScore);
+
+            Gson SendInvetation = new Gson();
+            ClintSide.printedMessageToServer.println(SendInvetation.toJson(requestSendInvetation));
+            ClintSide.printedMessageToServer.flush();
+
+            new AlertBox().onlineWaitingAlert("Invetation", "Waiting Player response", stage);
+
         });
         HBox.setMargin(btnInvite, new Insets(0.0, 0.0, 0.0, 40.0));
 

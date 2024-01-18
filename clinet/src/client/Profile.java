@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -19,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import model.RequestDTO;
 import model.UsersDTO;
 
@@ -49,7 +53,7 @@ public class Profile extends BorderPane {
     protected final Image logo;
     protected ArrayList<UsersDTO> availablePlayersList;
 
-    public Profile(String userName, String email, int score) {
+    public Profile(String userName, String email, int score, Stage stage) {
 
         recLogo = new Rectangle();
         hBox = new HBox();
@@ -225,26 +229,56 @@ public class Profile extends BorderPane {
         Gson json = new Gson();
         ClintSide.printedMessageToServer.println(json.toJson(requestAviable));
         ClintSide.printedMessageToServer.flush();
-        new Thread(() -> {
-            try {
-                String response = ClintSide.listenFromServer.readLine();
-                System.out.println(response);
-                RequestDTO recived = json.fromJson(response, RequestDTO.class);
-                availablePlayersList = recived.getAvailablePlayers();
-            } catch (IOException ex) {
-                Logger.getLogger(ProfileUpdateVersion.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        try {
+            String response = ClintSide.listenFromServer.readLine();
+            System.out.println(response);
+            RequestDTO recived = json.fromJson(response, RequestDTO.class);
+            availablePlayersList = recived.getAvailablePlayers();
+
             for (UsersDTO user : availablePlayersList) {
                 // Access each UsersDTO object using the 'user' variable
                 System.out.println(user.getUserName() + user.getScore());
-                if ( !userName.equals(user.getUserName()))
-                {
-                Cards card = new Cards(user.getUserName(), user.getScore());
-                VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
-                inviteList0.getChildren().add(card);
+                if (!userName.equals(user.getUserName())) {
+                    Cards card = new Cards(user.getUserName(), user.getScore(), stage, userName, score);
+                    VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
+                    inviteList0.getChildren().add(card);
                 }
             }
-        }).start();
+        } catch (IOException ex) {
+            Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        new Thread(() -> {
+
+            String response = ClintSide.listenFromServer.readLine();
+            System.out.println(response);
+            RequestDTO recived = json.fromJson(response, RequestDTO.class);
+
+            switch (recived.getRoute()) {
+                case "youGetInvetation":
+                    RequestDTO responseToInvetation = new AlertBox().onlineAcceptanceAlert(recived, stage, recived.getPlayerWhoSendInvetationName(), recived.getPlayerWhoSendInvetationScore());
+                    // reforord the response to server to resent it to the first player
+                    ///
+                    ////
+                    break;
+
+                case "responeOnInvetation":
+                    if (recived.isInvitationRespons()) {
+                        Platform.runLater(() -> {
+                            Parent pane = new PlayingScreenDemo(stage, "online");
+                            stage.getScene().setRoot(pane);
+                        });
+                    } else {
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Invitation Response");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Sorry the invitation not accepted, let's player with another one");
+                            alert.showAndWait();
+                        });
+                    }}
+            }). start();
+
+        }
     }
-}

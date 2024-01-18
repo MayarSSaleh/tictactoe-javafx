@@ -1,8 +1,6 @@
-
 package model;
 
 import java.util.ArrayList;
-
 
 public class RequestDTO {
 
@@ -13,6 +11,43 @@ public class RequestDTO {
     private int score;
     private String userName;
     private ArrayList<UsersDTO> availablePlayers;
+    private String invetPlayer;
+    private boolean invitationRespons;
+
+    private String playerWhoSendInvetationName;
+    private int playerWhoSendInvetationScore;
+
+    public String getPlayerWhoSendInvetationName() {
+        return playerWhoSendInvetationName;
+    }
+
+    public void setPlayerWhoSendInvetationName(String playerWhoSendInvetationName) {
+        this.playerWhoSendInvetationName = playerWhoSendInvetationName;
+    }
+
+    public int getPlayerWhoSendInvetationScore() {
+        return playerWhoSendInvetationScore;
+    }
+
+    public void setPlayerWhoSendInvetationScore(int playerWhoSendInvetationScore) {
+        this.playerWhoSendInvetationScore = playerWhoSendInvetationScore;
+    }
+
+    public boolean isInvitationRespons() {
+        return invitationRespons;
+    }
+
+    public void setInvitationRespons(boolean invitationRespons) {
+        this.invitationRespons = invitationRespons;
+    }
+
+    public String getInvetPlayer() {
+        return invetPlayer;
+    }
+
+    public void setInvetPlayer(String invetPlayer) {
+        this.invetPlayer = invetPlayer;
+    }
 
     public ArrayList<UsersDTO> getAvailablePlayers() {
         return availablePlayers;

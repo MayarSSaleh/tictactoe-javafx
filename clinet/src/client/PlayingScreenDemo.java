@@ -60,7 +60,7 @@ public class PlayingScreenDemo extends BorderPane {
 
     
 
-    public PlayingScreenDemo(Stage stage , String pageName) {
+    public PlayingScreenDemo(Stage stage , String pageName ) {
         btnRecord = new Button();  
           if(pageName.equals("online")){
             BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);

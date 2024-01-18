@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package client;
-
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,14 +17,14 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-//import video.Video;
+import model.RequestDTO;
 
 public class AlertBox {
 
-        private MediaView mediaView;
-        private MediaPlayer mediaPlayer;
+    private MediaView mediaView;
+    private MediaPlayer mediaPlayer;
 
-    public void display(String title, String message ,String image , Stage stage , String crown ,String video) {
+    public void display(String title, String message, String image, Stage stage, String crown, String video) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -73,12 +67,12 @@ public class AlertBox {
 //                 Parent pane = new mainScreen(stage);
 //            stage.getScene().setRoot(pane);
 //                );
-stopButton.setOnAction((e)->{
-        Parent pane = new MainScreen(stage);
-           stage.getScene().setRoot(pane);
-           mediaPlayer.stop();
-           window.close();
-});
+        stopButton.setOnAction((e) -> {
+            Parent pane = new MainScreen(stage);
+            stage.getScene().setRoot(pane);
+            mediaPlayer.stop();
+            window.close();
+        });
 
         stopButton.getStyleClass().add("btn-stop");
 
@@ -86,22 +80,21 @@ stopButton.setOnAction((e)->{
         buttonBox.setAlignment(Pos.CENTER); // Center the buttons horizontally
         buttonBox.getChildren().addAll(closeButton, stopButton);
 
-           mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
-           mediaView = new MediaView(mediaPlayer);
-         mediaView.setFitWidth(300);
+        mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
+        mediaView = new MediaView(mediaPlayer);
+        mediaView.setFitWidth(300);
         mediaView.setFitHeight(300);
-                   VBox mediaBox = new VBox(10);
-                   mediaBox.setAlignment(Pos.CENTER); // Center the images horizontally
+        VBox mediaBox = new VBox(10);
+        mediaBox.setAlignment(Pos.CENTER); // Center the images horizontally
         mediaBox.getChildren().addAll(mediaView);
         VBox.setMargin(mediaView, new Insets(-10, 0, 0, 0));
-           //mediaPlayer.setAutoPlay(true);
-           //mediaView.st
-           mediaPlayer.play();
-
+        //mediaPlayer.setAutoPlay(true);
+        //mediaView.st
+        mediaPlayer.play();
 
         VBox layout = new VBox(20); // Vertical box
         layout.getStyleClass().add("alert-box");
-        layout.getChildren().addAll(imageBox,mediaBox, label, buttonBox);
+        layout.getChildren().addAll(imageBox, mediaBox, label, buttonBox);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
@@ -109,16 +102,10 @@ stopButton.setOnAction((e)->{
 
         window.setScene(scene);
         window.showAndWait();
-        
-        
-        
 
-
-
-        
     }
 
-        public void onlineWaitingAlert(String title,String message, Stage stage) {
+    public void onlineWaitingAlert(String title, String message, Stage stage) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -140,21 +127,22 @@ stopButton.setOnAction((e)->{
         window.setScene(scene);
         window.showAndWait();
     }
-        
-  public void onlineAcceptanceAlert(String title, Stage stage) {
+
+    public RequestDTO onlineAcceptanceAlert( RequestDTO recived ,Stage stage, String invitingPerson, int invitingScore) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
+        window.setTitle("You Invited to playing X,O");
         window.setMaxWidth(400);
         window.setWidth(300);
         window.setHeight(200);
-
-        Label label = new Label("do you want to accept invitation");
+        Label label = new Label("let's start new Game with " + invitingPerson + " His Score: " + invitingScore);
         label.getStyleClass().add("alert-label");
 
         Button yesButton = new Button("Yes");
         yesButton.setOnAction(e -> {
             // Handle Yes button action
+            //                make go to another page and change the status
+            recived.setInvitationRespons(true);
             window.close();
         });
         yesButton.getStyleClass().add("btn-stop");
@@ -162,6 +150,7 @@ stopButton.setOnAction((e)->{
         Button noButton = new Button("No");
         noButton.setOnAction(e -> {
             // Handle No button action
+           recived.setInvitationRespons(false);
             window.close();
             // Add your logic here
         });
@@ -181,6 +170,5 @@ stopButton.setOnAction((e)->{
 
         window.setScene(scene);
         window.showAndWait();
-    }
-}
+    }}
 
