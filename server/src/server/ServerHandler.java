@@ -100,16 +100,21 @@ class RouteHandler extends Thread
             case "signup":
                 
                 break;
+            case "board":
+                onlineBoard(clint);
+                break;
                 default:
 
                 break;
         }
+                sendMessageToAll();
 
                 } catch (IOException ex) 
                 {
                     ex.printStackTrace();
                 } 
             }
+
         }
         
         
@@ -141,12 +146,12 @@ void sendMessageTo(String msg , String email) {
 
 
                 
-        void sendMessageToAll(String msg)
+        void sendMessageToAll()
         {
             for(int i=0 ; i<clientsVector.size() ; i++)
             {
                  System.out.println(i +"    "+clientsVector.get(i).email);
-                 clientsVector.get(i).printedMessageToClient.println(msg);
+//                 clientsVector.get(i).printedMessageToClient.println(msg);
                    
                  
             }
@@ -167,6 +172,7 @@ void sendMessageTo(String msg , String email) {
              response.setUserName(userData.getUserName());
              response.setScore(userData.getScore());
                String msg = json.toJson(response);
+               email = clint.getEmail();
              printedMessageToClient.println(msg);
               printedMessageToClient.flush(); 
              }else if(res == -1){
@@ -181,5 +187,27 @@ void sendMessageTo(String msg , String email) {
                 ex.printStackTrace();
             }
         }
-        
+void onlineBoard(RequestDTO client) {
+    RequestDTO response = new RequestDTO();
+
+    if (email != null) {
+        for (RouteHandler root : clientsVector) {
+            if (root.email.equals(client.getOpponentEmail())) {
+                // Assuming client includes the move information
+                response.setRow(client.getRow());
+                response.setCol(client.getCol());
+                response.setMove(client.getMove());
+
+                Gson json = new Gson();
+                String msg = json.toJson(response);
+                System.out.println("msg online board " + msg);
+                root.printedMessageToClient.println(msg);
+                root.printedMessageToClient.flush();
+            }
+        }
+    } else {
+        System.out.println("Email is null");
+    }
+}
+
 }

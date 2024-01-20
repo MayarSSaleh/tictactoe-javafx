@@ -16,6 +16,45 @@ public class RequestDTO {
     private String validation;
     private int score;
     private String userName;
+    private String opponentEmail;
+    private int row;
+    private int col;
+    private char move;
+    
+    
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public char getMove() {
+        return move;
+    }
+
+    public void setMove(char move) {
+        this.move = move;
+    }
+    
+  
+    
+    public String getOpponentEmail() {
+        return opponentEmail;
+    }
+
+    public void setOpponentEmail(String opponentEmail) {
+        this.opponentEmail = opponentEmail;
+    }
 
     public int getScore() {
         return score;

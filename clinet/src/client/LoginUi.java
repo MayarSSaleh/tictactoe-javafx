@@ -216,8 +216,10 @@ new Thread(() -> {
         RequestDTO recived = json.fromJson(response, RequestDTO.class);
         if ("confirmed".equals(recived.getValidation())) {
             Platform.runLater(() -> {
-                Parent pane = new Profile(recived.getUserName() , recived.getEmail() , recived.getScore());
-                stage.getScene().setRoot(pane);
+//                Parent pane = new Profile(recived.getUserName() , recived.getEmail() , recived.getScore());
+                Parent pane = new PlayingOnlineDemo(stage , recived.getEmail() , recived.getScore());
+
+                  stage.getScene().setRoot(pane);
             });
         } else if ("invalid".equals(recived.getValidation())) {
             // Handle the case when validation is invalid
