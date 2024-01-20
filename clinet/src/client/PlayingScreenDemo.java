@@ -1,6 +1,5 @@
 package client;
 
-import static client.Record.RecordArray;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -495,11 +494,15 @@ public class PlayingScreenDemo extends BorderPane {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
 
 //                        Record.addRecords(newRecord);
+                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
+
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
                         new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
 
 //                        Record.addRecords(newRecord);
+                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
+
                     }
 
                 } else if (!((Button) event.getTarget()).getStyleClass().contains("btno") && !((Button) event.getTarget()).getStyleClass().contains("btnx") && game.getCurrentPlayer() == 'O') {
@@ -521,10 +524,14 @@ public class PlayingScreenDemo extends BorderPane {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
 
 //                        Record.addRecords(newRecord);
+                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
+
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
                         new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
 //                        Record.addRecords(newRecord);
+                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
+
 
                     }
                 }

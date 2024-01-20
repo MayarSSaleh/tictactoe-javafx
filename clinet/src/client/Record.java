@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement
+
+@XmlType(propOrder = {"LocalDate", "LocalTime", "recordTheSteps", "recordTheSign",})
 
 public class Record {
 
@@ -14,19 +21,13 @@ public class Record {
     private char sign;
     private LocalDate currentDate;
     private LocalTime currentTime;
-    static Record[] RecordArray = new Record[5];
-    static int countRecords = 0;
-
-    public LocalDate getCurrentDate() {
-        return currentDate;
-    }
-
-    public void setCurrentDate(LocalDate currentDate) {
-        this.currentDate = currentDate;
-    }
-
     ArrayList<int[]> recordTheSteps = new ArrayList<>();
     ArrayList<Character> recordTheSign = new ArrayList<>();
+
+//    static Record[] RecordArray = new Record[5];
+//    static int countRecords = 0;
+    public Record() {
+    }
 
     public Record(int row, int col, char sign) {
         this.row = row;
@@ -34,7 +35,28 @@ public class Record {
         this.sign = sign;
     }
 
-    public Record() {
+    @XmlElement
+    public LocalDate getCurrentDate() {
+        return currentDate;
+    }
+
+    @XmlElement
+    public LocalTime getCurrentTime() {
+        return currentTime;
+    }
+
+    @XmlElement
+    public ArrayList<int[]> getRecordTheSteps() {
+        return recordTheSteps;
+    }
+
+    @XmlElement
+    public ArrayList<Character> getRecordTheSign() {
+        return recordTheSign;
+    }
+
+    public void setCurrentDate(LocalDate currentDate) {
+        this.currentDate = currentDate;
     }
 
     public int getRow() {
@@ -57,24 +79,12 @@ public class Record {
         return sign;
     }
 
-    public LocalTime getCurrentTime() {
-        return currentTime;
-    }
-
     public void setCurrentTime(LocalTime currentTime) {
         this.currentTime = currentTime;
     }
 
     public void setSign(char sign) {
         this.sign = sign;
-    }
-
-    public ArrayList<int[]> getRecordTheSteps() {
-        return recordTheSteps;
-    }
-
-    public ArrayList<Character> getRecordTheSign() {
-        return recordTheSign;
     }
 
     public void setRecordTheSteps(ArrayList<int[]> recordTheSteps) {

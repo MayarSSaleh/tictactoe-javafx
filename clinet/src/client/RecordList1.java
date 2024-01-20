@@ -12,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecordList1 extends AnchorPane {
 
@@ -82,25 +84,45 @@ public class RecordList1 extends AnchorPane {
             "Record date: 30/5/2023", "Record date: 30/5/2023"};
 //              System.out.println(newRecord.getCurrentDate());
 //            System.out.println("current time " + newRecord.getCurrentTime());
+
+        List<Record> loadedRecords = XmlUtil.loadObjectsFromXml("src/jaxb/Records.xml");
+        if (loadedRecords != null) {
+            for (Record record : loadedRecords) {
+                
+                System.out.println("current date: " + record.getCurrentDate());
+                System.out.println("current time " + record.getCurrentTime());
+            }
+        }
+        
         
         
         listRecord.getItems().addAll(records);
 
+        
         btnExit.setOnAction((e) -> {
             Parent pane = new MainScreen(stage);
             stage.getScene().setRoot(pane);
 
         });
         btnWatch.setOnAction(e -> {
-            String selectedRecord = listRecord.getSelectionModel().getSelectedItem();
-            if (selectedRecord != null) {
-                System.out.println("Selected Record: " + selectedRecord);
-                Parent pane = new PlayingScreenDemo(stage, "ReplayGame", newRecord);
-                stage.getScene().setRoot(pane);
-               
-            } else {
-                System.out.println("No item selected");
+//            String selectedRecord = listRecord.getSelectionModel().getSelectedItem();
+//            if (selectedRecord != null) {
+//                System.out.println("Selected Record: " + selectedRecord);
+////                Parent pane = new PlayingScreenDemo(stage, "ReplayGame", newRecord);
+////                stage.getScene().setRoot(pane);
+//
+//            } else {
+//                System.out.println("No item selected");
+//            }
+//            
+            
+        if (loadedRecords != null) {
+            for (Record record : loadedRecords) {
+                
+                System.out.println("current date: " + record.getCurrentDate());
+                System.out.println("current time " + record.getCurrentTime());
             }
+        }
         });
 
     }
