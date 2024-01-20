@@ -22,7 +22,8 @@ public class Cards extends HBox {
     protected final Label lblScore;
     protected final Button btnInvite;
 
-    public Cards(String playerName, int score, String invetedEmail, Stage stage, int invertingScore) {
+    public Cards(String playerWhoSendInvetationName, String playerwhoSentInvetationEmail, int playerWhoSendInvetationScore,
+            String playerName, String sendInvetationToEmail, int invertingScore, Stage stage) {
 
         vBox = new VBox();
         lblName = new Label();
@@ -46,7 +47,7 @@ public class Cards extends HBox {
 
         lblScore.setPrefHeight(17.0);
         lblScore.setPrefWidth(100.0);
-        lblScore.setText("Score : " + score);
+        lblScore.setText("Score : " + invertingScore);
         lblScore.setFont(new Font(14.0));
 
         btnInvite.setMinHeight(30.0);
@@ -62,19 +63,20 @@ public class Cards extends HBox {
         btnInvite.setText("Invite");
         btnInvite.setTextFill(javafx.scene.paint.Color.WHITE);
         btnInvite.setOnAction((e) -> {
-
             RequestDTO requestSendInvetation = new RequestDTO();
-            requestSendInvetation.setRoute("sendInvetation");
-            requestSendInvetation.setuserNamewhoSentInvetation(playerName);
-            requestSendInvetation.setScore(invertingScore);
-            requestSendInvetation.setSendInvetationToEmail(invetedEmail);
+            requestSendInvetation.setRoute("sendInvetation");           
+            requestSendInvetation.setPlayerWhoSendInvetationName(playerWhoSendInvetationName);
+            requestSendInvetation.setplayerWhoSendInvetationEmail(playerwhoSentInvetationEmail);
+//            System.out.print(playerWhoSendInvetationScore );
+            requestSendInvetation.setPlayerWhoSendInvetationScore(playerWhoSendInvetationScore);
+            requestSendInvetation.setInvetPlayer(playerName);
+            requestSendInvetation.setSendInvetationToEmail(sendInvetationToEmail);
 
             Gson SendInvetation = new Gson();
             ClintSide.printedMessageToServer.println(SendInvetation.toJson(requestSendInvetation));
             ClintSide.printedMessageToServer.flush();
 
             new AlertBox().onlineWaitingAlert("Invetation", "Waiting Player response", stage);
-
         });
         HBox.setMargin(btnInvite, new Insets(0.0, 0.0, 0.0, 40.0));
 

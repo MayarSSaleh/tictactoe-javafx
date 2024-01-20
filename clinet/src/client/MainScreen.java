@@ -89,38 +89,7 @@ public class MainScreen extends BorderPane {
         });
 
         btnOnline.setOnAction(e -> {
-            //to solve (java.lang.IllegalStateException: Not on FX application thread)indicates that you're attempting to 
-            //update the JavaFX scene graph from a thread other than the JavaFX Application
-            //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
-            //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
-            class RecordPageMain extends Application {
-
-                @Override
-                public void start(Stage stage) throws Exception {
-                    Parent root = FXMLLoader.load(getClass().getResource("record.fxml"));
-                    Scene scene = new Scene(root);
-                    scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
-                    stage.setScene(scene);
-                    stage.show();
-                }
-            }
-            // Create a new thread to launch the new application
-            Thread recordPageThread = new Thread(() -> {
-                try {
-                    // Launch the RecordPageMain application
-                    Platform.runLater(() -> {
-                        try {// it is better to make inner class
-                            new RecordPageMain().start(stage); // 'stage' is my existing stage  
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    });
-                } catch (Exception ex) {
-                    ex.printStackTrace(); // Handle the exception according to your needs
-                }
-            });
-            // Start the thread
-            recordPageThread.start();
+            
         });
         BorderPane.setAlignment(btnComputer, javafx.geometry.Pos.CENTER);
         btnComputer.setMnemonicParsing(false);

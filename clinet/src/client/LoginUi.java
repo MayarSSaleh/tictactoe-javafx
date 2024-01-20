@@ -210,11 +210,11 @@ public class LoginUi extends BorderPane {
             new Thread(() -> {
                 try {
                     String response = ClintSide.listenFromServer.readLine();
-                    System.out.println(response);
+//                    System.out.println(response);
                     RequestDTO recived = json.fromJson(response, RequestDTO.class);
                     if ("confirmed".equals(recived.getValidation())) {
                         Platform.runLater(() -> {
-                            Parent pane = new Profile(recived.getuserNamewhoSentInvetation(), recived.getEmail(), recived.getScore(), stage);
+                            Parent pane = new Profile(recived.getUser(), recived.getEmail(), recived.getScore(), stage);
                             stage.getScene().setRoot(pane);
                         });
                     } else if ("invalid".equals(recived.getValidation())) {

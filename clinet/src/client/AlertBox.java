@@ -1,5 +1,9 @@
 package client;
 
+import static client.Profile.threadWork;
+import com.google.gson.Gson;
+import conn.ClintSide;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -128,31 +132,50 @@ public class AlertBox {
         window.showAndWait();
     }
 
-    public RequestDTO onlineAcceptanceAlert( RequestDTO recived ,Stage stage, String invitingPerson, int invitingScore) {
+    public void onlineAcceptanceAlert(RequestDTO recived, Stage stage) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("You Invited to playing X,O");
-        window.setMaxWidth(400);
-        window.setWidth(300);
-        window.setHeight(200);
-        Label label = new Label("let's start new Game with " + invitingPerson + " His Score: " + invitingScore);
+        window.setWidth(450);
+        window.setHeight(250);
+        Label label = new Label("let's start new Game with " + recived.getPlayerWhoSendInvetationName() + " His Score: " + recived.getPlayerWhoSendInvetationScore());
         label.getStyleClass().add("alert-label");
 
         Button yesButton = new Button("Yes");
-        yesButton.setOnAction(e -> {
-            // Handle Yes button action
-            //                make go to another page and change the status
-            recived.setInvitationRespons(true);
-            window.close();
-        });
         yesButton.getStyleClass().add("btn-stop");
+        yesButton.setOnAction(e -> {
+            try {
+//               System.out.print("inside yes to invetation");
+                recived.setInvitationRespons(true);
+                recived.setRoute("responeOnInvetation");
+                Gson json = new Gson();
+                 //franko:  convert to gson and sent al taer
+                ClintSide.printedMessageToServer.println(json.toJson(recived));
+                ClintSide.printedMessageToServer.flush();
+                
+                window.close();
+//                System.out.print("inside yes to invetation and after close window");
+                Parent pane = new PlayingScreenDemo(stage, "online");
+                stage.getScene().setRoot(pane);
+//                System.out.print("inside yes to invetation and after shifiting to stage");
+            } catch (Exception ex) {
+                ex.printStackTrace(); // Handle or log the exception appropriately
+            }
+        });
 
         Button noButton = new Button("No");
+
         noButton.setOnAction(e -> {
-            // Handle No button action
-           recived.setInvitationRespons(false);
+
+            recived.setInvitationRespons(false);
+            recived.setRoute("responeOnInvetation");
+            Gson json = new Gson();
+            // franko:  convert to gson and sent al taer
+            ClintSide.printedMessageToServer.println(json.toJson(recived));
+            ClintSide.printedMessageToServer.flush();
+            threadWork(stage, json);
+
             window.close();
-            // Add your logic here
         });
         noButton.getStyleClass().add("btn-stop");
 
@@ -170,6 +193,5 @@ public class AlertBox {
 
         window.setScene(scene);
         window.showAndWait();
-        return recived;
-    }}
-
+    }
+}

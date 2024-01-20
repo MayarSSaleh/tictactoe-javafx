@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -169,8 +171,42 @@ public class Profile extends BorderPane {
         hBox4.setPrefWidth(200.0);
 
         btnRecords.setMnemonicParsing(false);
-//        not made yet
-//        btnRecords.setOnAction(this::viewRecords);
+        btnRecords.setOnAction(e -> {
+            //to solve (java.lang.IllegalStateException: Not on FX application thread)indicates that you're attempting to 
+            //update the JavaFX scene graph from a thread other than the JavaFX Application
+            //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
+            //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
+         
+            class RecordPageMain extends Application {
+
+                @Override
+                public void start(Stage stage) throws Exception {
+                    Parent root = FXMLLoader.load(getClass().getResource("record.fxml"));
+                    Scene scene = new Scene(root);
+                    scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }
+            // Create a new thread to launch the new application
+            Thread recordPageThread = new Thread(() -> {
+                try {
+                    // Launch the RecordPageMain application
+                    Platform.runLater(() -> {
+                        try {// it is better to make inner class
+                            new RecordPageMain().start(stage); // 'stage' is my existing stage  
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    });
+                } catch (Exception ex) {
+                    ex.printStackTrace(); // Handle the exception according to your needs
+                }
+            });
+            // Start the thread
+            recordPageThread.start();
+
+        });
         btnRecords.setText("Records");
         btnRecords.getStyleClass().add("btn2");
 
@@ -179,13 +215,16 @@ public class Profile extends BorderPane {
         hBox5.setPrefWidth(200.0);
 
         btnExit.setMnemonicParsing(false);
-//        not made yet
-//        btnExit.setOnAction(this::HandleExit);
         btnExit.setPrefHeight(30.0);
         btnExit.setPrefWidth(57.0);
         btnExit.setText("Exit");
         btnExit.setTextFill(javafx.scene.paint.Color.WHITE);
         btnExit.getStyleClass().add("btn_Exit");
+        btnExit.setOnAction(e -> {
+            Parent pane = new MainScreen(stage);
+            stage.getScene().setRoot(pane);
+
+        });
 
         vBox.setPadding(new Insets(10.0));
 
@@ -229,67 +268,70 @@ public class Profile extends BorderPane {
         Gson json = new Gson();
         ClintSide.printedMessageToServer.println(json.toJson(requestAviable));
         ClintSide.printedMessageToServer.flush();
-
+// to show avialble player in cards
         try {
             String response = ClintSide.listenFromServer.readLine();
-            System.out.println(response);
+//            System.out.println(response);
             RequestDTO recived = json.fromJson(response, RequestDTO.class);
             availablePlayersList = recived.getAvailablePlayers();
-
-            for (UsersDTO user : availablePlayersList) {
-                // Access each UsersDTO object using the 'user' variable
-                System.out.println(user.getUserName() + user.getScore());
-                if (!userName.equals(user.getUserName())) {
-                    Cards card = new Cards(user.getUserName(), user.getScore(),user.getEmail(), stage, score);
+            for (UsersDTO avilablePlayer : availablePlayersList) {
+//       the following if condition to remove the user from aviable list
+                if (!userName.equals(avilablePlayer.getUserName())) {
+                    Cards card = new Cards(userName, email, score,
+                            avilablePlayer.getUserName(), avilablePlayer.getEmail(), avilablePlayer.getScore(), stage);
+//                    System.out.println(userName + email + score + avilablePlayer.getUserName() +
+//                            avilablePlayer.getEmail() + avilablePlayer.getScore());
                     VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
                     inviteList0.getChildren().add(card);
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
+        threadWork(stage, json);
+    }
 
+    public static void threadWork(Stage stage, Gson json) {
         new Thread(() -> {
-
             try {
                 String response = ClintSide.listenFromServer.readLine();
                 System.out.println(response);
-                
                 RequestDTO recived = json.fromJson(response, RequestDTO.class);
-
                 switch (recived.getRoute()) {
                     case "youGetInvetation":
-                        System.out.println("i get invetation");
-                        //the next step not work write but the invetation is sent to server and server resend to another player
-                        RequestDTO responseToInvetation =
-                        new AlertBox().onlineAcceptanceAlert(recived, stage, recived.getPlayerWhoSendInvetationName(), recived.getPlayerWhoSendInvetationScore());
-                        // reforord the response to server to resent it to the first player
-                        ///
-                        ////
+//                        System.out.println("i get invetation");
+                        Platform.runLater(() -> {
+                            new AlertBox().onlineAcceptanceAlert(recived, stage);
+                        });
                         break;
-
-                    case "responeOnInvetation":
-                        System.out.println("i get responseOnInvetation");
-
+                    case "youGetResponeOnInvetation":
+                        System.out.println("i get responseOnInvetation in profile");
                         if (recived.isInvitationRespons()) {
+                            System.out.println("i get responseOnInvetation by yes");
                             Platform.runLater(() -> {
                                 Parent pane = new PlayingScreenDemo(stage, "online");
                                 stage.getScene().setRoot(pane);
                             });
                         } else {
                             Platform.runLater(() -> {
-                                Alert alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setTitle("Invitation Response");
-                                alert.setHeaderText(null);
-                                alert.setContentText("Sorry the invitation not accepted, let's player with another one");
-                                alert.showAndWait();
+                                new AlertBox().onlineWaitingAlert("Invitation Response", "Sorry the invitation not accepted, let's player with another one", stage);
                             });
+                            System.out.println("i get responseOnInvetation by no");
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Invitation Response");
+                            alert.setHeaderText("");  
+                            alert.getDialogPane().setPrefWidth(650);
+                            alert.getDialogPane().setPrefHeight(450);
+                            alert.setContentText("Sorry the invitation not accepted, let's player with another one");
+//                            alert.showAndWait();
+                     
                         }
+                        break;
                 }
             } catch (IOException ex) {
-                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         }).start();
-
     }
+
 }

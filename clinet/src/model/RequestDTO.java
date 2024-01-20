@@ -4,16 +4,34 @@ import java.util.ArrayList;
 
 public class RequestDTO {
 
-    private String Email;
     private String route;
+    private String user;
+    private String Email;
     private String pass;
     private String validation;
     private int score;
-    private String userNamewhoSentInvetation;
-    private ArrayList<UsersDTO> availablePlayers;
+    private String playerWhoSendInvetationName;
+    private int playerWhoSendInvetationScore;
+    private String playerWhoSendInvetationEmail;
     private String invetPlayer;
-    private boolean invitationRespons;
     private String sendInvetationToEmail;
+    private ArrayList<UsersDTO> availablePlayers;
+    private boolean invitationRespons;
+
+
+    public String getUser() {
+        return user;
+    }
+    public void setUser(String user) {
+        this.user = user;
+    }
+    public String getPlayerWhoSendInvetationEmail() {
+        return playerWhoSendInvetationEmail;
+    }
+    public void setPlayerWhoSendInvetationEmail(String playerWhoSendInvetationEmail) {
+        this.playerWhoSendInvetationEmail = playerWhoSendInvetationEmail;
+    }
+
 
     public String getSendInvetationToEmail() {
         return sendInvetationToEmail;
@@ -22,9 +40,6 @@ public class RequestDTO {
     public void setSendInvetationToEmail(String sendInvetationToEmail) {
         this.sendInvetationToEmail = sendInvetationToEmail;
     }
-
-    private String playerWhoSendInvetationName;
-    private int playerWhoSendInvetationScore;
 
     public String getPlayerWhoSendInvetationName() {
         return playerWhoSendInvetationName;
@@ -41,6 +56,7 @@ public class RequestDTO {
     public void setPlayerWhoSendInvetationScore(int playerWhoSendInvetationScore) {
         this.playerWhoSendInvetationScore = playerWhoSendInvetationScore;
     }
+
 
     public boolean isInvitationRespons() {
         return invitationRespons;
@@ -74,12 +90,12 @@ public class RequestDTO {
         this.score = score;
     }
 
-    public String getuserNamewhoSentInvetation() {
-        return userNamewhoSentInvetation;
+    public String getplayerWhoSendInvetationEmail() {
+        return playerWhoSendInvetationEmail;
     }
 
-    public void setuserNamewhoSentInvetation(String userName) {
-        this.userNamewhoSentInvetation = userNamewhoSentInvetation;
+    public void setplayerWhoSendInvetationEmail(String playerWhoSendInvetationEmail) {
+        this.playerWhoSendInvetationEmail = playerWhoSendInvetationEmail;
     }
 
     public String getValidation() {
