@@ -20,7 +20,16 @@ public class RequestDTO {
     private char move;
     private int row;
     private int col;
+    private boolean PlayerOneTurn;
 
+    public boolean isPlayerOneTurn() {
+        return PlayerOneTurn;
+    }
+
+    public void setPlayerOneTurn(boolean PlayerOneTurn) {
+        this.PlayerOneTurn = PlayerOneTurn;
+    }
+    
     public char getMove() {
         return move;
     }
