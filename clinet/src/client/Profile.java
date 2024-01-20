@@ -177,6 +177,7 @@ public class Profile extends BorderPane {
             //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
             //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
          
+            
             class RecordPageMain extends Application {
 
                 @Override

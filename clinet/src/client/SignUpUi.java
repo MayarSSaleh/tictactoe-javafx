@@ -6,18 +6,21 @@ import conn.ClintSide;
 
 import java.util.regex.Pattern;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import model.UsersDTO;
 
 public class SignUpUi extends BorderPane {
@@ -41,15 +44,18 @@ public class SignUpUi extends BorderPane {
     protected final Button btnResgister;
     protected final Rectangle recLogo;
         protected final Image logo;
+    public Stage s;
 
     public String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
     private  boolean validEmail;
     private  boolean validName;
     private  boolean validPass;
-    private ClintSide s;
+//    private ClintSide s;
 
-    public SignUpUi(ClintSide s) {
-        this.s=s;
+//    public SignUpUi(ClintSide s) {
+       public SignUpUi(Stage s) {
+
+        this.s = s;
         hBox = new HBox();
         label = new Label();
         lblResgister = new Label();
@@ -88,7 +94,7 @@ public class SignUpUi extends BorderPane {
         hBox.setPrefWidth(394.0);
         hBox.setStyle("-fx-background-color: black;");
 
-        label.setText(" already have an account?");
+        label.setText(" Already have an account?");
         label.setTextFill(javafx.scene.paint.Color.WHITE);
         label.setFont(new Font(14.0));
 
@@ -217,9 +223,11 @@ public class SignUpUi extends BorderPane {
 
     }
 
-    protected  void login(javafx.scene.input.MouseEvent mouseEvent)
+    protected  void login(MouseEvent event)
     {
-        
+            Parent root = new LoginUi(s);
+           s.getScene().setRoot(root);
+       
     }
 
     protected  void validName(javafx.scene.input.KeyEvent keyEvent)

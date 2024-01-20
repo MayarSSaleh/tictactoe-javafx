@@ -264,8 +264,12 @@ public class LoginUi extends BorderPane {
         }
 
     }
+// what is it ?
 
     protected void resgiter(MouseEvent event) {
+        Parent pane = new SignUpUi(stage);
+        stage.getScene().setRoot(pane);
+
         System.out.println("dsadsa");
     }
 
