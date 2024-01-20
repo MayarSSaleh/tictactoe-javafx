@@ -75,55 +75,57 @@ public class PlayingScreenDemo extends BorderPane {
     Stage stage;
     GamePlay game;
     boolean recordTheGame = false;
+//     it will be
+//        Record newRecord ;
+
     Record newRecord = new Record();
 
     public PlayingScreenDemo(Stage stage, String pageName, Record newRecord) {
+
         btnRecord = new Button();
         btnPlayRecord = new Button();
-        if (pageName.equals("online")) {
-            BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
-            btnRecord.setMnemonicParsing(false);
-            btnRecord.setLayoutX(470.0);
-            btnRecord.setLayoutY(239.0);
-            btnRecord.setPrefHeight(31.0);
-            btnRecord.setPrefWidth(85.0);
-            btnRecord.setText("Record");
-            setBottom(btnRecord);
-            BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 0.0, 0.0));
-            btnRecord.getStyleClass().add("btnRec");
+        if (pageName.equals("ReplayGame")) {
+            System.out.println(" inside if condition of palying screen ,record show");
 
-            btnRecord.setOnAction((e) -> {
-                recordTheGame = true;
-                System.out.println("record statr");
-                newRecord.setCurrentDate(LocalDate.now());
-                newRecord.setCurrentTime(LocalTime.now());
-
-            });
-
-            // the following cod made by mayar for testing the replaying function<keep it>
-            BorderPane.setAlignment(btnPlayRecord, javafx.geometry.Pos.CENTER);
-            btnPlayRecord.setMnemonicParsing(false);
-            btnPlayRecord.setPrefHeight(31.0);
-            btnPlayRecord.setPrefWidth(120.0);
-            btnPlayRecord.setText("playR");
-            BorderPane.setMargin(btnPlayRecord, new Insets(0.0, 0.0, 0.0, 0.0));
-            setLeft(btnPlayRecord);
-            btnPlayRecord.getStyleClass().add("btnRec");
-
-            btnPlayRecord.setOnAction((e) -> {
-                System.out.println("record show");
-                replayTheGame();
-                newRecord.setCurrentDate(LocalDate.now());
-                System.out.println(newRecord.getCurrentDate());
-                System.out.println("current time " + newRecord.getCurrentTime());
-
-            });
-
-        } else if (pageName.equals("local")) {
             btnRecord.getStyleClass().add("btnRecLoc");
-        } else if (pageName.equals("ReplayGame")) {
             replayTheGame();
+
         }
+
+        BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
+        btnRecord.setMnemonicParsing(false);
+        btnRecord.setLayoutX(470.0);
+        btnRecord.setLayoutY(239.0);
+        btnRecord.setPrefHeight(31.0);
+        btnRecord.setPrefWidth(85.0);
+        btnRecord.setText("Record");
+        setBottom(btnRecord);
+        BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 0.0, 0.0));
+        btnRecord.getStyleClass().add("btnRec");
+
+        btnRecord.setOnAction((e) -> {
+            recordTheGame = true;
+            System.out.println("record statr");
+            newRecord.setCurrentDate(LocalDate.now());
+            newRecord.setCurrentTime(LocalTime.now());
+        });
+        btnPlayRecord.setOnAction((e) -> {
+            System.out.println("record show");
+            replayTheGame();
+            System.out.println(newRecord.getCurrentDate());
+            System.out.println("current time " + newRecord.getCurrentTime());
+
+        });
+
+        // the following cod made by mayar for testing the replaying function<keep it>
+        BorderPane.setAlignment(btnPlayRecord, javafx.geometry.Pos.CENTER);
+        btnPlayRecord.setMnemonicParsing(false);
+        btnPlayRecord.setPrefHeight(31.0);
+        btnPlayRecord.setPrefWidth(70.0);
+        btnPlayRecord.setText("playR");
+        BorderPane.setMargin(btnPlayRecord, new Insets(0.0, 0.0, 0.0, 0.0));
+        setLeft(btnPlayRecord);
+        btnPlayRecord.getStyleClass().add("btnRec");
 
         game = new GamePlay();
         this.stage = stage;
@@ -171,7 +173,6 @@ public class PlayingScreenDemo extends BorderPane {
         setPrefHeight(400.0);
         setPrefWidth(600.0);
 
-        
         BorderPane.setAlignment(topFlow, javafx.geometry.Pos.CENTER);
         topFlow.setPrefHeight(103.0);
         topFlow.setPrefWidth(600.0);
@@ -533,7 +534,7 @@ public class PlayingScreenDemo extends BorderPane {
 
     // it should take the object but for now,it will deal with the current used object
     public void replayTheGame() {
-                    
+
         ArrayList<int[]> gameSteps = newRecord.getRecordTheSteps();
         // this comment and the following is for make delay by another way. 2method make delay
 //        Timeline timeline = new Timeline();
@@ -563,7 +564,6 @@ public class PlayingScreenDemo extends BorderPane {
 //            timeline.getKeyFrames().add(keyFrame);
 //        }Start the timeline
 //        timeline.play();}
-
                     }
                 });
 

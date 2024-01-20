@@ -74,12 +74,16 @@ public class RecordList1 extends AnchorPane {
         getChildren().add(btnExit);
         getChildren().add(ImageTICTACTOE);
         getChildren().add(listRecord);
-        
-         btnExit.getStyleClass().add("btnMainScreeen");
+
+        btnExit.getStyleClass().add("btnMainScreeen");
         btnWatch.getStyleClass().add("btnMainScreeen");
 
         String[] records = {"Record date: 12/1/2024", "Record date: 1/1/2024", "Record date: 12/12/2023",
             "Record date: 30/5/2023", "Record date: 30/5/2023"};
+//              System.out.println(newRecord.getCurrentDate());
+//            System.out.println("current time " + newRecord.getCurrentTime());
+        
+        
         listRecord.getItems().addAll(records);
 
         btnExit.setOnAction((e) -> {
@@ -91,6 +95,9 @@ public class RecordList1 extends AnchorPane {
             String selectedRecord = listRecord.getSelectionModel().getSelectedItem();
             if (selectedRecord != null) {
                 System.out.println("Selected Record: " + selectedRecord);
+                Parent pane = new PlayingScreenDemo(stage, "ReplayGame", newRecord);
+                stage.getScene().setRoot(pane);
+               
             } else {
                 System.out.println("No item selected");
             }

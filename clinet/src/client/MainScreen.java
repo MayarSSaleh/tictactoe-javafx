@@ -90,6 +90,9 @@ public class MainScreen extends BorderPane {
 
         btnOnline.setOnAction(e -> {
      
+           Parent pane = new PlayingScreenDemo(stage , "online", new Record());
+            stage.getScene().setRoot(pane);   
+            
         });
         BorderPane.setAlignment(btnComputer, javafx.geometry.Pos.CENTER);
         btnComputer.setMnemonicParsing(false);
