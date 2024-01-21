@@ -1,34 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-/**
- *
- * @author mosta
- */
-public class User
-{
+public class UsersDTO {
+
     private int ID;
     private String userName;
     private String email;
     private String userPass;
     private int score;
     private String status;
+    private String sendInvetationToEmail;
 
-
-    public User() {
+    public String getSendInvetationToEmail() {
+        return sendInvetationToEmail;
     }
 
-    public User(int ID, String userName, String email, String userPass, int score,String status) {
+    public void setSendInvetationToEmail(String sendInvetationToEmail) {
+        this.sendInvetationToEmail = sendInvetationToEmail;
+    }
+
+    public UsersDTO() {
+    }
+
+    public UsersDTO(int ID, String userName, String email, String userPass, int score, String status) {
         this.ID = ID;
         this.userName = userName;
         this.email = email;
         this.userPass = userPass;
         this.score = score;
-        this.status=status;
+        this.status = status;
     }
 
     public String getStatus() {
@@ -38,9 +37,9 @@ public class User
     public void setStatus(String status) {
         this.status = status;
     }
-    public User(int id)
-    {
-    ID=id;
+
+    public UsersDTO(int id) {
+        ID = id;
     }
 
 //    public UsersDTO(int aInt, String string, String string0, String string1, int aInt0, String string2) {
@@ -85,14 +84,9 @@ public class User
     public void setScore(int score) {
         this.score = score;
     }
-  public void incrementScore()
-    {
-        score++;
-    }  
 
-    public void setPass(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void incrementScore() {
+        score++;
     }
-    
-    
+
 }

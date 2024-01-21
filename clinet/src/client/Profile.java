@@ -1,11 +1,18 @@
 package client;
 
+import com.google.gson.Gson;
 import conn.ClintSide;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -17,6 +24,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import model.RequestDTO;
+import model.UsersDTO;
 
 public class Profile extends BorderPane {
 
@@ -35,15 +45,17 @@ public class Profile extends BorderPane {
     protected final TextField txtScore;
     protected final HBox hBox3;
     protected final HBox hBox4;
-    protected final Button btnRecords;
+//    protected final Button btnRecords;
     protected final HBox hBox5;
     protected final Button btnExit;
     protected final VBox inviteList;
     protected final ScrollPane scrollPane;
     protected final VBox inviteList0;
-    protected  final Image profileImg;
+    protected final Image profileImg;
     protected final Image logo;
-    public Profile(String userName , String email , int score ) {
+    protected ArrayList<UsersDTO> availablePlayersList;
+
+    public Profile(String userName, String email, int score, Stage stage) {
 
         recLogo = new Rectangle();
         hBox = new HBox();
@@ -60,14 +72,14 @@ public class Profile extends BorderPane {
         txtScore = new TextField();
         hBox3 = new HBox();
         hBox4 = new HBox();
-        btnRecords = new Button();
+//        btnRecords = new Button();
         hBox5 = new HBox();
         btnExit = new Button();
         inviteList = new VBox();
         scrollPane = new ScrollPane();
         inviteList0 = new VBox();
-        logo= new Image("/assets/Group9.png");
-        profileImg=new Image("/assets/Starasset.png");
+        logo = new Image("/assets/Group9.png");
+        profileImg = new Image("/assets/Starasset.png");
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -115,10 +127,10 @@ public class Profile extends BorderPane {
         label.setTextFill(javafx.scene.paint.Color.WHITE);
         label.setFont(new Font(14.0));
 
-      txtuser.setEditable(false);
-txtuser.setText(userName);
-txtuser.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
-txtuser.setFont(new Font(14.0));
+        txtuser.setEditable(false);
+        txtuser.setText(userName);
+        txtuser.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
+        txtuser.setFont(new Font(14.0));
 
         hBox1.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
         hBox1.setPrefHeight(100.0);
@@ -130,10 +142,10 @@ txtuser.setFont(new Font(14.0));
         label0.setTextFill(javafx.scene.paint.Color.WHITE);
         label0.setFont(new Font(14.0));
 
-       txtEmail.setEditable(false);
-txtEmail.setText(email);
-txtEmail.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
-txtEmail.setFont(new Font(14.0));
+        txtEmail.setEditable(false);
+        txtEmail.setText(email);
+        txtEmail.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
+        txtEmail.setFont(new Font(14.0));
 
         hBox2.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
         hBox2.setPrefHeight(100.0);
@@ -145,10 +157,10 @@ txtEmail.setFont(new Font(14.0));
         label1.setTextFill(javafx.scene.paint.Color.WHITE);
         label1.setFont(new Font(14.0));
 
-     txtScore.setEditable(false);
-    txtScore.setText(String.valueOf(score));
-    txtScore.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
-    txtScore.setFont(new Font(14.0));
+        txtScore.setEditable(false);
+        txtScore.setText(String.valueOf(score));
+        txtScore.setStyle("-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;");
+        txtScore.setFont(new Font(14.0));
 
         hBox3.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
         hBox3.setPrefHeight(100.0);
@@ -158,23 +170,62 @@ txtEmail.setFont(new Font(14.0));
         hBox4.setPrefHeight(100.0);
         hBox4.setPrefWidth(200.0);
 
-        btnRecords.setMnemonicParsing(false);
-        btnRecords.setOnAction(this::viewRecords);
-        btnRecords.setText("Records");
-            btnRecords.getStyleClass().add("btn2");
-
+//        btnRecords.setMnemonicParsing(false);
+//        btnRecords.setOnAction(e -> {
+//            //to solve (java.lang.IllegalStateException: Not on FX application thread)indicates that you're attempting to 
+//            //update the JavaFX scene graph from a thread other than the JavaFX Application
+//            //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
+//            //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
+//         
+//            
+//            class RecordPageMain extends Application {
+//
+//                @Override
+//                public void start(Stage stage) throws Exception {
+//                    Parent root = FXMLLoader.load(getClass().getResource("record.fxml"));
+//                    Scene scene = new Scene(root);
+//                    scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
+//                    stage.setScene(scene);
+//                    stage.show();
+//                }
+//            }
+//            // Create a new thread to launch the new application
+//            Thread recordPageThread = new Thread(() -> {
+//                try {
+//                    // Launch the RecordPageMain application
+//                    Platform.runLater(() -> {
+//                        try {// it is better to make inner class
+//                            new RecordPageMain().start(stage); // 'stage' is my existing stage  
+//                        } catch (Exception ex) {
+//                            ex.printStackTrace();
+//                        }
+//                    });
+//                } catch (Exception ex) {
+//                    ex.printStackTrace(); // Handle the exception according to your needs
+//                }
+//            });
+//            // Start the thread
+//            recordPageThread.start();
+//
+//        });
+//        btnRecords.setText("Records");
+//        btnRecords.getStyleClass().add("btn2");
 
         hBox5.setAlignment(javafx.geometry.Pos.CENTER);
         hBox5.setPrefHeight(100.0);
         hBox5.setPrefWidth(200.0);
 
         btnExit.setMnemonicParsing(false);
-        btnExit.setOnAction(this::HandleExit);
         btnExit.setPrefHeight(30.0);
         btnExit.setPrefWidth(57.0);
         btnExit.setText("Exit");
         btnExit.setTextFill(javafx.scene.paint.Color.WHITE);
-                    btnExit.getStyleClass().add("btn_Exit");
+        btnExit.getStyleClass().add("btn2");
+        btnExit.setOnAction(e -> {
+            Parent pane = new MainScreen(stage);
+            stage.getScene().setRoot(pane);
+
+        });
 
         vBox.setPadding(new Insets(10.0));
 
@@ -193,17 +244,7 @@ txtEmail.setFont(new Font(14.0));
         inviteList0.setPadding(new Insets(10.0));
         scrollPane.setContent(inviteList0);
         setCenter(hBox);
-        for(int i=0;i<10;i++)
-        {
 
-            Cards card= new Cards();
-            
-    VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
-
-
-            inviteList0.getChildren().add(card);
-            
-        }
         vBox.getChildren().add(recProfileImg);
         hBox0.getChildren().add(label);
         hBox0.getChildren().add(txtuser);
@@ -214,26 +255,84 @@ txtEmail.setFont(new Font(14.0));
         hBox2.getChildren().add(label1);
         hBox2.getChildren().add(txtScore);
         vBox.getChildren().add(hBox2);
-        hBox4.getChildren().add(btnRecords);
+//        hBox4.getChildren().add(btnRecords);
         hBox3.getChildren().add(hBox4);
         hBox5.getChildren().add(btnExit);
         hBox3.getChildren().add(hBox5);
         vBox.getChildren().add(hBox3);
         hBox.getChildren().add(vBox);
         inviteList.getChildren().add(scrollPane);
-       hBox.getChildren().add(inviteList);
-       
+        hBox.getChildren().add(inviteList);
 
+        RequestDTO requestAviable = new RequestDTO();
+        requestAviable.setRoute("getAvialblePlayers");
+        Gson json = new Gson();
+        ClintSide.printedMessageToServer.println(json.toJson(requestAviable));
+        ClintSide.printedMessageToServer.flush();
+// to show avialble player in cards
+        try {
+            String response = ClintSide.listenFromServer.readLine();
+//            System.out.println(response);
+            RequestDTO recived = json.fromJson(response, RequestDTO.class);
+            availablePlayersList = recived.getAvailablePlayers();
+            for (UsersDTO avilablePlayer : availablePlayersList) {
+//       the following if condition to remove the user from aviable list
+                if (!userName.equals(avilablePlayer.getUserName())) {
+                    Cards card = new Cards(userName, email, score,
+                            avilablePlayer.getUserName(), avilablePlayer.getEmail(), avilablePlayer.getScore(), stage);
+//                    System.out.println(userName + email + score + avilablePlayer.getUserName() +
+//                            avilablePlayer.getEmail() + avilablePlayer.getScore());
+                    VBox.setMargin(card, new Insets(5.0, 0.0, 5.0, 0.0));
+                    inviteList0.getChildren().add(card);
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        threadWork(stage, json);
     }
 
-    protected  void viewRecords(javafx.event.ActionEvent actionEvent)
-    {
-        
-    }
-
-    protected  void HandleExit(javafx.event.ActionEvent actionEvent)
-    {
-        ClintSide clintSide= new ClintSide();
+    public static void threadWork(Stage stage, Gson json) {
+        new Thread(() -> {
+            try {
+                String response = ClintSide.listenFromServer.readLine();
+                System.out.println(response);
+                RequestDTO recived = json.fromJson(response, RequestDTO.class);
+                switch (recived.getRoute()) {
+                    case "youGetInvetation":
+//                        System.out.println("i get invetation");
+                        Platform.runLater(() -> {
+                            new AlertBox().onlineAcceptanceAlert(recived, stage);
+                        });
+                        break;
+                    case "youGetResponeOnInvetation":
+                        System.out.println("i get responseOnInvetation in profile");
+                        if (recived.isInvitationRespons()) {
+                            System.out.println("i get responseOnInvetation by yes");
+                            Platform.runLater(() -> {
+                                Parent pane = new PlayingScreenDemo(stage, "online",recived.getSendInvetationToEmail());
+                                stage.getScene().setRoot(pane);
+                            });
+                        } else {
+                            Platform.runLater(() -> {
+                                new AlertBox().onlineWaitingAlert("Invitation Response", "Sorry the invitation not accepted, let's player with another one", stage);
+                            });
+                            System.out.println("i get responseOnInvetation by no");
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Invitation Response");
+                            alert.setHeaderText("");  
+                            alert.getDialogPane().setPrefWidth(650);
+                            alert.getDialogPane().setPrefHeight(450);
+                            alert.setContentText("Sorry the invitation not accepted, let's player with another one");
+//                            alert.showAndWait();
+                     
+                        }
+                        break;
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }).start();
     }
 
 }

@@ -1,7 +1,7 @@
 package RouteHandler;
 
 import com.google.gson.Gson;
-import model.User;
+import model.UsersDTO;
 
 public class Handler {
 
@@ -14,15 +14,15 @@ public class Handler {
         Handler.msg = msg;
         switch (route) {
             case "login":
-                User data = login();
+                UsersDTO data = login();
                 break;
             default:
                 break;
         }
     }
 
-    public static User login() {
-        User myData = json.fromJson(msg, User.class);
+    public static UsersDTO login() {
+        UsersDTO myData = json.fromJson(msg, UsersDTO.class);
         return myData;
     }
 }

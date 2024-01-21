@@ -1,20 +1,29 @@
 package client;
 
+import com.google.gson.Gson;
+import conn.ClintSide;
+import java.io.IOException;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import model.RequestDTO;
 
-public  class Cards extends HBox {
+public class Cards extends HBox {
 
     protected final VBox vBox;
     protected final Label lblName;
     protected final Label lblScore;
     protected final Button btnInvite;
 
-    public Cards() {
+    public Cards(String playerWhoSendInvetationName, String playerwhoSentInvetationEmail, int playerWhoSendInvetationScore,
+            String playerName, String sendInvetationToEmail, int invertingScore, Stage stage) {
 
         vBox = new VBox();
         lblName = new Label();
@@ -33,29 +42,41 @@ public  class Cards extends HBox {
 
         lblName.setPrefHeight(17.0);
         lblName.setPrefWidth(102.0);
-        lblName.setText("MOSTAFA");
+        lblName.setText(playerName);
         lblName.setFont(new Font(14.0));
 
         lblScore.setPrefHeight(17.0);
         lblScore.setPrefWidth(100.0);
-        lblScore.setText("Score : 50");
+        lblScore.setText("Score : " + invertingScore);
         lblScore.setFont(new Font(14.0));
 
         btnInvite.setMinHeight(30.0);
         btnInvite.setMinWidth(80.0);
         btnInvite.setMnemonicParsing(false);
-btnInvite.setStyle("    -fx-background-color: orange;\n" +
-"    -fx-text-fill: white;\n" +
-"    -fx-border-color: orange;\n" +
-"    -fx-border-radius: 5px;\n" +
-"    -fx-padding: 10px 15px;\n" +
-"    -fx-font-size: 14px;");
-
+        btnInvite.setStyle("    -fx-background-color: orange;\n"
+                + "    -fx-text-fill: white;\n"
+                + "    -fx-border-color: orange;\n"
+                + "    -fx-border-radius: 5px;\n"
+                + "    -fx-padding: 10px 15px;\n"
+                + "    -fx-font-size: 14px;");
 
         btnInvite.setText("Invite");
         btnInvite.setTextFill(javafx.scene.paint.Color.WHITE);
-        btnInvite.setOnAction((e)->{
-            System.out.println("dasdasdas");
+        btnInvite.setOnAction((e) -> {
+            RequestDTO requestSendInvetation = new RequestDTO();
+            requestSendInvetation.setRoute("sendInvetation");           
+            requestSendInvetation.setPlayerWhoSendInvetationName(playerWhoSendInvetationName);
+            requestSendInvetation.setplayerWhoSendInvetationEmail(playerwhoSentInvetationEmail);
+//            System.out.print(playerWhoSendInvetationScore );
+            requestSendInvetation.setPlayerWhoSendInvetationScore(playerWhoSendInvetationScore);
+            requestSendInvetation.setInvetPlayer(playerName);
+            requestSendInvetation.setSendInvetationToEmail(sendInvetationToEmail);
+
+            Gson SendInvetation = new Gson();
+            ClintSide.printedMessageToServer.println(SendInvetation.toJson(requestSendInvetation));
+            ClintSide.printedMessageToServer.flush();
+
+            new AlertBox().onlineWaitingAlert("Invetation", "Waiting Player response", stage);
         });
         HBox.setMargin(btnInvite, new Insets(0.0, 0.0, 0.0, 40.0));
 
