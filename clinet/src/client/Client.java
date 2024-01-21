@@ -23,12 +23,12 @@ public class Client extends Application {
         //Parent root = new FXMLDocumentBase();
 //        Parent root = new PlayingScreenDemo(stage , "online", new Record());
 //        Parent root = new MainScreen(stage);
-                Parent root = new RecordList1(stage);
-
+//                Parent root = new RecordList1(stage);
+                     Parent root = new PlayingVsComputer(stage); 
         
-//            Parent root = new FirstPage (stage);
+//           Parent root = new FirstPage (stage);
 
-         // Parent root = new PlayingScreenDemo(stage , "local");
+//        Parent root = new PlayingScreenDemo(stage , "local",new Record());
        // Parent root = new FXMLDocumentBase();
 //        Parent root = new MainScreen(stage);
        //Parent root =new SignUpUi();

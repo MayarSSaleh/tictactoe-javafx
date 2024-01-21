@@ -1,6 +1,8 @@
 package client;
 
 import static client.PlayingScreenDemo.counterx;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.scene.Parent;
 import javafx.util.Duration;
 
 public class PlayingVsComputer extends BorderPane {
@@ -54,6 +58,10 @@ public class PlayingVsComputer extends BorderPane {
     private ImageView imageView0;
     private DropShadow dropShadow;
     private DropShadow dropShadow0;
+    private Button btnRecord = new Button();
+    private Button btnPlayRecord = new Button();
+    boolean recordTheGame = false;
+    Record newRecord = new Record();
 
     private char currentPlayer = 'X'; // Initial player is X
     private char[][] board = new char[3][3];
@@ -73,6 +81,61 @@ public class PlayingVsComputer extends BorderPane {
                 board[i][j] = ' ';
             }
         }
+
+        BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
+        btnRecord.setMnemonicParsing(false);
+        btnRecord.setLayoutX(470.0);
+        btnRecord.setLayoutY(239.0);
+        btnRecord.setPrefHeight(31.0);
+        btnRecord.setPrefWidth(85.0);
+        btnRecord.setText("Record");
+        setBottom(btnRecord);
+
+        //                 0.0 is the top margin.
+//                0.0 is the right margin.
+//                0.0 is the bottom margin.
+//                0.0 is the left margin.
+        BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 470.0, 0.0));
+        btnRecord.getStyleClass().add("btnRec");
+        btnPlayRecord.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: white;");
+
+        btnRecord.setOnAction((e) -> {
+            String buttonText = btnRecord.getText();
+            if (buttonText == "Record") {
+                btnPlayRecord.setStyle("-fx-background-color: #FFA500;");
+                recordTheGame = true;
+                System.out.println("record statr");
+                newRecord.setCurrentDate(LocalDate.now());
+                newRecord.setCurrentTime(LocalTime.now());
+            } else if (buttonText == "Exit") {
+                Parent pane = new MainScreen(stage);
+                stage.getScene().setRoot(pane);
+            }
+        });
+        btnPlayRecord.setOnAction((e) -> {
+//            btnRecord.getStyleClass().add("btnRecLoc");
+            btnRecord.setText("Exit");
+            System.out.println("record show");
+            replayTheGame();
+            System.out.println(newRecord.getCurrentDate());
+            System.out.println("current time " + newRecord.getCurrentTime());
+
+        });
+
+        // the following cod made by mayar for testing the replaying function<keep it>
+        BorderPane.setAlignment(btnPlayRecord, javafx.geometry.Pos.CENTER);
+        btnPlayRecord.setMnemonicParsing(false);
+        btnPlayRecord.setPrefHeight(31.0);
+        btnPlayRecord.setPrefWidth(120.0);
+        btnPlayRecord.setText("Play Record");
+//                 0.0 is the top margin.
+//                0.0 is the right margin.
+//                0.0 is the bottom margin.
+//                0.0 is the left margin.
+
+        BorderPane.setMargin(btnPlayRecord, new Insets(10.0, 10.0, 10.0, 470.0));
+        setBottom(btnPlayRecord);
+        btnPlayRecord.getStyleClass().add("btnRec");
 
         topFlow = new FlowPane();
         anchorPlayerX = new AnchorPane();
@@ -396,6 +459,7 @@ public class PlayingVsComputer extends BorderPane {
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
+        anchorGame.getChildren().add(btnRecord);
         // Set button handlers
         setButtonHandler(btn00, 0, 0);
         setButtonHandler(btn01, 0, 1);
@@ -415,6 +479,9 @@ public class PlayingVsComputer extends BorderPane {
                 if (!button.getStyleClass().contains("btnx") && !button.getStyleClass().contains("btno") && playerTurn) {
                     button.getStyleClass().add("btnx");
                     board[row][col] = 'X';
+                    if (recordTheGame) {
+                        newRecord.setclick(row, col, 'X');
+                    }
                     checkGameStatus(row, col);
                     playerTurn = false; // <-- This is fine for human player
                     computerMove();
@@ -436,12 +503,16 @@ public class PlayingVsComputer extends BorderPane {
                 Button computerButton = getButton(row, col);
                 // when delay apply it open door for error (user play many time before computer)
 //                PauseTransition delay = new PauseTransition(Duration.seconds(.5));
-                
+
 //                delay.setOnFinished((ActionEvent e) -> {
-                    computerButton.getStyleClass().add("btno");
-                    board[row][col] = 'O';
+                computerButton.getStyleClass().add("btno");
+                board[row][col] = 'O';
 //                });
 //                delay.play();
+                if (recordTheGame) {
+                    newRecord.setclick(row, col, 'O');
+                }
+
                 checkGameStatus(row, col);
             }
             // Update currentPlayer after the computer move
@@ -583,4 +654,52 @@ public class PlayingVsComputer extends BorderPane {
         }
         return null;
     }
+
+    public void replayTheGame() {
+
+        ArrayList<int[]> gameSteps = newRecord.getRecordTheSteps();
+        // this comment and the following is for make delay by another way. 2method make delay
+//        Timeline timeline = new Timeline();
+        Thread replayThread = new Thread(() -> {
+            for (int x = 0; x < gameSteps.size(); x++) {
+                ArrayList<Character> signs = newRecord.getRecordTheSign();
+                char currentSign = signs.get(x);
+                int[] array = gameSteps.get(x);
+                int row = array[0];
+                int col = array[1];
+//            KeyFrame keyFrame = new KeyFrame(
+//                    Duration.seconds(x + 0.5), // Add a delay of 0.5 seconds for each step
+//                    new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+                Platform.runLater(() -> {
+                    System.out.println("Replaying step: " + row + ", " + col + " - " + currentSign);
+                    Button playButton = getButton(row, col);
+                    if (currentSign == 'X') {
+                        playButton.getStyleClass().add("btnx");
+                        board[row][col] = 'X';
+                    } else if (currentSign == 'O') {
+                        playButton.getStyleClass().add("btno");
+                        board[row][col] = 'O';
+
+//            }}});
+//            timeline.getKeyFrames().add(keyFrame);
+//        }Start the timeline
+//        timeline.play();}
+                    }
+                });
+
+                try {
+                    // Add a delay in the separate thread
+                    Thread.sleep(500); // 500 milliseconds (0.5 seconds) delay
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // Start the replay thread
+        replayThread.start();
+    }
+
 }

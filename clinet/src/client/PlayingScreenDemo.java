@@ -99,16 +99,31 @@ public class PlayingScreenDemo extends BorderPane {
         btnRecord.setPrefWidth(85.0);
         btnRecord.setText("Record");
         setBottom(btnRecord);
-        BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 0.0, 0.0));
+
+        //                 0.0 is the top margin.
+//                0.0 is the right margin.
+//                0.0 is the bottom margin.
+//                0.0 is the left margin.
+        BorderPane.setMargin(btnRecord, new Insets(0.0, 20.0, 10.0, 0.0));
         btnRecord.getStyleClass().add("btnRec");
+        btnPlayRecord.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: white;");
 
         btnRecord.setOnAction((e) -> {
-            recordTheGame = true;
-            System.out.println("record statr");
-            newRecord.setCurrentDate(LocalDate.now());
-            newRecord.setCurrentTime(LocalTime.now());
+            String buttonText = btnRecord.getText();
+            if (buttonText == "Record") {
+                btnPlayRecord.setStyle("-fx-background-color: #FFA500;");
+                recordTheGame = true;
+                System.out.println("record statr");
+                newRecord.setCurrentDate(LocalDate.now());
+                newRecord.setCurrentTime(LocalTime.now());
+            } else if (buttonText == "Exit") {
+                Parent pane = new MainScreen(stage);
+                stage.getScene().setRoot(pane);
+            }
         });
         btnPlayRecord.setOnAction((e) -> {
+//            btnRecord.getStyleClass().add("btnRecLoc");
+            btnRecord.setText("Exit");
             System.out.println("record show");
             replayTheGame();
             System.out.println(newRecord.getCurrentDate());
@@ -120,10 +135,15 @@ public class PlayingScreenDemo extends BorderPane {
         BorderPane.setAlignment(btnPlayRecord, javafx.geometry.Pos.CENTER);
         btnPlayRecord.setMnemonicParsing(false);
         btnPlayRecord.setPrefHeight(31.0);
-        btnPlayRecord.setPrefWidth(70.0);
-        btnPlayRecord.setText("playR");
-        BorderPane.setMargin(btnPlayRecord, new Insets(0.0, 0.0, 0.0, 0.0));
-        setLeft(btnPlayRecord);
+        btnPlayRecord.setPrefWidth(120.0);
+        btnPlayRecord.setText("play Record");
+//                 0.0 is the top margin.
+//                0.0 is the right margin.
+//                0.0 is the bottom margin.
+//                0.0 is the left margin.
+
+        BorderPane.setMargin(btnPlayRecord, new Insets(10.0, 10.0, 10.0, 400.0));
+        setBottom(btnPlayRecord);
         btnPlayRecord.getStyleClass().add("btnRec");
 
         game = new GamePlay();
@@ -494,15 +514,13 @@ public class PlayingScreenDemo extends BorderPane {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
 
 //                        Record.addRecords(newRecord);
-                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
-
+//                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
                         new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
 
 //                        Record.addRecords(newRecord);
-                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
-
+//                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
                     }
 
                 } else if (!((Button) event.getTarget()).getStyleClass().contains("btno") && !((Button) event.getTarget()).getStyleClass().contains("btnx") && game.getCurrentPlayer() == 'O') {
@@ -524,14 +542,12 @@ public class PlayingScreenDemo extends BorderPane {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
 
 //                        Record.addRecords(newRecord);
-                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
-
+//                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
                         new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
 //                        Record.addRecords(newRecord);
-                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
-
+//                        XmlUtil.saveObjectsToXml(newRecord, "src/jaxb/Records.xml");
 
                     }
                 }
