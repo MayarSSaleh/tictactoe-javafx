@@ -286,9 +286,8 @@ class RouteHandler extends Thread {
         try {
             listenFromClient = new DataInputStream(s.getInputStream());
             printedMessageToClient = new PrintStream(s.getOutputStream());
-            this.email = email;
+//            this.email = email;
 //            clientsVector.add(this);
-
             start();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -411,7 +410,7 @@ void sendMessageTo(String msg, String email) {
         }
     }
 
-    public void transResponseToInvetingPlayer(RequestDTO clint) throws SQLException {
+   public void transResponseToInvetingPlayer(RequestDTO clint) throws SQLException {
         
            for (RouteHandler root : clientsVector) {
             System.out.println("inside in trans respons to ");

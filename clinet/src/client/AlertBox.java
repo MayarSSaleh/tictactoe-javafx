@@ -21,7 +21,8 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import DTO.RequestDTO;
+import model.RequestDTO;
+
 
 public class AlertBox {
 
@@ -229,7 +230,7 @@ stopButton.setOnAction((e)->{
         window.setScene(scene);
         window.showAndWait();
     }
-
+    
     public void onlineAcceptanceAlert(RequestDTO recived, Stage stage) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -253,8 +254,8 @@ stopButton.setOnAction((e)->{
                 
                 window.close();
 //                System.out.print("inside yes to invetation and after close window");
-//                Parent pane = new PlayingScreenDemo(stage, "online");
-//                stage.getScene().setRoot(pane);
+                Parent pane = new PlayingScreenDemo(stage, "online","");
+                stage.getScene().setRoot(pane);
 //                System.out.print("inside yes to invetation and after shifiting to stage");
             } catch (Exception ex) {
                 ex.printStackTrace(); // Handle or log the exception appropriately
@@ -292,6 +293,7 @@ stopButton.setOnAction((e)->{
         window.setScene(scene);
         window.showAndWait();
     }
+
     public void onlineChooseTypeAlert(String title, Stage stage ,String userName, String email , int score) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

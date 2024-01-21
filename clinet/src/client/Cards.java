@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.RequestDTO;
+//import DTO.RequestDTO;
 
 public class Cards extends HBox {
 
