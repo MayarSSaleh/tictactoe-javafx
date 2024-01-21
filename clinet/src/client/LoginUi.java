@@ -218,9 +218,7 @@ new Thread(() -> {
             Platform.runLater(() -> {
 //                Parent pane = new Profile(recived.getUserName() , recived.getEmail() , recived.getScore());
                 System.out.println("client.LoginUi.login()" + recived.getEmail());
-                Parent pane = new PlayingOnlineDemo(stage , recived.getEmail() , recived.getScore());
-
-                  stage.getScene().setRoot(pane);
+        new AlertBox().onlineChooseTypeAlert("Choose type" , stage ,recived.getUserName(), recived.getEmail() , recived.getScore());
             });
         } else if ("invalid".equals(recived.getValidation())) {
             // Handle the case when validation is invalid

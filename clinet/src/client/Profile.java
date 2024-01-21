@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class Profile extends BorderPane {
 
@@ -43,7 +44,7 @@ public class Profile extends BorderPane {
     protected final VBox inviteList0;
     protected  final Image profileImg;
     protected final Image logo;
-    public Profile(String userName , String email , int score ) {
+    public Profile(Stage stage , String userName , String email , int score ) {
 
         recLogo = new Rectangle();
         hBox = new HBox();

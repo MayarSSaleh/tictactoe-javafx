@@ -21,6 +21,15 @@ public class RequestDTO {
     private int col;
     private char move;
         private boolean PlayerOneTurn;
+    private String playState;
+
+    public String getPlayState() {
+        return playState;
+    }
+
+    public void setPlayState(String playState) {
+        this.playState = playState;
+    }
 
     public boolean isPlayerOneTurn() {
         return PlayerOneTurn;

@@ -309,18 +309,18 @@ class RouteHandler extends Thread {
         }
     }
 
-    private boolean isPlayerTurn(String currentPlayerEmail) {
-        return (currentPlayerEmail.equals(playerXEmail) && isOmaaarTurn) ||
-               (currentPlayerEmail.equals(playerOEmail) && !isOmaaarTurn);
-    }
-
-    private void togglePlayerTurn(String currentPlayerEmail, String opponentPlayerEmail) {
-        if (currentPlayerEmail.equals(playerXEmail) && isOmaaarTurn) {
-            isOmaaarTurn = false;
-        } else if (currentPlayerEmail.equals(playerOEmail) && !isOmaaarTurn) {
-            isOmaaarTurn = true;
-        }
-    }
+//    private boolean isPlayerTurn(String currentPlayerEmail) {
+//        return (currentPlayerEmail.equals(playerXEmail) && isOmaaarTurn) ||
+//               (currentPlayerEmail.equals(playerOEmail) && !isOmaaarTurn);
+//    }
+//
+//    private void togglePlayerTurn(String currentPlayerEmail, String opponentPlayerEmail) {
+//        if (currentPlayerEmail.equals(playerXEmail) && isOmaaarTurn) {
+//            isOmaaarTurn = false;
+//        } else if (currentPlayerEmail.equals(playerOEmail) && !isOmaaarTurn) {
+//            isOmaaarTurn = true;
+//        }
+//    }
 
     void sendMessageTo(String msg, String email) {
         if (email != null) {
@@ -376,12 +376,14 @@ class RouteHandler extends Thread {
 
         if (email != null) {
             for (RouteHandler root : clientsVector) {
-                if (!root.email.equals(email) && isPlayerTurn(email) && !isPlayerTurn(root.email)) {
+                if (!root.email.equals(email) ) {
                     // Assuming client includes the move information
                     response.setRow(clientRequest.getRow());
                     response.setCol(clientRequest.getCol());
                     response.setMove(clientRequest.getMove());
                     response.setPlayerOneTurn(true);
+                    response.setPlayState(clientRequest.getPlayState());
+                    
                     Gson json = new Gson();
                     String msg = json.toJson(response);
                     System.out.println("msg online board " + msg);
@@ -389,11 +391,13 @@ class RouteHandler extends Thread {
                     root.printedMessageToClient.flush();
 
                     // Toggle turn after sending the move
-                    togglePlayerTurn(email, root.email);
+//                    togglePlayerTurn(email, root.email);
                 }
             }
         } else {
             System.out.println("Email is null");
         }
     }
+    
+    
 }
