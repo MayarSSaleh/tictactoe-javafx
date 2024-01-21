@@ -1,9 +1,14 @@
 package server;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -77,7 +82,42 @@ public  class ServerMainUI extends AnchorPane {
         btnUsers.setTextFill(javafx.scene.paint.Color.WHITE);
         btnUsers.setText("Users");
         btnUsers.getStyleClass().add("btnUsers");
-        
+        btnUsers.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                 String label1 = "Label 1";
+        String value1 = "Value 1";
+        String label2 = "Label 2";
+        String value2 = "Value 2";
+        String label3 = "Label 3";
+        String value3 = "Value 3";
+
+        // Create a custom GridPane to hold labels and values
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(5);
+
+        // Add labels and values to the GridPane
+        gridPane.add(new Label(label1), 0, 0);
+        gridPane.add(new TextArea(value1), 1, 0);
+        gridPane.add(new Label(label2), 0, 1);
+        gridPane.add(new TextArea(value2), 1, 1);
+        gridPane.add(new Label(label3), 0, 2);
+        gridPane.add(new TextArea(value3), 1, 2);
+
+        // Create an Alert with a custom content
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Custom Alert");
+        alert.setHeaderText(null); // No header text
+
+        // Set the custom GridPane as the content of the alert
+        alert.getDialogPane().setContent(gridPane);
+
+        // Show the alert
+        alert.showAndWait();
+
+            }
+        });
 
         getChildren().add(circleImg);
         getChildren().add(lblTitle);
@@ -146,6 +186,8 @@ public  class ServerMainUI extends AnchorPane {
         }
         
     }
+        
+        
         
     
 
