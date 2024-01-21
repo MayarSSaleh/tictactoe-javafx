@@ -21,8 +21,8 @@ public class Client extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //Parent root = new FXMLDocumentBase();
-        Parent root = new PlayingScreenDemo(stage , "online", new Record());
-//        Parent root = new MainScreen(stage);
+//        Parent root = new PlayingScreenDemo(stage , "online", new Record());
+        Parent root = new MainScreen(stage);
 //                Parent root = new RecordList1(stage);
 //                     Parent root = new PlayingVsComputer(stage); 
         

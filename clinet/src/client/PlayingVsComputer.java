@@ -59,7 +59,7 @@ public class PlayingVsComputer extends BorderPane {
     private DropShadow dropShadow;
     private DropShadow dropShadow0;
     private Button btnRecord = new Button();
-    private Button btnPlayRecord = new Button();
+//    private Button btnPlayRecord = new Button();
     boolean recordTheGame = false;
     Record newRecord = new Record();
 
@@ -97,12 +97,12 @@ public class PlayingVsComputer extends BorderPane {
 //                0.0 is the left margin.
         BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 470.0, 0.0));
         btnRecord.getStyleClass().add("btnRec");
-        btnPlayRecord.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: white;");
+//        btnPlayRecord.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: white;");
 
         btnRecord.setOnAction((e) -> {
             String buttonText = btnRecord.getText();
             if (buttonText == "Record") {
-                btnPlayRecord.setStyle("-fx-background-color: #FFA500;");
+//                btnPlayRecord.setStyle("-fx-background-color: #FFA500;");
                 recordTheGame = true;
                 System.out.println("record statr");
                 newRecord.setCurrentDate(LocalDate.now());
@@ -112,30 +112,30 @@ public class PlayingVsComputer extends BorderPane {
                 stage.getScene().setRoot(pane);
             }
         });
-        btnPlayRecord.setOnAction((e) -> {
-//            btnRecord.getStyleClass().add("btnRecLoc");
-            btnRecord.setText("Exit");
-            System.out.println("record show");
-            replayTheGame();
-            System.out.println(newRecord.getCurrentDate());
-            System.out.println("current time " + newRecord.getCurrentTime());
-
-        });
-
-        // the following cod made by mayar for testing the replaying function<keep it>
-        BorderPane.setAlignment(btnPlayRecord, javafx.geometry.Pos.CENTER);
-        btnPlayRecord.setMnemonicParsing(false);
-        btnPlayRecord.setPrefHeight(31.0);
-        btnPlayRecord.setPrefWidth(120.0);
-        btnPlayRecord.setText("Play Record");
-//                 0.0 is the top margin.
-//                0.0 is the right margin.
-//                0.0 is the bottom margin.
-//                0.0 is the left margin.
-
-        BorderPane.setMargin(btnPlayRecord, new Insets(10.0, 10.0, 10.0, 470.0));
-        setBottom(btnPlayRecord);
-        btnPlayRecord.getStyleClass().add("btnRec");
+//        btnPlayRecord.setOnAction((e) -> {
+////            btnRecord.getStyleClass().add("btnRecLoc");
+//            btnRecord.setText("Exit");
+//            System.out.println("record show");
+//            replayTheGame();
+//            System.out.println(newRecord.getCurrentDate());
+//            System.out.println("current time " + newRecord.getCurrentTime());
+//
+//        });
+//
+//        // the following cod made by mayar for testing the replaying function<keep it>
+//        BorderPane.setAlignment(btnPlayRecord, javafx.geometry.Pos.CENTER);
+//        btnPlayRecord.setMnemonicParsing(false);
+//        btnPlayRecord.setPrefHeight(31.0);
+//        btnPlayRecord.setPrefWidth(120.0);
+//        btnPlayRecord.setText("Play Record");
+////                 0.0 is the top margin.
+////                0.0 is the right margin.
+////                0.0 is the bottom margin.
+////                0.0 is the left margin.
+//
+//        BorderPane.setMargin(btnPlayRecord, new Insets(10.0, 10.0, 10.0, 470.0));
+//        setBottom(btnPlayRecord);
+//        btnPlayRecord.getStyleClass().add("btnRec");
 
         topFlow = new FlowPane();
         anchorPlayerX = new AnchorPane();

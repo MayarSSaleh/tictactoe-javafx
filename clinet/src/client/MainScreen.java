@@ -82,24 +82,24 @@ public class MainScreen extends BorderPane {
         btnLocal.setText("Local");
         BorderPane.setMargin(btnLocal, new Insets(110.0, 0.0, 0.0, 28.0));
         setLeft(btnLocal);
-// ADD new record only to make the path rigth . it only use if we repeat game
+
         btnLocal.setOnAction((e) -> {
-            Parent pane = new PlayingScreenDemo(stage , "local", new Record());
-            stage.getScene().setRoot(pane);
+            Parent root = new Playinglocal(stage, "local", new Record());
+            stage.getScene().setRoot(root);
         });
 
         btnOnline.setOnAction(e -> {
-     
-           Parent pane = new PlayingScreenDemo(stage , "online", new Record());
-            stage.getScene().setRoot(pane);   
-            
+
+            Parent pane = new PlayingScreenDemo(stage, "online", new Record());
+            stage.getScene().setRoot(pane);
+
         });
         BorderPane.setAlignment(btnComputer, javafx.geometry.Pos.CENTER);
         btnComputer.setMnemonicParsing(false);
         btnComputer.setPrefHeight(30.0);
         btnComputer.setPrefWidth(120.0);
         btnComputer.setText("Computer");
-             btnComputer.setOnAction((e) -> {
+        btnComputer.setOnAction((e) -> {
             Parent pane = new PlayingVsComputer(stage);
             stage.getScene().setRoot(pane);
         });
