@@ -30,7 +30,6 @@ public class DataAccessLayer {
         DriverManager.registerDriver(new ClientDriver());
         Connection con =DriverManager.getConnection("jdbc:derby://localhost:1527/tectactoe","root","root");
         PreparedStatement ps = con.prepareStatement("INSERT INTO users (username,email,score,status,userpass) VALUES (?,?,?,?,?)");
-//        PreparedStatement ps = con.prepareStatement("INSERT INTO PHONEINDEX(ID ,FIRSTNAME , MIDDLENAME , LASTNAME , EMAIL, PHONE) VALUES(?,?,?,?,?,?)");
 
         ps.setString(1, clint.getUserName());
         ps.setString(2, clint.getEmail());
