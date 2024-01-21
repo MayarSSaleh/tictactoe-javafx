@@ -495,21 +495,60 @@ private void computerMove() {
     }
 
     private boolean checkRow(int row) {
+
+        if (board[row][0] == currentPlayer && board[row][1] == currentPlayer && board[row][2] == currentPlayer) {
+            for (int i = 0; i < 3; i++) {
+                Button button = new Button();
+                button = getButton(row, i);
+                
+                button.getStyleClass().add("btnWin");
+            }
+
+        }
         return board[row][0] == currentPlayer && board[row][1] == currentPlayer && board[row][2] == currentPlayer;
     }
 
     private boolean checkColumn(int col) {
+
+        if (board[0][col] == currentPlayer && board[1][col] == currentPlayer && board[2][col] == currentPlayer) {
+            for (int i = 0; i < 3; i++) {
+                Button button = new Button();
+                button = getButton(i, col);
+                
+                button.getStyleClass().add("btnWin");
+            }
+        }
         return board[0][col] == currentPlayer && board[1][col] == currentPlayer && board[2][col] == currentPlayer;
     }
 
     private boolean checkDiagonals1() {
+        if (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) {
+            for (int i = 0; i < 3; i++) {
+                System.out.print(" in dial 1");
+                Button button = new Button();
+                button = getButton(i, i);
+                button.getStyleClass().add("btnWin");
+            }
+        }
+
         return (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer);
     }
 
     private boolean checkDiagonals2() {
+        if (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer) {
+            System.out.print(" in dial 2");
+
+            for (int i = 0, x = 0, y = 2; i < 3; i++, x++, y--) {
+                System.out.print(" in dial 2 in for loop");
+
+                Button button = new Button();
+                button = getButton(x, y);
+                button.getStyleClass().add("btnWin");
+            }
+        }
+
         return (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer);
     }
-
     private boolean isBoardFull() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

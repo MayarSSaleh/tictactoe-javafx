@@ -5,7 +5,6 @@
  */
 package client;
 
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -27,10 +26,10 @@ import javafx.stage.Stage;
 
 public class AlertBox {
 
-        private MediaView mediaView;
-        private MediaPlayer mediaPlayer;
+    private MediaView mediaView;
+    private MediaPlayer mediaPlayer;
 
-    public void display(String title, String message ,String image , Stage stage , String crown ,String video) {
+    public void display(String title, String message, String image, Stage stage, String crown, String video) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -63,6 +62,8 @@ public class AlertBox {
         closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                Parent pane = new PlayingVsComputer(stage);
+                stage.getScene().setRoot(pane);
                 window.close();
                 mediaPlayer.stop();
             }
@@ -73,12 +74,12 @@ public class AlertBox {
 //                 Parent pane = new mainScreen(stage);
 //            stage.getScene().setRoot(pane);
 //                );
-stopButton.setOnAction((e)->{
-        Parent pane = new MainScreen(stage);
-           stage.getScene().setRoot(pane);
-           mediaPlayer.stop();
-           window.close();
-});
+        stopButton.setOnAction((e) -> {
+            Parent pane = new MainScreen(stage);
+            stage.getScene().setRoot(pane);
+            mediaPlayer.stop();
+            window.close();
+        });
 
         stopButton.getStyleClass().add("btn-stop");
 
@@ -86,22 +87,21 @@ stopButton.setOnAction((e)->{
         buttonBox.setAlignment(Pos.CENTER); // Center the buttons horizontally
         buttonBox.getChildren().addAll(closeButton, stopButton);
 
-           mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
-           mediaView = new MediaView(mediaPlayer);
-         mediaView.setFitWidth(300);
+        mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
+        mediaView = new MediaView(mediaPlayer);
+        mediaView.setFitWidth(300);
         mediaView.setFitHeight(300);
-                   VBox mediaBox = new VBox(10);
-                   mediaBox.setAlignment(Pos.CENTER); // Center the images horizontally
+        VBox mediaBox = new VBox(10);
+        mediaBox.setAlignment(Pos.CENTER); // Center the images horizontally
         mediaBox.getChildren().addAll(mediaView);
         VBox.setMargin(mediaView, new Insets(-10, 0, 0, 0));
-           //mediaPlayer.setAutoPlay(true);
-           //mediaView.st
-           mediaPlayer.play();
-
+        //mediaPlayer.setAutoPlay(true);
+        //mediaView.st
+        mediaPlayer.play();
 
         VBox layout = new VBox(20); // Vertical box
         layout.getStyleClass().add("alert-box");
-        layout.getChildren().addAll(imageBox,mediaBox, label, buttonBox);
+        layout.getChildren().addAll(imageBox, mediaBox, label, buttonBox);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
@@ -109,16 +109,10 @@ stopButton.setOnAction((e)->{
 
         window.setScene(scene);
         window.showAndWait();
-        
-        
-        
 
-
-
-        
     }
 
-        public void onlineWaitingAlert(String title,String message, Stage stage) {
+    public void onlineWaitingAlert(String title, String message, Stage stage) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -140,8 +134,8 @@ stopButton.setOnAction((e)->{
         window.setScene(scene);
         window.showAndWait();
     }
-        
-  public void onlineAcceptanceAlert(String title, Stage stage) {
+
+    public void onlineAcceptanceAlert(String title, Stage stage) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -183,4 +177,3 @@ stopButton.setOnAction((e)->{
         window.showAndWait();
     }
 }
-

@@ -17,29 +17,25 @@ import javafx.stage.Stage;
  * @author Lenovo
  */
 public class Client extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         //Parent root = new FXMLDocumentBase();
-       // Parent root = new PlayingScreenDemo(stage , "online");
+        // Parent root = new PlayingScreenDemo(stage , "online");
 //        Parent root = new PlayingScreenDemo(stage , "online");
-         // Parent root = new PlayingScreenDemo(stage , "local");
-       // Parent root = new FXMLDocumentBase();
+        // Parent root = new PlayingScreenDemo(stage , "local");
+        // Parent root = new FXMLDocumentBase();
 
 //        Parent root = new MainScreen(stage);
 //        ClintSide c= new ClintSide();
 //       c.start();
-       //Parent root =new LoginUi(stage);
-       // Parent root =new Profile();
-
+        //Parent root =new LoginUi(stage);
+        // Parent root =new Profile();
 //        Parent root = new MainScreen(stage);
-       Parent root =new SignUpUi(stage);
+      //  Parent root = new SignUpUi(stage);
 //        Parent root =new Profile();
 
-
-
-       
-       
+        Parent root = new PlayingVsComputer(stage);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
@@ -47,12 +43,8 @@ public class Client extends Application {
         stage.show();
     }
 
-   
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
-
-
-
