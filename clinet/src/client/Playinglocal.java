@@ -1,4 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package client;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -35,7 +63,7 @@ import javafx.event.EventHandler;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.util.Duration;
 
-public class PlayingScreenDemo extends BorderPane {
+public class Playinglocal extends BorderPane {
 
     protected final FlowPane topFlow;
     protected final AnchorPane anchorPlayerX;
@@ -63,6 +91,7 @@ public class PlayingScreenDemo extends BorderPane {
     protected final Button btn20;
     protected final Button btn21;
     protected final Button btnRecord;
+    protected final Button btnPlayRecord;
     protected final ImageView imageView;
     protected final ImageView imageView0;
     protected final DropShadow dropShadow;
@@ -74,14 +103,13 @@ public class PlayingScreenDemo extends BorderPane {
     Stage stage;
     GamePlay game;
     boolean recordTheGame = false;
-//     it will be
-//        Record newRecord ;
 
     Record newRecord = new Record();
 
-    public PlayingScreenDemo(Stage stage, String pageName, Record newRecord) {
+    public Playinglocal(Stage stage, String pageName, Record newRecord) {
 
         btnRecord = new Button();
+        btnPlayRecord = new Button();
         BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
         btnRecord.setMnemonicParsing(false);
         btnRecord.setLayoutX(470.0);
@@ -92,6 +120,40 @@ public class PlayingScreenDemo extends BorderPane {
         setBottom(btnRecord);
         BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 470.0, 0.0));
         btnRecord.getStyleClass().add("btnRec");
+
+
+        btnPlayRecord.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: white;");
+        btnPlayRecord.getStyleClass().add("btnRec");
+
+        btnRecord.setOnAction((e) -> {
+            String buttonText = btnRecord.getText();
+            if (buttonText == "Record") {
+                btnPlayRecord.setStyle("-fx-background-color: #FFA500;");
+                recordTheGame = true;
+                System.out.println("record statr");
+                newRecord.setCurrentDate(LocalDate.now());
+                newRecord.setCurrentTime(LocalTime.now());
+            } else if (buttonText == "Exit") {
+                Parent pane = new MainScreen(stage);
+                stage.getScene().setRoot(pane);
+            }
+        });
+        btnPlayRecord.setOnAction((e) -> {
+//            btnRecord.getStyleClass().add("btnRecLoc");
+            btnRecord.setText("Exit");
+            System.out.println("record show");
+            replayTheGame();
+            System.out.println(newRecord.getCurrentDate());
+            System.out.println("current time " + newRecord.getCurrentTime());
+
+        });
+//        BorderPane.setAlignment(btnPlayRecord, javafx.geometry.Pos.Left);
+        btnPlayRecord.setMnemonicParsing(false);
+        btnPlayRecord.setPrefHeight(31.0);
+        btnPlayRecord.setPrefWidth(120.0);
+        btnPlayRecord.setText("Play Record");
+        BorderPane.setMargin(btnPlayRecord, new Insets(10.0, 10.0, 10.0, 470.0));
+        setBottom(btnPlayRecord);
 
         game = new GamePlay();
         this.stage = stage;
@@ -425,6 +487,7 @@ public class PlayingScreenDemo extends BorderPane {
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
         anchorGame.getChildren().add(btnRecord);
+        anchorGame.getChildren().add(btnPlayRecord);
 
         setButtonHandler(btn00, 0, 0);
 
@@ -436,15 +499,6 @@ public class PlayingScreenDemo extends BorderPane {
         setButtonHandler(btn20, 2, 0);
         setButtonHandler(btn21, 2, 1);
         setButtonHandler(btn22, 2, 2);
-        btnRecord.setOnAction((e) -> {
-            String buttonText = btnRecord.getText();
-            if (buttonText == "Record") {
-                recordTheGame = true;
-                System.out.println("record statr");
-                newRecord.setCurrentDate(LocalDate.now());
-                newRecord.setCurrentTime(LocalTime.now());
-            }
-        });
     }
 
     private void setButtonHandler(Button button, int row, int col) {
@@ -586,3 +640,6 @@ public class PlayingScreenDemo extends BorderPane {
         return null;
     }
 }
+
+    
+    
