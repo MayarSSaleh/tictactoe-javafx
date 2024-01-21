@@ -55,12 +55,9 @@ public class PlayingScreenDemo extends BorderPane {
     static int counterx;
     static int countero;
     Stage stage;
-    GamePlay game ;
+    GamePlay game ;   
 
-
-    
-
-    public PlayingScreenDemo(Stage stage , String pageName ) {
+    public PlayingScreenDemo(Stage stage , String pageName , String SendInvetationToEmail) {
         btnRecord = new Button();  
           if(pageName.equals("online")){
             BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
@@ -77,11 +74,7 @@ public class PlayingScreenDemo extends BorderPane {
           else if(pageName.equals("local")){
             btnRecord.getStyleClass().add("btnRecLoc"); 
          }
-    
-
-    
-
-   
+      
         game = new GamePlay();
         this.stage = stage;
         countero=0;
