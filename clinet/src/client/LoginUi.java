@@ -203,6 +203,7 @@ public class LoginUi extends BorderPane {
             requestData.setPass(txtPass.getText());
             requestData.setRoute("login");
 //        con.sendMassage("login",json.toJson(loginData));
+
             //data=Handler.login();
             Gson json = new Gson();
             ClintSide.printedMessageToServer.println(json.toJson(requestData));

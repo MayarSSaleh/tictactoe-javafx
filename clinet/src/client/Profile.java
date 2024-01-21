@@ -25,7 +25,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.RequestDTO;
+
+import DTO.RequestDTO;
 import model.UsersDTO;
 
 public class Profile extends BorderPane {
@@ -53,6 +54,7 @@ public class Profile extends BorderPane {
     protected final VBox inviteList0;
     protected final Image profileImg;
     protected final Image logo;
+
     protected ArrayList<UsersDTO> availablePlayersList;
 
     public Profile(String userName, String email, int score, Stage stage) {

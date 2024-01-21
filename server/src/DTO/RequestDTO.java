@@ -9,7 +9,74 @@ public class RequestDTO {
     private String pass;
     private String validation;
     private int score;
-     private String user; 
+    private String userName;
+    private String opponentEmail;
+    private int row;
+    private int col;
+    private char move;
+        private boolean PlayerOneTurn;
+    private String playState;
+     private String playerWhoSendInvetationName;
+    private int playerWhoSendInvetationScore;
+    private String playerWhoSendInvetationEmail;
+    
+    private String invetPlayer;  
+    private String sendInvetationToEmail;
+    
+    private ArrayList<UsersDTO> availablePlayers;
+
+    public String getPlayState() {
+        return playState;
+    }
+
+    public void setPlayState(String playState) {
+        this.playState = playState;
+    }
+
+    public boolean isPlayerOneTurn() {
+        return PlayerOneTurn;
+    }
+
+    
+    public void setPlayerOneTurn(boolean PlayerOneTurn) {
+        this.PlayerOneTurn = PlayerOneTurn;
+    }
+
+    
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public char getMove() {
+        return move;
+    }
+
+    public void setMove(char move) {
+        this.move = move;
+    }
+    
+  
+    
+    public String getOpponentEmail() {
+        return opponentEmail;
+    }
+
+    public void setOpponentEmail(String opponentEmail) {
+        this.opponentEmail = opponentEmail;
+
+    }private String user; 
 
     public String getUser() {
         return user;
@@ -27,14 +94,7 @@ public class RequestDTO {
         this.playerWhoSendInvetationEmail = playerWhoSendInvetationEmail;
     }
      
-    private String playerWhoSendInvetationName;
-    private int playerWhoSendInvetationScore;
-    private String playerWhoSendInvetationEmail;
-    
-    private String invetPlayer;  
-    private String sendInvetationToEmail;
-    
-    private ArrayList<UsersDTO> availablePlayers;
+   
     
 
     public String getSendInvetationToEmail() {
