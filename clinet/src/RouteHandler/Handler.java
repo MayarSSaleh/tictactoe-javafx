@@ -16,6 +16,7 @@ public class Handler {
             case "login":
                 User data = login();
                 break;
+            
             default:
                 break;
         }
@@ -25,4 +26,6 @@ public class Handler {
         User myData = json.fromJson(msg, User.class);
         return myData;
     }
+
+   
 }

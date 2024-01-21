@@ -16,6 +16,16 @@ public class RequestDTO {
     private String validation;
     private int score;
     private String userName;
+        private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
     public int getScore() {
         return score;

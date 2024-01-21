@@ -280,7 +280,8 @@ new Thread(() -> {
     
     protected  void resgiter(MouseEvent event)
     {
-        System.out.println("dsadsa");
+         Parent pane = new SignUpUi(stage);
+        stage.getScene().setRoot(pane);
     }
     protected  void validPass(javafx.scene.input.KeyEvent keyEvent)
     {

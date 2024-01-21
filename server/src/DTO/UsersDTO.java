@@ -15,7 +15,7 @@ public class UsersDTO
     private String email;
     private String userPass;
     private int score;
-        private String status;
+    private String status;
 
 
     public UsersDTO() {

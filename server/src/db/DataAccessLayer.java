@@ -5,6 +5,7 @@
  */
 package db;
 
+import DTO.RequestDTO;
 import DTO.UsersDTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +20,7 @@ import org.apache.derby.jdbc.ClientDriver;
  * @author mosta
  */
 public class DataAccessLayer {
-     public static int Register(String email , String userName , String pass) throws SQLException
+     public static int Register(RequestDTO clint) throws SQLException
     {
 //        ArrayList<UsersDTO>arr= new ArrayList<UsersDTO>();
 //        UsersDTO u = new UsersDTO();
@@ -27,11 +28,15 @@ public class DataAccessLayer {
                 
         int ret=0;
         DriverManager.registerDriver(new ClientDriver());
-        Connection con =DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","root","root");
-        PreparedStatement ps = con.prepareStatement("insert into users (username,email,userpass,score) values (?,?,?,0,offline)");
-        ps.setString(1, userName);
-        ps.setString(2, email);
-        ps.setString(3, pass);     
+        Connection con =DriverManager.getConnection("jdbc:derby://localhost:1527/tectactoe","root","root");
+        PreparedStatement ps = con.prepareStatement("INSERT INTO users (username,email,score,status,userpass) VALUES (?,?,?,?,?)");
+//        PreparedStatement ps = con.prepareStatement("INSERT INTO PHONEINDEX(ID ,FIRSTNAME , MIDDLENAME , LASTNAME , EMAIL, PHONE) VALUES(?,?,?,?,?,?)");
+
+        ps.setString(1, clint.getUserName());
+        ps.setString(2, clint.getEmail());
+        ps.setInt(3, clint.getScore());      
+        ps.setString(4, clint.getStatus());
+        ps.setString(5, clint.getPass());     
         ret=ps.executeUpdate();
         con.close();
         return ret;
@@ -44,7 +49,7 @@ public class DataAccessLayer {
         UsersDTO userLogin= new UsersDTO();
         userLogin.setID(-1);
         DriverManager.registerDriver(new ClientDriver());
-        Connection con =DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","root","root");
+        Connection con =DriverManager.getConnection("jdbc:derby://localhost:1527/tectactoe","root","root");
         
         PreparedStatement ps = con.prepareStatement("select * from users where email = ?");
         ps.setString(1, loginEmail); 
@@ -77,7 +82,7 @@ public class DataAccessLayer {
     UsersDTO user = null;
     
     DriverManager.registerDriver(new ClientDriver());
-    try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe", "root", "root");
+    try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tectactoe", "root", "root");
          PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE email = ?")) {
         
         ps.setString(1, email);
@@ -104,7 +109,7 @@ public class DataAccessLayer {
         DriverManager.registerDriver(new ClientDriver());
 
         // Connection
-        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe","root","root");
+        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tectactoe","root","root");
 
         // Statement
         PreparedStatement ps = con.prepareStatement(
@@ -129,7 +134,7 @@ public class DataAccessLayer {
         DriverManager.registerDriver(new ClientDriver());
         
       
-        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe" , "root", "root");
+        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tectactoe" , "root", "root");
         
        
         PreparedStatement ps = con.prepareStatement("select * from users where status = ? || status = ? ");
