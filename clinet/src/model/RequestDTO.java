@@ -1,27 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package model;
+package DTO;
 
-/**
- *
- * @author Lenovo
- */
+import java.util.ArrayList;
+
 public class RequestDTO {
-       private String Email;
+
+    private String Email;
     private String route;
     private String pass;
     private String validation;
     private int score;
     private String userName;
     private String opponentEmail;
-    private char move;
     private int row;
     private int col;
-    private boolean PlayerOneTurn;
+    private char move;
+        private boolean PlayerOneTurn;
     private String playState;
+     private String playerWhoSendInvetationName;
+    private int playerWhoSendInvetationScore;
+    private String playerWhoSendInvetationEmail;
+    
+    private String invetPlayer;  
+    private String sendInvetationToEmail;
+    
+    private ArrayList<UsersDTO> availablePlayers;
 
     public String getPlayState() {
         return playState;
@@ -30,24 +32,17 @@ public class RequestDTO {
     public void setPlayState(String playState) {
         this.playState = playState;
     }
-    
-    
+
     public boolean isPlayerOneTurn() {
         return PlayerOneTurn;
     }
 
+    
     public void setPlayerOneTurn(boolean PlayerOneTurn) {
         this.PlayerOneTurn = PlayerOneTurn;
     }
+
     
-    public char getMove() {
-        return move;
-    }
-
-    public void setMove(char move) {
-        this.move = move;
-    }
-
     public int getRow() {
         return row;
     }
@@ -64,17 +59,98 @@ public class RequestDTO {
         this.col = col;
     }
 
-    
-   
+    public char getMove() {
+        return move;
+    }
 
+    public void setMove(char move) {
+        this.move = move;
+    }
+    
+  
+    
     public String getOpponentEmail() {
         return opponentEmail;
     }
 
     public void setOpponentEmail(String opponentEmail) {
         this.opponentEmail = opponentEmail;
+
+    }private String user; 
+
+    public String getUser() {
+        return user;
     }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPlayerWhoSendInvetationEmail() {
+        return playerWhoSendInvetationEmail;
+    }
+
+    public void setPlayerWhoSendInvetationEmail(String playerWhoSendInvetationEmail) {
+        this.playerWhoSendInvetationEmail = playerWhoSendInvetationEmail;
+    }
+     
+   
     
+
+    public String getSendInvetationToEmail() {
+        return sendInvetationToEmail;
+    }
+
+    public void setSendInvetationToEmail(String sendInvetationToEmail) {
+        this.sendInvetationToEmail = sendInvetationToEmail;
+    }
+
+    public String getPlayerWhoSendInvetationName() {
+        return playerWhoSendInvetationName;
+    }
+
+    public void setPlayerWhoSendInvetationName(String playerWhoSendInvetationName) {
+        this.playerWhoSendInvetationName = playerWhoSendInvetationName;
+    }
+
+    public int getPlayerWhoSendInvetationScore() {
+        return playerWhoSendInvetationScore;
+    }
+
+    public void setPlayerWhoSendInvetationScore(int playerWhoSendInvetationScore) {
+        this.playerWhoSendInvetationScore = playerWhoSendInvetationScore;
+    }
+
+    
+    
+    
+    
+    private boolean invitationRespons;
+
+    public boolean isInvitationRespons() {
+        return invitationRespons;
+    }
+
+    public void setInvitationRespons(boolean invitationRespons) {
+        this.invitationRespons = invitationRespons;
+    }
+
+    public String getInvetPlayer() {
+        return invetPlayer;
+    }
+
+    public void setInvetPlayer(String invetPlayer) {
+        this.invetPlayer = invetPlayer;
+    }
+
+    public ArrayList<UsersDTO> getAvailablePlayers() {
+        return availablePlayers;
+    }
+
+    public void setAvailablePlayers(ArrayList<UsersDTO> availablePlayers) {
+        this.availablePlayers = availablePlayers;
+    }
+
     public int getScore() {
         return score;
     }
@@ -83,14 +159,14 @@ public class RequestDTO {
         this.score = score;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getplayerWhoSendInvetationEmail() {
+        return playerWhoSendInvetationEmail;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setplayerWhoSendInvetationEmail(String playerWhoSendInvetationEmail) {
+        this.playerWhoSendInvetationEmail = playerWhoSendInvetationEmail;
     }
-    
+
     public String getValidation() {
         return validation;
     }
@@ -99,7 +175,6 @@ public class RequestDTO {
         this.validation = validation;
     }
 
-    
     public String getEmail() {
         return Email;
     }
@@ -123,5 +198,5 @@ public class RequestDTO {
     public void setPass(String pass) {
         this.pass = pass;
     }
-    
+
 }

@@ -31,7 +31,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import model.User;
+import model.UsersDTO;
 
 public class LoginUi extends BorderPane {
 
@@ -57,13 +57,13 @@ public class LoginUi extends BorderPane {
     private boolean validEmail;
     private boolean validPass;
     private ClintSide con;
-     private User data;
-     private Gson json;
+    private UsersDTO data;
+    private Gson json;
 
     public LoginUi(Stage stage) {
         this.stage = stage;
-        this.con=new ClintSide();
-        json =new Gson();
+        this.con = new ClintSide();
+        json = new Gson();
         hBox = new HBox();
         label = new Label();
         lblSignIn = new Label();
@@ -78,9 +78,9 @@ public class LoginUi extends BorderPane {
         lblErrorPass = new Label();
         btnLogin = new Button();
         recLogo = new Rectangle();
-        logo= new Image("/assets/Group9.png");
-        validEmail=false;
-        validPass=false;
+        logo = new Image("/assets/Group9.png");
+        validEmail = false;
+        validPass = false;
         ClintSide.startConnection();
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -193,136 +193,118 @@ public class LoginUi extends BorderPane {
 
     }
 
-    protected void login(ActionEvent event)
-    {
-        
+    protected void login(ActionEvent event) {
+
         //return user data;
-        if(validEmail&&validPass)
-        {
-            
-        RequestDTO requestData=new RequestDTO(); 
-        requestData.setEmail(txtEmail.getText());
-        requestData.setPass(txtPass.getText());
-        requestData.setRoute("login");
+        if (validEmail && validPass) {
+
+            RequestDTO requestData = new RequestDTO();
+            requestData.setEmail(txtEmail.getText());
+            requestData.setPass(txtPass.getText());
+            requestData.setRoute("login");
 //        con.sendMassage("login",json.toJson(loginData));
-        //data=Handler.login();
-        Gson json = new Gson();
-         ClintSide.printedMessageToServer.println(json.toJson(requestData));
-         ClintSide.printedMessageToServer.flush();
-new Thread(() -> {
-    try {
-        String response = ClintSide.listenFromServer.readLine();
-        System.out.println("res is " + response);
-        RequestDTO recived = json.fromJson(response, RequestDTO.class);
-        if ("confirmed".equals(recived.getValidation())) {
-            Platform.runLater(() -> {
-//                Parent pane = new Profile(recived.getUserName() , recived.getEmail() , recived.getScore());
-                System.out.println("client.LoginUi.login()" + recived.getEmail());
-        new AlertBox().onlineChooseTypeAlert("Choose type" , stage ,recived.getUserName(), recived.getEmail() , recived.getScore());
-            });
-        } else if ("invalid".equals(recived.getValidation())) {
-            // Handle the case when validation is invalid
-            Platform.runLater(() -> {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Invalid");
-                alert.showAndWait();
-            });
-        }
-    } catch (IOException ex) {
-        ex.printStackTrace();
-    }
-}).start();
+
+            //data=Handler.login();
+            Gson json = new Gson();
+            ClintSide.printedMessageToServer.println(json.toJson(requestData));
+            ClintSide.printedMessageToServer.flush();
+            new Thread(() -> {
+                try {
+                    String response = ClintSide.listenFromServer.readLine();
+//                    System.out.println(response);
+                    RequestDTO recived = json.fromJson(response, RequestDTO.class);
+                    if ("confirmed".equals(recived.getValidation())) {
+                        Platform.runLater(() -> {
+                            Parent pane = new Profile(recived.getUser(), recived.getEmail(), recived.getScore(), stage);
+                            stage.getScene().setRoot(pane);
+                        });
+                    } else if ("invalid".equals(recived.getValidation())) {
+                        // Handle the case when validation is invalid
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Invalid");
+                            alert.showAndWait();
+                        });
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
 
         }
-        
+
     }
-    protected  void press(javafx.scene.input.KeyEvent keyEvent)
-    {
-        String email="";
-        String Pass="";
-        email=txtEmail.getText();
-        if(patternMatches(email,regexPattern))
-        {
+
+    protected void press(javafx.scene.input.KeyEvent keyEvent) {
+        String email = "";
+        String Pass = "";
+        email = txtEmail.getText();
+        if (patternMatches(email, regexPattern)) {
             lblEmailError.getStyleClass().removeAll("inValid");
             txtEmail.getStyleClass().removeAll("errorFeild");
             lblEmailError.setText("Valid Email");
             txtEmail.getStyleClass().add("validFeild");
             lblEmailError.getStyleClass().add("valid");
-            validEmail=true;
-                       
+            validEmail = true;
 
-            
-        
-        }
-        else
-        {
+        } else {
             lblEmailError.getStyleClass().removeAll("valid");
             txtEmail.getStyleClass().removeAll("validFeild");
             lblEmailError.setText("Email inValid");
             txtEmail.getStyleClass().add("errorFeild");
             lblEmailError.getStyleClass().add("inValid");
-            validEmail=false;
-                        
+            validEmail = false;
 
         }
-      if(validEmail && validPass)
-      {
-          btnLogin.setDisable(false);
-      }
-      else
-      {
-          btnLogin.setDisable(true);
-      }
-        
+        if (validEmail && validPass) {
+            btnLogin.setDisable(false);
+        } else {
+            btnLogin.setDisable(true);
+        }
 
     }
-    
-    protected  void resgiter(MouseEvent event)
-    {
+// what is it ?
+
+    protected void resgiter(MouseEvent event) {
+        Parent pane = new SignUpUi(stage);
+        stage.getScene().setRoot(pane);
+
         System.out.println("dsadsa");
     }
-    protected  void validPass(javafx.scene.input.KeyEvent keyEvent)
-    {
-        
-        String pass=txtPass.getText();
-    
-        if(pass.length()>=6)
-        {
-             lblErrorPass.getStyleClass().removeAll("inValid");
+
+    protected void validPass(javafx.scene.input.KeyEvent keyEvent) {
+
+        String pass = txtPass.getText();
+
+        if (pass.length() >= 6) {
+            lblErrorPass.getStyleClass().removeAll("inValid");
             txtPass.getStyleClass().removeAll("errorFeild");
             lblErrorPass.setText("Valid password");
             txtPass.getStyleClass().add("validFeild");
             lblErrorPass.getStyleClass().add("valid");
-           validPass=true;
-        }
-        else
-        {
+            validPass = true;
+        } else {
             lblErrorPass.getStyleClass().removeAll("valid");
             txtPass.getStyleClass().removeAll("validFeild");
             lblErrorPass.setText("password inValid");
             txtPass.getStyleClass().add("errorFeild");
             lblErrorPass.getStyleClass().add("inValid");
-            validPass=false;
+            validPass = false;
         }
-        if(validEmail && validPass)
-      {
-          btnLogin.setDisable(false);
-      }
-      else
-      {
-          btnLogin.setDisable(true);
-      }
-        
+        if (validEmail && validPass) {
+            btnLogin.setDisable(false);
+        } else {
+            btnLogin.setDisable(true);
+        }
 
     }
-public static boolean patternMatches(String emailAddress, String regexPattern) {
-    return Pattern.compile(regexPattern)
-      .matcher(emailAddress)
-      .matches();
-}
 
-
+    public static boolean patternMatches(String emailAddress, String regexPattern) {
+        return Pattern.compile(regexPattern)
+                .matcher(emailAddress)
+                .matches();
+    }
 
 }

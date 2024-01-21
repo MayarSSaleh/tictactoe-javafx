@@ -7,23 +7,32 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 
 public class RecordFXMLController implements Initializable {
+  //
+//    private final Stage primaryStage;
+//
+//    public RecordFXMLController(Stage primaryStage) {
+//        this.primaryStage = primaryStage;
+//    }
 
     
-   @FXML
-    private Button btnplayNewGame;
-//   @FXML
-//    private Label label;
-//    
+       
+    @FXML
+    private Button Exit;
+//   
 //    @FXML
-//    private void handleButtonAction(ActionEvent event) {
-//        System.out.println("You clicked me!");
-//        label.setText("Hello World!");
+//    private void Exit(ActionEvent event) {
+//        Parent root = new MainScreen(primaryStage);
+//        Scene scene = new Scene(root);
 //    }
+
     @FXML
     private ListView<String> listRecord;
     String[] records = {"Record date: 12/1/2024", "Record date: 1/1/2024", "Record date: 12/12/2023",
