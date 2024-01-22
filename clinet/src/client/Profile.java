@@ -1,5 +1,6 @@
 package client;
 
+import static client.LoginUi.player1Email;
 import com.google.gson.Gson;
 import conn.ClintSide;
 import java.io.IOException;
@@ -268,7 +269,8 @@ public class Profile extends BorderPane {
                     case "youGetResponeOnInvetation":
                         System.out.println("i get responseOnInvetation in profile");
                         if (recived.isInvitationRespons()) {
-                            System.out.println("i get responseOnInvetation by yes");
+                            System.out.println("i get responseOnInvetation by yes" + "my email is : "+ player1Email+
+                                    "another email is: "+ player2Email );
                             
                             
                             player2Email = recived.getSendInvetationToEmail();
@@ -277,7 +279,7 @@ public class Profile extends BorderPane {
                             Platform.runLater(() -> {
 
                                 new AlertBox().onlineChooseTypeAlert("Choose X or O",
-                                        stage, " player2", player2Email, 5);
+                                        stage, " player2", player1Email, 5);
                                 
                                 
                                 //  Parent pane = new PlayingScreenDemo(stage);

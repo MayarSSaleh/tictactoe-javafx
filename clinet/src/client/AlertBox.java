@@ -252,6 +252,7 @@ public class AlertBox {
 //                System.out.print("inside yes to invetation and after close window");
                 player2Email = recived.getSendInvetationToEmail();
                 System.out.print("inside yes to invetation ,email of player 2 is: " + recived.getSendInvetationToEmail());
+                System.out.print("inside yes to invetation ,email of player 1 is: " + recived.getEmail());
 
                 new AlertBox().onlineChooseTypeAlert("Choose X or O", stage, " player2", player2Email, 5);
 

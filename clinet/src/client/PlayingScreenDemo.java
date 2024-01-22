@@ -1,6 +1,5 @@
-// mayar: this page will be draft but related to another page so i let it in the packge but commit any line make error
+package client;
 
-import client.GamePlay;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -58,8 +57,9 @@ public class PlayingScreenDemo extends BorderPane {
     Stage stage;
     GamePlay game ;   
 
-    public PlayingScreenDemo(Stage stage ) {
+    public PlayingScreenDemo(Stage stage , String pageName , String SendInvetationToEmail) {
         btnRecord = new Button();  
+          if(pageName.equals("online")){
             BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
             btnRecord.setMnemonicParsing(false);
             btnRecord.setLayoutX(470.0);
@@ -70,9 +70,12 @@ public class PlayingScreenDemo extends BorderPane {
             setBottom(btnRecord);
             BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 35.0, 25.0));
             btnRecord.getStyleClass().add("btnRec");
-       
+        }
+          else if(pageName.equals("local")){
+            btnRecord.getStyleClass().add("btnRecLoc"); 
+         }
       
-//        game = new GamePlay();
+        game = new GamePlay();
         this.stage = stage;
         countero=0;
         counterx=0;
@@ -433,16 +436,16 @@ private void setButtonHandler(Button button, int row, int col) {
                 }
                 else if(ch=='X')
                 {
-//                 new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png" , stage , "/assets/crown.png" , "/assets/b.mp4","");
-//                 lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
-//                 lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
+                 new AlertBox().display("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png" , stage , "/assets/crown.png" , "/assets/b.mp4","");
+                 lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
+                 lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
                  game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
                 }
                 
                 else if(ch=='D')
                 {
                     game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
-//                  new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4","");
+                  new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4","");
                 }
                 
                 
@@ -461,11 +464,11 @@ private void setButtonHandler(Button button, int row, int col) {
                 {
                     
                  
-//                 new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png" , stage , "/assets/crown.png" , "/assets/b.mp4","");
-//
-//                 lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
-//                 lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
-//                 game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
+                 new AlertBox().display("Title of the window", "o wins Do you want to try again?", "/assets/misc.png" , stage , "/assets/crown.png" , "/assets/b.mp4","");
+
+                 lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
+                 lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
+                 game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
 
                 }
                 
@@ -473,7 +476,7 @@ private void setButtonHandler(Button button, int row, int col) {
                 {
                     
                     game.resetGame(btn00,btn01,btn02,btn10,btn11,btn12,btn20,btn21,btn22);
-//                  new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4","");
+                  new AlertBox().display("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4","");
                 }  
                
             
