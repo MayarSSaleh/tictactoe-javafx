@@ -1,8 +1,17 @@
 package client;
 
 //import mainscreen.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,7 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
-public  class MainScreen extends BorderPane {
+public class MainScreen extends BorderPane {
 
     protected final FlowPane flowPane;
     protected final ImageView XphotoMain;
@@ -19,9 +28,13 @@ public  class MainScreen extends BorderPane {
     protected final Button btnOnline;
     protected final Button btnLocal;
     protected final Button btnComputer;
-public Stage stage;
+    public Stage stage;
+
     public MainScreen(Stage stage) {
-        this.stage=stage;
+
+        stage.setTitle("Playing VS . . . ");
+
+        this.stage = stage;
         flowPane = new FlowPane();
         XphotoMain = new ImageView();
         TICTACTOE = new ImageView();
@@ -62,7 +75,7 @@ public Stage stage;
         btnOnline.setPrefHeight(31.0);
         btnOnline.setPrefWidth(73.0);
         btnOnline.setText("Online");
-        BorderPane.setMargin(btnOnline, new Insets(80.0, 40.0, 100.0, 0.0));
+        BorderPane.setMargin(btnOnline, new Insets(110.0, 40.0, 100.0, 0.0));
         setRight(btnOnline);
 
         BorderPane.setAlignment(btnLocal, javafx.geometry.Pos.TOP_RIGHT);
@@ -70,31 +83,37 @@ public Stage stage;
         btnLocal.setPrefHeight(31.0);
         btnLocal.setPrefWidth(73.0);
         btnLocal.setText("Local");
-        btnLocal.setOnAction((e)->{
-            Parent pane = new PlayingScreenDemo(stage);
-            stage.getScene().setRoot(pane);
-        });
         BorderPane.setMargin(btnLocal, new Insets(110.0, 0.0, 0.0, 28.0));
         setLeft(btnLocal);
 
         BorderPane.setAlignment(btnComputer, javafx.geometry.Pos.CENTER);
         btnComputer.setMnemonicParsing(false);
         btnComputer.setPrefHeight(30.0);
-        btnComputer.setPrefWidth(83.0);
+        btnComputer.setPrefWidth(120.0);
         btnComputer.setText("Computer");
+
         BorderPane.setMargin(btnComputer, new Insets(0.0, 0.0, 35.0, 25.0));
         setBottom(btnComputer);
-
         flowPane.getChildren().add(XphotoMain);
-        
-        btnComputer. getStyleClass().add("btnMainScreeen");
+        btnComputer.getStyleClass().add("btnMainScreeen");
         btnLocal.getStyleClass().add("btnMainScreeen");
         btnOnline.getStyleClass().add("btnMainScreeen");
 
-    }
-    public void playLocal()
-    {
-        Parent pane = new PlayingScreenDemo(stage);
+        btnLocal.setOnAction((e) -> {
+            Parent pane = new Playinglocal(stage);
             stage.getScene().setRoot(pane);
+        });
+
+        btnOnline.setOnAction(e -> {
+            Parent root = new LoginUi(stage);
+            stage.getScene().setRoot(root);
+
+        });
+
+        btnComputer.setOnAction((e) -> {
+            Parent pane = new PlayingVsComputer(stage);
+            stage.getScene().setRoot(pane);
+        });
+
     }
 }
