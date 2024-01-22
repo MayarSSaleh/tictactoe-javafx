@@ -12,19 +12,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public  class FirstPage extends AnchorPane {
+public class FirstPage extends AnchorPane {
 
     protected final Button buttWatch;
     protected final Label label;
     protected final Button buttPlay;
     protected final ImageView imageTic;
 
-    public FirstPage( Stage stage) {
+    public FirstPage(Stage stage) {
 
         buttWatch = new Button();
         label = new Label();
         buttPlay = new Button();
         imageTic = new ImageView();
+
+        stage.setTitle("Welcome in TIC TAC TOC Game");
 
         setId("AnchorPane");
         setPrefHeight(400.0);
@@ -60,24 +62,23 @@ public  class FirstPage extends AnchorPane {
         getChildren().add(label);
         getChildren().add(buttPlay);
         getChildren().add(imageTic);
-        
-        
+
         buttPlay.getStyleClass().add("btnMainScreeen");
         buttWatch.getStyleClass().add("btnMainScreeen");
-        
+
         buttPlay.setOnAction((e) -> {
             Parent pane = new MainScreen(stage);
             stage.getScene().setRoot(pane);
-        });    
-        
+        });
+
         buttWatch.setOnAction((e) -> {
-       Parent pane = new RecordList(stage);
+            Parent pane = new RecordList(stage);
             stage.getScene().setRoot(pane);
-        });  
-           //to solve (java.lang.IllegalStateException: Not on FX application thread)indicates that you're attempting to 
-            //update the JavaFX scene graph from a thread other than the JavaFX Application
-            //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
-            //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
+        });
+        //to solve (java.lang.IllegalStateException: Not on FX application thread)indicates that you're attempting to 
+        //update the JavaFX scene graph from a thread other than the JavaFX Application
+        //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
+        //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
 //            class RecordPageMain extends Application {
 //
 //                @Override
@@ -110,7 +111,5 @@ public  class FirstPage extends AnchorPane {
 //     
 
     }
-
- 
 
 }

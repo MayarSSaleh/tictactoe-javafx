@@ -1,5 +1,6 @@
 package client;
 
+import static client.LoginUi.player1Email;
 import com.google.gson.Gson;
 import conn.ClintSide;
 import java.io.IOException;
@@ -54,8 +55,12 @@ public class Profile extends BorderPane {
     protected final Image profileImg;
     protected final Image logo;
     protected ArrayList<UsersDTO> availablePlayersList;
-
+    static String player2Email;
+    
     public Profile(String userName, String email, int score, Stage stage) {
+        
+                stage.setTitle("Chosse your Competitor");
+
 
         recLogo = new Rectangle();
         hBox = new HBox();
@@ -170,47 +175,6 @@ public class Profile extends BorderPane {
         hBox4.setPrefHeight(100.0);
         hBox4.setPrefWidth(200.0);
 
-//        btnRecords.setMnemonicParsing(false);
-//        btnRecords.setOnAction(e -> {
-//            //to solve (java.lang.IllegalStateException: Not on FX application thread)indicates that you're attempting to 
-//            //update the JavaFX scene graph from a thread other than the JavaFX Application
-//            //Thread.All JavaFX UI operations should be performed on the JavaFX Application Thread To fix this issue, 
-//            //you need to use the Platform.runLater() method to execute the UI - related code on the JavaFX Application Thread.
-//         
-//            
-//            class RecordPageMain extends Application {
-//
-//                @Override
-//                public void start(Stage stage) throws Exception {
-//                    Parent root = FXMLLoader.load(getClass().getResource("record.fxml"));
-//                    Scene scene = new Scene(root);
-//                    scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
-//                    stage.setScene(scene);
-//                    stage.show();
-//                }
-//            }
-//            // Create a new thread to launch the new application
-//            Thread recordPageThread = new Thread(() -> {
-//                try {
-//                    // Launch the RecordPageMain application
-//                    Platform.runLater(() -> {
-//                        try {// it is better to make inner class
-//                            new RecordPageMain().start(stage); // 'stage' is my existing stage  
-//                        } catch (Exception ex) {
-//                            ex.printStackTrace();
-//                        }
-//                    });
-//                } catch (Exception ex) {
-//                    ex.printStackTrace(); // Handle the exception according to your needs
-//                }
-//            });
-//            // Start the thread
-//            recordPageThread.start();
-//
-//        });
-//        btnRecords.setText("Records");
-//        btnRecords.getStyleClass().add("btn2");
-
         hBox5.setAlignment(javafx.geometry.Pos.CENTER);
         hBox5.setPrefHeight(100.0);
         hBox5.setPrefWidth(200.0);
@@ -308,11 +272,24 @@ public class Profile extends BorderPane {
                     case "youGetResponeOnInvetation":
                         System.out.println("i get responseOnInvetation in profile");
                         if (recived.isInvitationRespons()) {
-                            System.out.println("i get responseOnInvetation by yes");
+                            System.out.println("i get responseOnInvetation by yes" + "my email is : "+ player1Email+
+                                    "another email is: "+ player2Email );
+                            
+                            
+                            player2Email = recived.getSendInvetationToEmail();
+                            
+                            
                             Platform.runLater(() -> {
-                                Parent pane = new PlayingScreenDemo(stage, "online",recived.getSendInvetationToEmail());
-                                stage.getScene().setRoot(pane);
-                            });
+                                System.out.println("client.Profile.threadWork()" +recived.getUser());
+                                new AlertBox().onlineChooseTypeAlert("Choose X or O",
+                                        stage, "username", player1Email, 20);
+                                
+                                
+                                //  Parent pane = new PlayingScreenDemo(stage);
+                                //  stage.getScene().setRoot(pane);
+
+                            }
+                            );
                         } else {
                             Platform.runLater(() -> {
                                 new AlertBox().onlineWaitingAlert("Invitation Response", "Sorry the invitation not accepted, let's player with another one", stage);
@@ -320,12 +297,12 @@ public class Profile extends BorderPane {
                             System.out.println("i get responseOnInvetation by no");
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Invitation Response");
-                            alert.setHeaderText("");  
+                            alert.setHeaderText("");
                             alert.getDialogPane().setPrefWidth(650);
                             alert.getDialogPane().setPrefHeight(450);
                             alert.setContentText("Sorry the invitation not accepted, let's player with another one");
 //                            alert.showAndWait();
-                     
+
                         }
                         break;
                 }

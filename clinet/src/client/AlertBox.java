@@ -1,5 +1,6 @@
 package client;
 
+import static client.Profile.player2Email;
 import static client.Profile.threadWork;
 import com.google.gson.Gson;
 import conn.ClintSide;
@@ -147,18 +148,19 @@ public class AlertBox {
         label.setText(message);
         label.getStyleClass().add("alert-label");
 
-        Button closeButton = new Button("play");
-        closeButton.getStyleClass().add("btn2");
-        closeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                Parent pane = new Profile(userName, email, score, stage);
-                stage.getScene().setRoot(pane);
-                mediaPlayer.stop();
-                window.close();
-
-            }
-        });
+//        Button closeButton = new Button("play");
+//        closeButton.getStyleClass().add("btn2");
+//        closeButton.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent e) {
+//                System.out.println(".handle()" + userName + email + score );
+//                Parent pane = new Profile("", "", 20, stage);
+//                stage.getScene().setRoot(pane);
+//                mediaPlayer.stop();
+//                window.close();
+//
+//            }
+//        });
 
         Button stopButton = new Button("cancel");
 //                closeButton.setOnAction((e) ->
@@ -176,7 +178,7 @@ public class AlertBox {
 
         HBox buttonBox = new HBox(10); // Horizontal box for the buttons
         buttonBox.setAlignment(Pos.CENTER); // Center the buttons horizontally
-        buttonBox.getChildren().addAll(closeButton, stopButton);
+        buttonBox.getChildren().addAll( stopButton);
 
         mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
         mediaView = new MediaView(mediaPlayer);
@@ -249,8 +251,16 @@ public class AlertBox {
 
                 window.close();
 //                System.out.print("inside yes to invetation and after close window");
-                Parent pane = new PlayingScreenDemo(stage, "online", "");
-                stage.getScene().setRoot(pane);
+                player2Email = recived.getSendInvetationToEmail();
+                System.out.print("inside yes to invetation ,email of player 2 is: " + recived.getSendInvetationToEmail());
+                System.out.print("inside yes to invetation ,email of player 1 is: " + recived.getEmail());
+
+                new AlertBox().onlineChooseTypeAlert("Choose X or O", stage, " player2", player2Email, 5);
+
+//                
+//                Parent pane = new PlayingScreenDemo(stage);
+//                stage.getScene().setRoot(pane);
+//                
 //                System.out.print("inside yes to invetation and after shifiting to stage");
             } catch (Exception ex) {
                 ex.printStackTrace(); // Handle or log the exception appropriately
@@ -294,15 +304,16 @@ public class AlertBox {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMaxWidth(400);
-        window.setWidth(300);
+        window.setWidth(400);
         window.setHeight(200);
 
-        Label label = new Label("Choose ");
+        Label label = new Label("Choose X or O ");
         label.getStyleClass().add("alert-label");
 
         Button yesButton = new Button("X");
         yesButton.setOnAction(e -> {
             // Handle Yes button action
+            System.out.println("client.AlertBox.onlineChooseTypeAlert()" + userName + email + score);
             Parent pane = new PlayingOnlineDemo(stage, userName, email, score, 'X');
 
             stage.getScene().setRoot(pane);

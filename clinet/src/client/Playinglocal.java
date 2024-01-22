@@ -8,40 +8,8 @@ package client;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.PauseTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -54,14 +22,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
-import javafx.util.Duration;
 
 public class Playinglocal extends BorderPane {
 
@@ -108,6 +72,8 @@ public class Playinglocal extends BorderPane {
 
     public Playinglocal(Stage stage) {
 
+        stage.setTitle("Playing TIC TAC TOE Local");
+
         btnRecord = new Button();
         btnPlayRecord = new Button();
         BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
@@ -120,7 +86,6 @@ public class Playinglocal extends BorderPane {
         setBottom(btnRecord);
         BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 470.0, 0.0));
         btnRecord.getStyleClass().add("btnRec");
-
 
         btnPlayRecord.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: white;");
         btnPlayRecord.getStyleClass().add("btnRec");
@@ -518,7 +483,7 @@ public class Playinglocal extends BorderPane {
                     if (ch == 'N') {
                         game.setCurrentPlayer('O');
                     } else if (ch == 'X') {
-                        new AlertBox().display("Game is over", "x wins Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4","local");
+                        new AlertBox().display("Game is over", "x wins Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4", "local");
                         lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
                         lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
 
@@ -527,7 +492,7 @@ public class Playinglocal extends BorderPane {
 //                
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
-                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4","local");
+                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4", "local");
 
                     }
 
@@ -543,7 +508,7 @@ public class Playinglocal extends BorderPane {
                     if (ch == 'N') {
                         game.setCurrentPlayer('X');
                     } else if (ch == 'O') {
-                        new AlertBox().display("Game is over", "o wins Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4","local");
+                        new AlertBox().display("Game is over", "o wins Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4", "local");
 
                         lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
                         lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
@@ -551,7 +516,7 @@ public class Playinglocal extends BorderPane {
 
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
-                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4","local");
+                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4", "local");
 
                     }
                 }
@@ -640,6 +605,3 @@ public class Playinglocal extends BorderPane {
         return null;
     }
 }
-
-    
-    

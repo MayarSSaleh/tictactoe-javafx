@@ -51,6 +51,7 @@ public class LoginUi extends BorderPane {
     protected final Rectangle recLogo;
     protected final Image logo;
     public Stage stage;
+    public static String player1Email;
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^(.+)@(\\S+) $.", Pattern.CASE_INSENSITIVE);
     public String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -61,6 +62,9 @@ public class LoginUi extends BorderPane {
     private Gson json;
 
     public LoginUi(Stage stage) {
+
+        stage.setTitle("LogIn");
+
         this.stage = stage;
         this.con = new ClintSide();
         json = new Gson();
@@ -214,6 +218,8 @@ public class LoginUi extends BorderPane {
 //                    System.out.println(response);
                     RequestDTO recived = json.fromJson(response, RequestDTO.class);
                     if ("confirmed".equals(recived.getValidation())) {
+                        player1Email=txtEmail.getText();
+                        System.out.println(" in login the email of player 1: " + txtEmail.getText());
                         Platform.runLater(() -> {
                             Parent pane = new Profile(recived.getUser(), recived.getEmail(), recived.getScore(), stage);
                             stage.getScene().setRoot(pane);

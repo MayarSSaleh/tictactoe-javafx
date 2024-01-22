@@ -52,16 +52,22 @@ public class SignUpUi extends BorderPane {
     protected final Button btnResgister;
     protected final Rectangle recLogo;
     protected final Image logo;
-    public Stage s;
 
     public String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
     private boolean validEmail;
     private boolean validName;
     private boolean validPass;
 
-    public SignUpUi(Stage s) {
+    private ClintSide s;
+    public Stage stage;
 
-        this.s = s;
+    public SignUpUi(Stage stage) {
+
+        stage.setTitle("Creat acount");
+
+        this.s = new ClintSide();
+        this.stage = stage;
+
         hBox = new HBox();
         label = new Label();
         lblResgister = new Label();
@@ -84,6 +90,7 @@ public class SignUpUi extends BorderPane {
         validEmail = false;
         validName = false;
         validPass = false;
+        ClintSide.startConnection();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -225,8 +232,8 @@ public class SignUpUi extends BorderPane {
     }
 
     protected void login(MouseEvent event) {
-        Parent root = new LoginUi(s);
-        s.getScene().setRoot(root);
+        Parent root = new LoginUi(stage);
+        stage.getScene().setRoot(root);
 
     }
 
@@ -344,8 +351,8 @@ public class SignUpUi extends BorderPane {
                     RequestDTO recived = json.fromJson(response, RequestDTO.class);
                     if ("confirmed".equals(recived.getValidation())) {
                         Platform.runLater(() -> {
-                            Parent pane = new LoginUi(s);
-                            s.getScene().setRoot(pane);
+                            Parent pane = new LoginUi(stage);
+                            stage.getScene().setRoot(pane);
 
                         });
                     } else if ("invalid".equals(recived.getValidation())) {
