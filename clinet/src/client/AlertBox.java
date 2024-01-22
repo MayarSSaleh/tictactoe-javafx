@@ -148,18 +148,19 @@ public class AlertBox {
         label.setText(message);
         label.getStyleClass().add("alert-label");
 
-        Button closeButton = new Button("play");
-        closeButton.getStyleClass().add("btn2");
-        closeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                Parent pane = new Profile(userName, email, score, stage);
-                stage.getScene().setRoot(pane);
-                mediaPlayer.stop();
-                window.close();
-
-            }
-        });
+//        Button closeButton = new Button("play");
+//        closeButton.getStyleClass().add("btn2");
+//        closeButton.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent e) {
+//                System.out.println(".handle()" + userName + email + score );
+//                Parent pane = new Profile("", "", 20, stage);
+//                stage.getScene().setRoot(pane);
+//                mediaPlayer.stop();
+//                window.close();
+//
+//            }
+//        });
 
         Button stopButton = new Button("cancel");
 //                closeButton.setOnAction((e) ->
@@ -177,7 +178,7 @@ public class AlertBox {
 
         HBox buttonBox = new HBox(10); // Horizontal box for the buttons
         buttonBox.setAlignment(Pos.CENTER); // Center the buttons horizontally
-        buttonBox.getChildren().addAll(closeButton, stopButton);
+        buttonBox.getChildren().addAll( stopButton);
 
         mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
         mediaView = new MediaView(mediaPlayer);
@@ -312,6 +313,7 @@ public class AlertBox {
         Button yesButton = new Button("X");
         yesButton.setOnAction(e -> {
             // Handle Yes button action
+            System.out.println("client.AlertBox.onlineChooseTypeAlert()" + userName + email + score);
             Parent pane = new PlayingOnlineDemo(stage, userName, email, score, 'X');
 
             stage.getScene().setRoot(pane);

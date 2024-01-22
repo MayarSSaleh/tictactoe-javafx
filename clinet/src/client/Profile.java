@@ -56,7 +56,7 @@ public class Profile extends BorderPane {
     protected final Image logo;
     protected ArrayList<UsersDTO> availablePlayersList;
     static String player2Email;
-
+    
     public Profile(String userName, String email, int score, Stage stage) {
 
         recLogo = new Rectangle();
@@ -277,9 +277,9 @@ public class Profile extends BorderPane {
                             
                             
                             Platform.runLater(() -> {
-
+                                System.out.println("client.Profile.threadWork()" +recived.getUser());
                                 new AlertBox().onlineChooseTypeAlert("Choose X or O",
-                                        stage, " player2", player1Email, 5);
+                                        stage, "username", player1Email, 20);
                                 
                                 
                                 //  Parent pane = new PlayingScreenDemo(stage);

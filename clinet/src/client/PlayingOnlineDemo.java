@@ -440,7 +440,7 @@ String userName;
         turn = received.isPlayerOneTurn();
         Platform.runLater(() -> {        
         if ("xwins".equals(received.getPlayState()) && playerType == 'O') {
-                    
+                    System.out.println("client.PlayingOnlineDemo.initializeServerListener()" + userName + email + myScore);
                     new AlertBox().onlineDisplay("Title of the window", "x wins you lose Do you want to try again?", "/assets/Starasset.png" , stage , 
                             "/assets/crown.png" , "/assets/GameOver.mp4",userName ,email , myScore);
                             resetGame();
