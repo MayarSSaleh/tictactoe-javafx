@@ -133,7 +133,7 @@ public class LoginUi extends BorderPane {
         lblEmailError.setPrefWidth(250.0);
         lblEmailError.setTextFill(javafx.scene.paint.Color.RED);
         lblEmailError.setFont(new Font(14.0));
-        VBox.setMargin(lblEmailError, new Insets(5.0, 0.0, 10.0, 0.0));
+        VBox.setMargin(lblEmailError, new Insets(0.0, 0.0, 0.0, 0.0));
 
         hBox1.setAlignment(javafx.geometry.Pos.CENTER);
         hBox1.setPrefHeight(49.0);
