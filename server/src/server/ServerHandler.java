@@ -235,7 +235,6 @@ import static server.ServerHandler.root;
 
 public class ServerHandler {
 
-
     private ServerSocket serverSocket;
     static RouteHandler root;
 
