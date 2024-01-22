@@ -464,7 +464,7 @@ public class PlayingOnline extends BorderPane {
                     if (ch == 'N') {
                         game.setCurrentPlayer('O');
                     } else if (ch == 'X') {
-                        new AlertBox().display("Game is over", "x wins Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
+                        new AlertBox().display("Game is over", "x wins Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4","");
                         lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
                         lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
 
@@ -473,7 +473,7 @@ public class PlayingOnline extends BorderPane {
 //                
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
-                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
+                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4","");
 
                     }
 
@@ -489,7 +489,7 @@ public class PlayingOnline extends BorderPane {
                     if (ch == 'N') {
                         game.setCurrentPlayer('X');
                     } else if (ch == 'O') {
-                        new AlertBox().display("Game is over", "o wins Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4");
+                        new AlertBox().display("Game is over", "o wins Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4","");
 
                         lblScoreO.setText(String.valueOf(GamePlay.getP2Score()));
                         lblScoreX.setText(String.valueOf(GamePlay.getP1Score()));
@@ -497,7 +497,7 @@ public class PlayingOnline extends BorderPane {
 
                     } else if (ch == 'D') {
                         game.resetGame(btn00, btn01, btn02, btn10, btn11, btn12, btn20, btn21, btn22);
-                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
+                        new AlertBox().display("Game is over", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4","");
 
                     }
                 }

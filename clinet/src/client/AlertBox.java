@@ -28,7 +28,7 @@ public class AlertBox {
     private MediaView mediaView;
     private MediaPlayer mediaPlayer;
 
-    public void display(String title, String message, String image, Stage stage, String crown, String video) {
+    public void display(String title, String message, String image, Stage stage, String crown, String video, String module) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -61,8 +61,15 @@ public class AlertBox {
         closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                Parent root = new PlayingVsComputer(stage);
-                stage.getScene().setRoot(root);
+//                if (module.equals("local")) {
+//                    Parent root = new Playinglocal(stage);
+//                    stage.getScene().setRoot(root);
+//                } else
+                if (module.equals("computer")) {
+                    Parent root = new PlayingVsComputer(stage);
+                    stage.getScene().setRoot(root);
+
+                }
                 window.close();
                 mediaPlayer.stop();
             }

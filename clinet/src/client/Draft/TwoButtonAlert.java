@@ -2,7 +2,7 @@
 relaterd to mayar
 check alert design
  */
-package client;
+package client.Draft;
 
 import javax.swing.JOptionPane;
 

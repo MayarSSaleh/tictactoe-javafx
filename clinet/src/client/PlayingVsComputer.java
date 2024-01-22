@@ -476,7 +476,10 @@ public class PlayingVsComputer extends BorderPane {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
                 if (!button.getStyleClass().contains("btnx") && !button.getStyleClass().contains("btno") && playerTurn) {
+
+//                    btn22.setDisable(false);
                     button.getStyleClass().add("btnx");
                     board[row][col] = 'X';
                     if (recordTheGame) {
@@ -491,6 +494,9 @@ public class PlayingVsComputer extends BorderPane {
     }
 
     private void computerMove() {
+
+//        btn00.setDisable(true);
+      
         if (!gameOver) {
             currentPlayer = 'O';
             // Simulating computer move with a random but intelligent choice
@@ -502,13 +508,13 @@ public class PlayingVsComputer extends BorderPane {
 
                 Button computerButton = getButton(row, col);
                 // when delay apply it open door for error (user play many time before computer)
-//                PauseTransition delay = new PauseTransition(Duration.seconds(.5));
+                PauseTransition delay = new PauseTransition(Duration.seconds(.5));
 
-//                delay.setOnFinished((ActionEvent e) -> {
-                computerButton.getStyleClass().add("btno");
-                board[row][col] = 'O';
-//                });
-//                delay.play();
+                delay.setOnFinished((ActionEvent e) -> {
+                    computerButton.getStyleClass().add("btno");
+                    board[row][col] = 'O';
+                });
+                delay.play();
                 if (recordTheGame) {
                     newRecord.setclick(row, col, 'O');
                 }
@@ -518,6 +524,7 @@ public class PlayingVsComputer extends BorderPane {
             // Update currentPlayer after the computer move
             currentPlayer = 'X';
             playerTurn = true;
+
         }
     }
 
@@ -557,10 +564,10 @@ public class PlayingVsComputer extends BorderPane {
     private void displayWinner() {
         System.out.println("Player " + currentPlayer + " wins!");
         if (currentPlayer == 'X') {
-            new AlertBox().display("The game is over", "You wins! Do you want to play again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4");
+            new AlertBox().display("The game is over", "You wins! Do you want to play again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4", "computer");
             counterX++;
         } else if (currentPlayer == 'O') {
-            new AlertBox().display("The game is over", "Computer wins! Do you want to try again?", "/assets/com.png", stage, "/assets/crown.png", "/assets/t.mp4");
+            new AlertBox().display("The game is over", "Computer wins! Do you want to try again?", "/assets/com.png", stage, "/assets/crown.png", "/assets/t.mp4", "computer");
             counterO++;
         }
         lblScoreO.setText(String.valueOf(counterO));
@@ -569,22 +576,60 @@ public class PlayingVsComputer extends BorderPane {
 
     private void displayDraw() {
         System.out.println("It's a draw!");
-        new AlertBox().display("Title of the window", "It's a draw! Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4");
+        new AlertBox().display("Title of the window", "It's a draw! Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4", "computer");
     }
 
     private boolean checkRow(int row) {
+
+        if (board[row][0] == currentPlayer && board[row][1] == currentPlayer && board[row][2] == currentPlayer) {
+            for (int i = 0; i < 3; i++) {
+                Button button = new Button();
+                button = getButton(row, i);
+                button.getStyleClass().add("btnWin");
+            }
+
+        }
         return board[row][0] == currentPlayer && board[row][1] == currentPlayer && board[row][2] == currentPlayer;
     }
 
     private boolean checkColumn(int col) {
+
+        if (board[0][col] == currentPlayer && board[1][col] == currentPlayer && board[2][col] == currentPlayer) {
+            for (int i = 0; i < 3; i++) {
+                Button button = new Button();
+                button = getButton(i, col);
+                button.getStyleClass().add("btnWin");
+            }
+        }
         return board[0][col] == currentPlayer && board[1][col] == currentPlayer && board[2][col] == currentPlayer;
     }
 
     private boolean checkDiagonals1() {
+        if (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) {
+            for (int i = 0; i < 3; i++) {
+                System.out.print(" in dial 1");
+                Button button = new Button();
+                button = getButton(i, i);
+                button.getStyleClass().add("btnWin");
+            }
+        }
+
         return (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer);
     }
 
     private boolean checkDiagonals2() {
+        if (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer) {
+            System.out.print(" in dial 2");
+
+            for (int i = 0, x = 0, y = 2; i < 3; i++, x++, y--) {
+                System.out.print(" in dial 2 in for loop");
+
+                Button button = new Button();
+                button = getButton(x, y);
+                button.getStyleClass().add("btnWin");
+            }
+        }
+
         return (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer);
     }
 
