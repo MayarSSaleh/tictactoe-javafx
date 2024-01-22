@@ -62,6 +62,9 @@ public class LoginUi extends BorderPane {
     private Gson json;
 
     public LoginUi(Stage stage) {
+
+        stage.setTitle("LogIn");
+
         this.stage = stage;
         this.con = new ClintSide();
         json = new Gson();

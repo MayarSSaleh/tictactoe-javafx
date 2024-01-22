@@ -73,6 +73,9 @@ public class PlayingVsComputer extends BorderPane {
     Stage stage;
 
     public PlayingVsComputer(Stage stage) {
+
+        stage.setTitle("Playing TIC TAC TOE with Computer");
+
         this.stage = stage;
         counterO = 0;
         counterX = 0;
@@ -496,7 +499,6 @@ public class PlayingVsComputer extends BorderPane {
     private void computerMove() {
 
 //        btn00.setDisable(true);
-      
         if (!gameOver) {
             currentPlayer = 'O';
             // Simulating computer move with a random but intelligent choice

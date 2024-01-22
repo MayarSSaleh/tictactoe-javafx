@@ -304,10 +304,10 @@ public class AlertBox {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMaxWidth(400);
-        window.setWidth(300);
+        window.setWidth(400);
         window.setHeight(200);
 
-        Label label = new Label("Choose ");
+        Label label = new Label("Choose X or O ");
         label.getStyleClass().add("alert-label");
 
         Button yesButton = new Button("X");

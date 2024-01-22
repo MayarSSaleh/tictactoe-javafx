@@ -62,6 +62,9 @@ public class SignUpUi extends BorderPane {
     public Stage stage;
 
     public SignUpUi(Stage stage) {
+
+        stage.setTitle("Creat acount");
+
         this.s = new ClintSide();
         this.stage = stage;
 
