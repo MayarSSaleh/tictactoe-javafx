@@ -58,6 +58,9 @@ public class Profile extends BorderPane {
     static String player2Email;
 
     public Profile(String userName, String email, int score, Stage stage) {
+        
+                stage.setTitle("Chosse your Competitor");
+
 
         recLogo = new Rectangle();
         hBox = new HBox();

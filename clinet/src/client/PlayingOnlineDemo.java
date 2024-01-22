@@ -58,33 +58,37 @@ public class PlayingOnlineDemo extends BorderPane {
     protected final DropShadow dropShadow;
     protected final DropShadow dropShadow0;
 
-    private char currentPlayer ; // Initial player is X
+    private char currentPlayer; // Initial player is X
     private char[][] board = new char[3][3];
- static int counterx;
- static int countero;
-Stage stage;
-String email = "omaaar@gmail.com";
-  char playerType;  
-boolean turn;
+    static int counterx;
+    static int countero;
+    Stage stage;
+    String email = "omaaar@gmail.com";
+    char playerType;
+    boolean turn;
     String gameStatus;
     int myScore;
-String userName;
-    public PlayingOnlineDemo(Stage stage ,String userName , String email , int myScore  , char playerType ) {
+    String userName;
+
+    public PlayingOnlineDemo(Stage stage, String userName, String email, int myScore, char playerType) {
+
+        stage.setTitle("Playing TIC TAC TOE Online");
+
         this.email = email;
         this.stage = stage;
         this.userName = userName;
         this.myScore = myScore;
         this.playerType = playerType;
         currentPlayer = playerType;
-        if(playerType == 'X')
-        {   turn=true;}
-        else{
+        if (playerType == 'X') {
+            turn = true;
+        } else {
             turn = false;
         }
-                    
-        countero=0;
-        counterx=0;
-          for (int i = 0; i < 3; i++) {
+
+        countero = 0;
+        counterx = 0;
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = ' ';
             }
@@ -118,7 +122,7 @@ String userName;
         imageView0 = new ImageView();
         dropShadow = new DropShadow();
         dropShadow0 = new DropShadow();
-        
+
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -244,13 +248,13 @@ String userName;
         recV2.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recV2.setWidth(10.0);
         recV2.getStyleClass().add("rech");
-        
+
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
         dropShadow.setWidth(36.81);
         recV2.setEffect(dropShadow);
-        
+
         recH1.setArcHeight(12.0);
         recH1.setArcWidth(30.0);
         recH1.setHeight(234.0);
@@ -262,8 +266,7 @@ String userName;
         recH1.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recH1.setWidth(10.0);
         recH1.getStyleClass().add("rech");
-        
-        
+
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
@@ -275,13 +278,13 @@ String userName;
         recH2.setHeight(234.0);
         recH2.setLayoutX(284.0);
         recH2.setLayoutY(64.0);
-        recH2.setSmooth(false);        
+        recH2.setSmooth(false);
         recH2.setRotate(90.0);
         recH2.setStroke(javafx.scene.paint.Color.WHITE);
         recH2.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         recH2.setWidth(10.0);
         recH2.getStyleClass().add("rech");
-        
+
         dropShadow.setColor(Color.ORANGE);
         dropShadow.setHeight(73.38);
         dropShadow.setRadius(27.0475);
@@ -297,7 +300,7 @@ String userName;
         btn00.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         btn00.setFont(new Font(24.0));
         btn00.getStyleClass().add("btn");
-    
+
         btn02.setAlignment(javafx.geometry.Pos.CENTER);
         btn02.setLayoutX(342.0);
         btn02.setLayoutY(31.0);
@@ -315,7 +318,7 @@ String userName;
         btn01.setPrefHeight(50.0);
         btn01.setPrefWidth(54.0);
         btn01.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btn01.setFont(new Font( 24.0));
+        btn01.setFont(new Font(24.0));
         btn01.getStyleClass().add("btn");
 
         btn12.setAlignment(javafx.geometry.Pos.CENTER);
@@ -412,7 +415,7 @@ String userName;
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
-       setButtonHandler(btn00, 0, 0);
+        setButtonHandler(btn00, 0, 0);
         setButtonHandler(btn01, 0, 1);
         setButtonHandler(btn02, 0, 2);
         setButtonHandler(btn10, 1, 0);
@@ -425,49 +428,48 @@ String userName;
 
     }
 
-    
- private void initializeServerListener() {
-    new Thread(() -> {
-        try {
-            while (true) {
-                String response = ClintSide.listenFromServer.readLine();
-                System.out.println("Response from server: " + response);
-                Gson json = new Gson();
-                RequestDTO received = json.fromJson(response, RequestDTO.class);
+    private void initializeServerListener() {
+        new Thread(() -> {
+            try {
+                while (true) {
+                    String response = ClintSide.listenFromServer.readLine();
+                    System.out.println("Response from server: " + response);
+                    Gson json = new Gson();
+                    RequestDTO received = json.fromJson(response, RequestDTO.class);
 //                currentPlayer = playerType;
-                
-        updateButton(getButtonAt(received.getRow(), received.getCol()), received.getRow(), received.getCol(), received.getMove());
-        turn = received.isPlayerOneTurn();
-        Platform.runLater(() -> {        
-        if ("xwins".equals(received.getPlayState()) && playerType == 'O') {
-                    
-                    new AlertBox().onlineDisplay("Title of the window", "x wins you lose Do you want to try again?", "/assets/Starasset.png" , stage , 
-                            "/assets/crown.png" , "/assets/GameOver.mp4",userName ,email , myScore);
+
+                    updateButton(getButtonAt(received.getRow(), received.getCol()), received.getRow(), received.getCol(), received.getMove());
+                    turn = received.isPlayerOneTurn();
+                    Platform.runLater(() -> {
+                        if ("xwins".equals(received.getPlayState()) && playerType == 'O') {
+
+                            new AlertBox().onlineDisplay("Title of the window", "x wins you lose Do you want to try again?", "/assets/Starasset.png", stage,
+                                    "/assets/crown.png", "/assets/GameOver.mp4", userName, email, myScore);
                             resetGame();
 
-                }else if("owins".equals(received.getPlayState()) && playerType == 'X'){
-            new AlertBox().onlineDisplay("Title of the window", "o wins you lose Do you want to try again?", "/assets/misc.png" , stage , "/assets/crown.png" , "/assets/GameOver.mp4",userName ,email , myScore);
-        resetGame();
+                        } else if ("owins".equals(received.getPlayState()) && playerType == 'X') {
+                            new AlertBox().onlineDisplay("Title of the window", "o wins you lose Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/GameOver.mp4", userName, email, myScore);
+                            resetGame();
 
-                }else if("It's a draw!".equals(received.getPlayState())){
-        new AlertBox().onlineDisplay("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4" ,userName ,email , myScore);
-           resetGame();
+                        } else if ("It's a draw!".equals(received.getPlayState())) {
+                            new AlertBox().onlineDisplay("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4", userName, email, myScore);
+                            resetGame();
 
+                        }
+                    });
                 }
-        });
+
+            } catch (IOException ex) {
+                Logger.getLogger(PlayingOnlineDemo.class.getName()).log(Level.SEVERE, null, ex);
             }
-                
-        } catch (IOException ex) {
-            Logger.getLogger(PlayingOnlineDemo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }).start();
-}
+        }).start();
+    }
 
     private void sendMoveToServer(int row, int col) {
         RequestDTO requestData = new RequestDTO();
         requestData.setRow(row);
         requestData.setCol(col);
-        System.out.println("client.PlayingOnlineDemo.sendMoveToServer()"  +currentPlayer + playerType);
+        System.out.println("client.PlayingOnlineDemo.sendMoveToServer()" + currentPlayer + playerType);
         requestData.setMove(playerType);
         requestData.setOpponentEmail(player2Email);
         requestData.setRoute("board");
@@ -484,122 +486,119 @@ String userName;
         }
     }
 
-private void setButtonHandler(Button button, int row, int col) {
-    button.setOnAction(event -> {
-        if (turn && currentPlayer == playerType && !button.getStyleClass().contains("btnx") && !button.getStyleClass().contains("btno")) {
-            if (currentPlayer == 'X') {
+    private void setButtonHandler(Button button, int row, int col) {
+        button.setOnAction(event -> {
+            if (turn && currentPlayer == playerType && !button.getStyleClass().contains("btnx") && !button.getStyleClass().contains("btno")) {
+                if (currentPlayer == 'X') {
+                    button.getStyleClass().add("btnx");
+                    board[row][col] = 'X';
+                    sendMoveToServer(row, col);
+                    checkGameStatus(row, col);
+                } else if (currentPlayer == 'O') {
+                    board[row][col] = 'O';
+                    button.getStyleClass().add("btno");
+                    sendMoveToServer(row, col);
+                    checkGameStatus(row, col);
+                }
+                // switchPlayer(); // Switch the player after making a move
+            }
+            turn = false;
+        });
+    }
+
+    private Button getButtonAt(int row, int col) {
+        switch (row) {
+            case 0:
+                switch (col) {
+                    case 0:
+                        return btn00;
+                    case 1:
+                        return btn01;
+                    case 2:
+                        return btn02;
+                }
+            case 1:
+                switch (col) {
+                    case 0:
+                        return btn10;
+                    case 1:
+                        return btn11;
+                    case 2:
+                        return btn12;
+                }
+            case 2:
+                switch (col) {
+                    case 0:
+                        return btn20;
+                    case 1:
+                        return btn21;
+                    case 2:
+                        return btn22;
+                }
+        }
+        return null;
+    }
+
+    private void updateButton(Button button, int row, int col, char move) {
+        System.out.println("client.PlayingOnlineDemo.updateButton()");
+        Platform.runLater(() -> {
+            if (move == 'X') {
                 button.getStyleClass().add("btnx");
                 board[row][col] = 'X';
-                                sendMoveToServer(row, col);
                 checkGameStatus(row, col);
-            } else if (currentPlayer == 'O') {
-                board[row][col] = 'O';
+
+                printBoard();
+            } else if (move == 'O') {
                 button.getStyleClass().add("btno");
-                sendMoveToServer(row, col);
+                board[row][col] = 'O';
                 checkGameStatus(row, col);
-            }
-           // switchPlayer(); // Switch the player after making a move
-        }
-        turn = false;
-    });
-}
 
+                printBoard();
 
-    
-
-private Button getButtonAt(int row, int col) {
-    switch (row) {
-        case 0:
-            switch (col) {
-                case 0:
-                    return btn00;
-                case 1:
-                    return btn01;
-                case 2:
-                    return btn02;
             }
-        case 1:
-            switch (col) {
-                case 0:
-                    return btn10;
-                case 1:
-                    return btn11;
-                case 2:
-                    return btn12;
-            }
-        case 2:
-            switch (col) {
-                case 0:
-                    return btn20;
-                case 1:
-                    return btn21;
-                case 2:
-                    return btn22;
-            }
+        });
     }
-    return null;
-}
-private void updateButton(Button button, int row, int col, char move) {
-    System.out.println("client.PlayingOnlineDemo.updateButton()");
-    Platform.runLater(() -> {
-        if (move == 'X') {
-            button.getStyleClass().add("btnx");
-            board[row][col] = 'X';
-                            checkGameStatus(row, col);
 
-            printBoard();
-        } else if (move == 'O') {
-            button.getStyleClass().add("btno");
-            board[row][col] = 'O';
-                            checkGameStatus(row, col);
+    private void checkGameStatus(int row, int col) {
 
-             printBoard();
+        if (checkRow(row) || checkColumn(col) || checkDiagonals1() || checkDiagonals2()) {
+            // Display winner
+            System.out.println("Player " + currentPlayer + " wins!");
+            if (currentPlayer == 'X') {
+                gameStatus = "xwins";
+                sendMoveToServer(row, col);
 
-        }
-    });
-}
+                new AlertBox().onlineDisplay("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png", stage, "/assets/crown.png", "/assets/b.mp4", userName, email, myScore);
+                counterx++;
 
+            } else if (currentPlayer == 'O') {
+                gameStatus = "owins";
+                sendMoveToServer(row, col);
 
-private void checkGameStatus(int row, int col) {
-   
-    if (checkRow(row) || checkColumn(col) || checkDiagonals1()||checkDiagonals2()) {
-        // Display winner
-        System.out.println("Player " + currentPlayer + " wins!");
-        if (currentPlayer == 'X') {
-            gameStatus = "xwins";
-                            sendMoveToServer(row, col);
+                new AlertBox().onlineDisplay("Title of the window", "o wins Do you want to try again?", "/assets/misc.png", stage, "/assets/crown.png", "/assets/b.mp4", userName, email, myScore);
+                countero++;
+            }
+            lblScoreO.setText(String.valueOf(countero));
+            lblScoreX.setText(String.valueOf(counterx));
+            resetGame();
 
-            new AlertBox().onlineDisplay("Title of the window", "x wins Do you want to try again?", "/assets/Starasset.png" , stage , "/assets/crown.png" , "/assets/b.mp4" ,userName ,email , myScore);
-            counterx++;
-            
-        } else if (currentPlayer == 'O') {
-          gameStatus = "owins";
-                          sendMoveToServer(row, col);
+        } else if (isBoardFull()) {
+            // Handle draw
+            gameStatus = "It's a draw!";
+            sendMoveToServer(row, col);
 
-            new AlertBox().onlineDisplay("Title of the window", "o wins Do you want to try again?", "/assets/misc.png" , stage , "/assets/crown.png" , "/assets/b.mp4" ,userName ,email , myScore);
-            countero++;
-        }
-        lblScoreO.setText(String.valueOf(countero));
-        lblScoreX.setText(String.valueOf(counterx));
-        resetGame();
-
-    } else if (isBoardFull()) {
-        // Handle draw
-        gameStatus = "It's a draw!";
-                        sendMoveToServer(row, col);
-
-        System.out.println("It's a draw!");
-        resetGame();
-        new AlertBox().onlineDisplay("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg" ,stage,"" ,"/assets/t.mp4" ,userName ,email , myScore);
-    } else {
-        // Switch player if the game is still ongoing
+            System.out.println("It's a draw!");
+            resetGame();
+            new AlertBox().onlineDisplay("Title of the window", "it's draw Do you want to try again?", "/assets/ko.jpg", stage, "", "/assets/t.mp4", userName, email, myScore);
+        } else {
+            // Switch player if the game is still ongoing
 //        switchPlayer();
+        }
     }
-}
 
-private void switchPlayer() {
-    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
-}
+    private void switchPlayer() {
+        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+    }
 
     private boolean checkRow(int row) {
         return board[row][0] == currentPlayer && board[row][1] == currentPlayer && board[row][2] == currentPlayer;
@@ -610,10 +609,11 @@ private void switchPlayer() {
     }
 
     private boolean checkDiagonals1() {
-        return  (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer);
+        return (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer);
     }
+
     private boolean checkDiagonals2() {
-        return  (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer);
+        return (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer);
     }
 
     private boolean isBoardFull() {
@@ -626,16 +626,16 @@ private void switchPlayer() {
         }
         return true;
     }
-     private void printBoard() {
+
+    private void printBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.print(board[i][j]);
             }
             System.out.println();
         }
-        
-    }
 
+    }
 
     private void resetGame() {
         // Clear the board and reset buttons
@@ -645,15 +645,15 @@ private void switchPlayer() {
                 getButton(i, j).setText("");
             }
         }
-        btn00.getStyleClass().removeAll("btno","btnx");
-        btn01.getStyleClass().removeAll("btno","btnx");
-        btn02.getStyleClass().removeAll("btno","btnx");
-        btn10.getStyleClass().removeAll("btno","btnx");
-        btn11.getStyleClass().removeAll("btno","btnx");
-        btn12.getStyleClass().removeAll("btno","btnx");
-        btn20.getStyleClass().removeAll("btno","btnx");
-        btn21.getStyleClass().removeAll("btno","btnx");
-        btn22.getStyleClass().removeAll("btno","btnx");
+        btn00.getStyleClass().removeAll("btno", "btnx");
+        btn01.getStyleClass().removeAll("btno", "btnx");
+        btn02.getStyleClass().removeAll("btno", "btnx");
+        btn10.getStyleClass().removeAll("btno", "btnx");
+        btn11.getStyleClass().removeAll("btno", "btnx");
+        btn12.getStyleClass().removeAll("btno", "btnx");
+        btn20.getStyleClass().removeAll("btno", "btnx");
+        btn21.getStyleClass().removeAll("btno", "btnx");
+        btn22.getStyleClass().removeAll("btno", "btnx");
 
         currentPlayer = 'X';
     }
@@ -692,4 +692,3 @@ private void switchPlayer() {
     }
 
 }
- 

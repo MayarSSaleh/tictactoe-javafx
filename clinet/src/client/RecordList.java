@@ -23,6 +23,10 @@ public class RecordList extends AnchorPane {
 
     public RecordList(Stage stage) {
 
+        
+                stage.setTitle("Your Recorded Games List");
+
+        
         btnWatch = new Button();
         txtYourRecordedGames = new Label();
         btnExit = new Button();
