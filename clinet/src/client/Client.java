@@ -23,7 +23,7 @@ public class Client extends Application {
 
        // Parent root =new Profile();
 
-      Parent root =new SignUpUi(stage);
+      Parent root =new FirstPage(stage);
 //        Parent root =new Profile();
 
 //       Parent root =new LoginUi(stage);
