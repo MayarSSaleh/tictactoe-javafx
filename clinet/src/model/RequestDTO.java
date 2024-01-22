@@ -24,6 +24,16 @@ public class RequestDTO {
     private String sendInvetationToEmail;
     
     private ArrayList<UsersDTO> availablePlayers;
+    
+    private String record;
+
+    public String getRecord() {
+        return record;
+    }
+
+    public void setRecord(String record) {
+        this.record = record;
+    }
 
     public String getPlayState() {
         return playState;
