@@ -13,24 +13,13 @@ public class Client extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        //Parent root = new FXMLDocumentBase();
-       // Parent root = new PlayingScreenDemo(stage , "online");
-//        Parent root = new PlayingScreenDemo(stage , "online");
-         // Parent root = new PlayingScreenDemo(stage , "local");
-       // Parent root = new FXMLDocumentBase();
-//        ClintSide c= new ClintSide();
-//       c.start();
+//        Parent root = new PlayingScreenDemo(stage );
 
        // Parent root =new Profile();
 
-      Parent root =new FirstPage(stage);
-//        Parent root =new Profile();
+//      Parent root =new FirstPage(stage);
 
-//       Parent root =new LoginUi(stage);
-
-
-
-//       Parent root = new LoginUi(stage);    
+       Parent root =new LoginUi(stage);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());

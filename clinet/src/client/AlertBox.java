@@ -1,5 +1,6 @@
 package client;
 
+import static client.Profile.player2Email;
 import static client.Profile.threadWork;
 import com.google.gson.Gson;
 import conn.ClintSide;
@@ -249,8 +250,15 @@ public class AlertBox {
 
                 window.close();
 //                System.out.print("inside yes to invetation and after close window");
-                Parent pane = new PlayingScreenDemo(stage, "online", "");
-                stage.getScene().setRoot(pane);
+                player2Email = recived.getSendInvetationToEmail();
+                System.out.print("inside yes to invetation ,email of player 2 is: " + recived.getSendInvetationToEmail());
+
+                new AlertBox().onlineChooseTypeAlert("Choose X or O", stage, " player2", player2Email, 5);
+
+//                
+//                Parent pane = new PlayingScreenDemo(stage);
+//                stage.getScene().setRoot(pane);
+//                
 //                System.out.print("inside yes to invetation and after shifiting to stage");
             } catch (Exception ex) {
                 ex.printStackTrace(); // Handle or log the exception appropriately

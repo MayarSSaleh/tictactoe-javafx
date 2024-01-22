@@ -1,4 +1,4 @@
-package client;
+
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -57,9 +57,8 @@ public class PlayingScreenDemo extends BorderPane {
     Stage stage;
     GamePlay game ;   
 
-    public PlayingScreenDemo(Stage stage , String pageName , String SendInvetationToEmail) {
+    public PlayingScreenDemo(Stage stage ) {
         btnRecord = new Button();  
-          if(pageName.equals("online")){
             BorderPane.setAlignment(btnRecord, javafx.geometry.Pos.CENTER);
             btnRecord.setMnemonicParsing(false);
             btnRecord.setLayoutX(470.0);
@@ -70,10 +69,7 @@ public class PlayingScreenDemo extends BorderPane {
             setBottom(btnRecord);
             BorderPane.setMargin(btnRecord, new Insets(0.0, 0.0, 35.0, 25.0));
             btnRecord.getStyleClass().add("btnRec");
-        }
-          else if(pageName.equals("local")){
-            btnRecord.getStyleClass().add("btnRecLoc"); 
-         }
+       
       
         game = new GamePlay();
         this.stage = stage;
