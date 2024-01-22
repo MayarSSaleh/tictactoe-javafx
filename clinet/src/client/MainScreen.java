@@ -31,8 +31,10 @@ public class MainScreen extends BorderPane {
     public Stage stage;
 
     public MainScreen(Stage stage) {
-        
-         this.stage = stage;
+
+        stage.setTitle("Playing VS . . . ");
+
+        this.stage = stage;
         flowPane = new FlowPane();
         XphotoMain = new ImageView();
         TICTACTOE = new ImageView();
@@ -89,15 +91,14 @@ public class MainScreen extends BorderPane {
         btnComputer.setPrefHeight(30.0);
         btnComputer.setPrefWidth(120.0);
         btnComputer.setText("Computer");
-    
+
         BorderPane.setMargin(btnComputer, new Insets(0.0, 0.0, 35.0, 25.0));
         setBottom(btnComputer);
         flowPane.getChildren().add(XphotoMain);
         btnComputer.getStyleClass().add("btnMainScreeen");
         btnLocal.getStyleClass().add("btnMainScreeen");
         btnOnline.getStyleClass().add("btnMainScreeen");
-              
-        
+
         btnLocal.setOnAction((e) -> {
             Parent pane = new Playinglocal(stage);
             stage.getScene().setRoot(pane);
@@ -108,7 +109,7 @@ public class MainScreen extends BorderPane {
             stage.getScene().setRoot(root);
 
         });
-        
+
         btnComputer.setOnAction((e) -> {
             Parent pane = new PlayingVsComputer(stage);
             stage.getScene().setRoot(pane);
