@@ -1,5 +1,6 @@
 package client;
 
+import static client.Profile.player2Email;
 import com.google.gson.Gson;
 import conn.ClintSide;
 import java.io.IOException;
@@ -468,7 +469,7 @@ String userName;
         requestData.setCol(col);
         System.out.println("client.PlayingOnlineDemo.sendMoveToServer()"  +currentPlayer + playerType);
         requestData.setMove(playerType);
-        requestData.setOpponentEmail(email.equals("omaaar@gmail.com") ? "ezz@gmail.com" : "omaaar@gmail.com");
+        requestData.setOpponentEmail(player2Email);
         requestData.setRoute("board");
         requestData.setPlayState(gameStatus);
         Gson json = new Gson();
