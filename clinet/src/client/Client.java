@@ -23,14 +23,14 @@ public class Client extends Application {
 
        // Parent root =new Profile();
 
-       //Parent root =new SignUpUi();
+      Parent root =new SignUpUi(stage);
 //        Parent root =new Profile();
 
 //       Parent root =new LoginUi(stage);
 
 
 
-       Parent root = new LoginUi(stage);    
+//       Parent root = new LoginUi(stage);    
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());

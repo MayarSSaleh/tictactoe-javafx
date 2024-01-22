@@ -1,6 +1,6 @@
-
 package db;
 
+import DTO.RequestDTO;
 import DTO.UsersDTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,25 +10,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.derby.jdbc.ClientDriver;
 
-
 public class DataAccessLayer {
 
-    public static int Register(String email, String userName, String pass) throws SQLException {
-//        ArrayList<UsersDTO>arr= new ArrayList<UsersDTO>();
-//        UsersDTO u = new UsersDTO();
-//        arr.add(u)
+    public static int Register(RequestDTO clint) throws SQLException {
 
         int ret = 0;
         DriverManager.registerDriver(new ClientDriver());
         Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe", "root", "root");
-        PreparedStatement ps = con.prepareStatement("insert into users (username,email,userpass,score) values (?,?,?,0,offline)");
-        ps.setString(1, userName);
-        ps.setString(2, email);
-        ps.setString(3, pass);
+        PreparedStatement ps = con.prepareStatement("INSERT INTO users (username,email,score,status,userpass) VALUES (?,?,?,?,?)");
+
+        ps.setString(1, clint.getUser());
+        ps.setString(2, clint.getEmail());
+        ps.setInt(3, clint.getScore());
+        ps.setString(4, clint.getPlayState());
+        ps.setString(5, clint.getPass());
         ret = ps.executeUpdate();
+
         con.close();
         return ret;
     }
+    
 
     public static int isLogin(String loginEmail, String loginPass) throws SQLException {
         int res = -1;

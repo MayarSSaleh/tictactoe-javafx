@@ -212,7 +212,6 @@
 //}
 //
 //}
-
 package server;
 
 import DTO.RequestDTO;
@@ -280,7 +279,6 @@ class RouteHandler extends Thread {
 
     static Vector<RouteHandler> clientsVector = new Vector<RouteHandler>();
 
-
     public RouteHandler(Socket s, String email) {
         try {
             listenFromClient = new DataInputStream(s.getInputStream());
@@ -308,6 +306,9 @@ class RouteHandler extends Thread {
                         login(clint);
                         break;
                     case "signup":
+
+                        signup(clint);
+
                         break;
 
                     case "getAvialblePlayers":
@@ -331,7 +332,7 @@ class RouteHandler extends Thread {
 
                         transResponseToInvetingPlayer(clint);
                         break;
-                            case "board":
+                    case "board":
                         onlineBoard(clint);
                         break;
 
@@ -342,7 +343,34 @@ class RouteHandler extends Thread {
         }
     }
 
-void sendMessageTo(String msg, String email) {
+    void signup(RequestDTO clint) {
+        try {
+
+            clint.setScore(0);
+            clint.setPlayState("offline");
+            int res = DataAccessLayer.Register(clint);
+            RequestDTO response = new RequestDTO();
+            response.setRoute("signup");
+            Gson json = new Gson();
+            if (res == 1) {
+                response.setValidation("confirmed");
+                String msg = json.toJson(response);
+                printedMessageToClient.println(msg);
+                printedMessageToClient.flush();
+            } else if (res == 0) {
+                response.setValidation("invalid");
+                String msg = json.toJson(response);
+                System.out.println(res + msg);
+                printedMessageToClient.println(msg);
+                printedMessageToClient.flush();
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    void sendMessageTo(String msg, String email) {
 //        System.out.println("Inside sendMessageTo");
 //        String omarEmail = "omaaar@gmail.com";
         if (email != null) {
@@ -383,7 +411,7 @@ void sendMessageTo(String msg, String email) {
                 String msg = jsonAvailable.toJson(resendIinvetation);
                 root.printedMessageToClient.println(msg);
                 root.printedMessageToClient.flush();
-              break;
+                break;
             }
 
 //            for (UsersDTO root : getAllOnline()) {
@@ -409,9 +437,9 @@ void sendMessageTo(String msg, String email) {
         }
     }
 
-   public void transResponseToInvetingPlayer(RequestDTO clint) throws SQLException {
-        
-           for (RouteHandler root : clientsVector) {
+    public void transResponseToInvetingPlayer(RequestDTO clint) throws SQLException {
+
+        for (RouteHandler root : clientsVector) {
             System.out.println("inside in trans respons to ");
             if (root.email.equals(clint.getPlayerWhoSendInvetationEmail())) {
                 System.out.println("i reach to inviting email , to resend the response");
@@ -422,8 +450,8 @@ void sendMessageTo(String msg, String email) {
 
                 Gson jsonAvailable = new Gson();
                 String msg = jsonAvailable.toJson(resendIinvetation);
-               root.printedMessageToClient.println(msg);
-               root.printedMessageToClient.flush();
+                root.printedMessageToClient.println(msg);
+                root.printedMessageToClient.flush();
                 break;
             }
         }
@@ -477,14 +505,14 @@ void sendMessageTo(String msg, String email) {
 
         if (email != null) {
             for (RouteHandler root : clientsVector) {
-                if (!root.email.equals(email) ) {
+                if (!root.email.equals(email)) {
                     // Assuming client includes the move information
                     response.setRow(clientRequest.getRow());
                     response.setCol(clientRequest.getCol());
                     response.setMove(clientRequest.getMove());
                     response.setPlayerOneTurn(true);
                     response.setPlayState(clientRequest.getPlayState());
-                    
+
                     Gson json = new Gson();
                     String msg = json.toJson(response);
                     System.out.println("msg online board " + msg);
@@ -499,10 +527,5 @@ void sendMessageTo(String msg, String email) {
             System.out.println("Email is null");
         }
     }
-    
-    
 
-        }
-    
-
-
+}

@@ -23,7 +23,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.RequestDTO;
 
-
 public class AlertBox {
 
     private MediaView mediaView;
@@ -62,6 +61,8 @@ public class AlertBox {
         closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                Parent root = new PlayingVsComputer(stage);
+                stage.getScene().setRoot(root);
                 window.close();
                 mediaPlayer.stop();
             }
@@ -108,11 +109,10 @@ public class AlertBox {
         window.setScene(scene);
         window.showAndWait();
 
-   
     }
 
-    public void onlineDisplay(String title, String message ,String image , Stage stage , String crown ,String video ,
-                                    String userName , String email , int score) {
+    public void onlineDisplay(String title, String message, String image, Stage stage, String crown, String video,
+            String userName, String email, int score) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -145,10 +145,10 @@ public class AlertBox {
         closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                        Parent pane = new Profile( userName ,email , score ,stage);
-           stage.getScene().setRoot(pane);
-                    mediaPlayer.stop();
-           window.close();
+                Parent pane = new Profile(userName, email, score, stage);
+                stage.getScene().setRoot(pane);
+                mediaPlayer.stop();
+                window.close();
 
             }
         });
@@ -158,12 +158,12 @@ public class AlertBox {
 //                 Parent pane = new mainScreen(stage);
 //            stage.getScene().setRoot(pane);
 //                );
-stopButton.setOnAction((e)->{
-        Parent pane = new MainScreen(stage);
-           stage.getScene().setRoot(pane);
-           mediaPlayer.stop();
-           window.close();
-});
+        stopButton.setOnAction((e) -> {
+            Parent pane = new MainScreen(stage);
+            stage.getScene().setRoot(pane);
+            mediaPlayer.stop();
+            window.close();
+        });
 
         stopButton.getStyleClass().add("btn-stop");
 
@@ -171,22 +171,21 @@ stopButton.setOnAction((e)->{
         buttonBox.setAlignment(Pos.CENTER); // Center the buttons horizontally
         buttonBox.getChildren().addAll(closeButton, stopButton);
 
-           mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
-           mediaView = new MediaView(mediaPlayer);
-         mediaView.setFitWidth(300);
+        mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
+        mediaView = new MediaView(mediaPlayer);
+        mediaView.setFitWidth(300);
         mediaView.setFitHeight(300);
-                   VBox mediaBox = new VBox(10);
-                   mediaBox.setAlignment(Pos.CENTER); // Center the images horizontally
+        VBox mediaBox = new VBox(10);
+        mediaBox.setAlignment(Pos.CENTER); // Center the images horizontally
         mediaBox.getChildren().addAll(mediaView);
         VBox.setMargin(mediaView, new Insets(-10, 0, 0, 0));
-           //mediaPlayer.setAutoPlay(true);
-           //mediaView.st
-           mediaPlayer.play();
-
+        //mediaPlayer.setAutoPlay(true);
+        //mediaView.st
+        mediaPlayer.play();
 
         VBox layout = new VBox(20); // Vertical box
         layout.getStyleClass().add("alert-box");
-        layout.getChildren().addAll(imageBox,mediaBox, label, buttonBox);
+        layout.getChildren().addAll(imageBox, mediaBox, label, buttonBox);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
@@ -194,19 +193,8 @@ stopButton.setOnAction((e)->{
 
         window.setScene(scene);
         window.showAndWait();
-        
-        
-        
-
 
     }
-
-
-    
-    
-    
-    
-    
 
     public void onlineWaitingAlert(String title, String message, Stage stage) {
         Stage window = new Stage();
@@ -230,7 +218,7 @@ stopButton.setOnAction((e)->{
         window.setScene(scene);
         window.showAndWait();
     }
-    
+
     public void onlineAcceptanceAlert(RequestDTO recived, Stage stage) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -248,13 +236,13 @@ stopButton.setOnAction((e)->{
                 recived.setInvitationRespons(true);
                 recived.setRoute("responeOnInvetation");
                 Gson json = new Gson();
-                 //franko:  convert to gson and sent al taer
+                //franko:  convert to gson and sent al taer
                 ClintSide.printedMessageToServer.println(json.toJson(recived));
                 ClintSide.printedMessageToServer.flush();
-                
+
                 window.close();
 //                System.out.print("inside yes to invetation and after close window");
-                Parent pane = new PlayingScreenDemo(stage, "online","");
+                Parent pane = new PlayingScreenDemo(stage, "online", "");
                 stage.getScene().setRoot(pane);
 //                System.out.print("inside yes to invetation and after shifiting to stage");
             } catch (Exception ex) {
@@ -294,7 +282,7 @@ stopButton.setOnAction((e)->{
         window.showAndWait();
     }
 
-    public void onlineChooseTypeAlert(String title, Stage stage ,String userName, String email , int score) {
+    public void onlineChooseTypeAlert(String title, Stage stage, String userName, String email, int score) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -308,9 +296,9 @@ stopButton.setOnAction((e)->{
         Button yesButton = new Button("X");
         yesButton.setOnAction(e -> {
             // Handle Yes button action
-                        Parent pane = new PlayingOnlineDemo(stage ,userName, email , score ,  'X');
+            Parent pane = new PlayingOnlineDemo(stage, userName, email, score, 'X');
 
-                  stage.getScene().setRoot(pane);
+            stage.getScene().setRoot(pane);
             window.close();
         });
         yesButton.getStyleClass().add("btn-stop");
@@ -318,10 +306,10 @@ stopButton.setOnAction((e)->{
         Button noButton = new Button("O");
         noButton.setOnAction(e -> {
             // Handle No button action
-                        
-            Parent pane = new PlayingOnlineDemo(stage ,userName , email , score ,  'O' );
 
-                  stage.getScene().setRoot(pane);
+            Parent pane = new PlayingOnlineDemo(stage, userName, email, score, 'O');
+
+            stage.getScene().setRoot(pane);
             window.close();
             // Add your logic here
         });
