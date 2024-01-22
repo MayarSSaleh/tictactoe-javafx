@@ -84,7 +84,7 @@ public class MainScreen extends BorderPane {
         setLeft(btnLocal);
 
         btnLocal.setOnAction((e) -> {
-            Parent pane = new PlayingScreenDemo(stage, "local","");
+            Parent pane = new Playinglocal(stage);
             stage.getScene().setRoot(pane);
         });
 
@@ -99,6 +99,8 @@ public class MainScreen extends BorderPane {
         btnComputer.setPrefHeight(30.0);
         btnComputer.setPrefWidth(120.0);
         btnComputer.setText("Computer");
+        
+        
         btnComputer.setOnAction((e) -> {
             Parent pane = new PlayingVsComputer(stage);
             stage.getScene().setRoot(pane);
