@@ -71,24 +71,16 @@ public class AlertBox {
         closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-//                if (module.equals("local")) {
-//                    Parent root = new Playinglocal(stage);
-//                    stage.getScene().setRoot(root);
-//                } else
                 if (module.equals("computer")) {
-//                    Parent root = new PlayingVsComputer(stage);
-//                    stage.getScene().setRoot(root);
-
-                    btn00.getStyleClass().removeAll("btno", "btnx","btnWin");
-                    btn01.getStyleClass().removeAll("btno", "btnx","btnWin");
-                    btn02.getStyleClass().removeAll("btno", "btnx","btnWin");
-                    btn12.getStyleClass().removeAll("btno", "btnx","btnWin");
-                    btn10.getStyleClass().removeAll("btno", "btnx","btnWin");
-                    btn11.getStyleClass().removeAll("btno", "btnx","btnWin");
-                    btn20.getStyleClass().removeAll("btno", "btnx","btnWin");
-                    btn21.getStyleClass().removeAll("btno", "btnx","btnWin");
-                    btn22.getStyleClass().removeAll("btno", "btnx","btnWin");
-
+                    btn00.getStyleClass().removeAll("btno", "btnx", "btnWin");
+                    btn01.getStyleClass().removeAll("btno", "btnx", "btnWin");
+                    btn02.getStyleClass().removeAll("btno", "btnx", "btnWin");
+                    btn12.getStyleClass().removeAll("btno", "btnx", "btnWin");
+                    btn10.getStyleClass().removeAll("btno", "btnx", "btnWin");
+                    btn11.getStyleClass().removeAll("btno", "btnx", "btnWin");
+                    btn20.getStyleClass().removeAll("btno", "btnx", "btnWin");
+                    btn21.getStyleClass().removeAll("btno", "btnx", "btnWin");
+                    btn22.getStyleClass().removeAll("btno", "btnx", "btnWin");
                 }
                 window.close();
                 mediaPlayer.stop();

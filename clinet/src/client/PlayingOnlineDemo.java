@@ -69,10 +69,22 @@ public class PlayingOnlineDemo extends BorderPane {
     String gameStatus;
     int myScore;
     String userName;
+    Button adButton;
 
     public PlayingOnlineDemo(Stage stage, String userName, String email, int myScore, char playerType) {
 
         stage.setTitle("Playing TIC TAC TOE Online");
+
+        adButton = new Button("Record");
+
+        adButton.setPrefHeight(31.0);
+        adButton.setPrefWidth(85.0);
+//        adButton.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        adButton.setFont(new Font(24.0));
+        adButton.getStyleClass().add("btnRec");
+        adButton.setLayoutX(500.0); 
+        adButton.setLayoutY(240.0); 
+//        adButton.setOnAction(event -> handleAdButtonClick()); // Define the ad button click action
 
         this.email = email;
         this.stage = stage;
@@ -415,6 +427,8 @@ public class PlayingOnlineDemo extends BorderPane {
         anchorGame.getChildren().add(btn21);
         anchorGame.getChildren().add(imageView);
         anchorGame.getChildren().add(imageView0);
+        anchorGame.getChildren().add(adButton);
+
         setButtonHandler(btn00, 0, 0);
         setButtonHandler(btn01, 0, 1);
         setButtonHandler(btn02, 0, 2);
