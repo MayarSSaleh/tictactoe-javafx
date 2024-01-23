@@ -1,5 +1,14 @@
 package client;
 
+import static client.PlayingVsComputer.btn00;
+import static client.PlayingVsComputer.btn01;
+import static client.PlayingVsComputer.btn02;
+import static client.PlayingVsComputer.btn10;
+import static client.PlayingVsComputer.btn11;
+import static client.PlayingVsComputer.btn12;
+import static client.PlayingVsComputer.btn20;
+import static client.PlayingVsComputer.btn21;
+import static client.PlayingVsComputer.btn22;
 import static client.Profile.player2Email;
 import static client.Profile.threadWork;
 import com.google.gson.Gson;
@@ -67,8 +76,18 @@ public class AlertBox {
 //                    stage.getScene().setRoot(root);
 //                } else
                 if (module.equals("computer")) {
-                    Parent root = new PlayingVsComputer(stage);
-                    stage.getScene().setRoot(root);
+//                    Parent root = new PlayingVsComputer(stage);
+//                    stage.getScene().setRoot(root);
+
+                    btn00.getStyleClass().removeAll("btno", "btnx","btnWin");
+                    btn01.getStyleClass().removeAll("btno", "btnx","btnWin");
+                    btn02.getStyleClass().removeAll("btno", "btnx","btnWin");
+                    btn12.getStyleClass().removeAll("btno", "btnx","btnWin");
+                    btn10.getStyleClass().removeAll("btno", "btnx","btnWin");
+                    btn11.getStyleClass().removeAll("btno", "btnx","btnWin");
+                    btn20.getStyleClass().removeAll("btno", "btnx","btnWin");
+                    btn21.getStyleClass().removeAll("btno", "btnx","btnWin");
+                    btn22.getStyleClass().removeAll("btno", "btnx","btnWin");
 
                 }
                 window.close();
@@ -161,7 +180,6 @@ public class AlertBox {
 //
 //            }
 //        });
-
         Button stopButton = new Button("cancel");
 //                closeButton.setOnAction((e) ->
 //                 Parent pane = new mainScreen(stage);
@@ -178,7 +196,7 @@ public class AlertBox {
 
         HBox buttonBox = new HBox(10); // Horizontal box for the buttons
         buttonBox.setAlignment(Pos.CENTER); // Center the buttons horizontally
-        buttonBox.getChildren().addAll( stopButton);
+        buttonBox.getChildren().addAll(stopButton);
 
         mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
         mediaView = new MediaView(mediaPlayer);
