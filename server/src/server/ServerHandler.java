@@ -218,6 +218,7 @@ import DTO.RequestDTO;
 import DTO.UsersDTO;
 import com.google.gson.Gson;
 import db.DataAccessLayer;
+import static db.DataAccessLayer.addRecord;
 import static db.DataAccessLayer.getAllOnline;
 
 import java.io.DataInputStream;
@@ -335,6 +336,22 @@ class RouteHandler extends Thread {
                     case "board":
                         onlineBoard(clint);
                         break;
+
+                    case "addRecord":
+                        addRecord(clint);
+
+                        break;
+
+                    case "getRecords":
+                        System.out.println(" INSIDE switch case in getRecoeds");
+
+                        RequestDTO res = new RequestDTO();
+                        res.setRoute("getAvialblePlayers");
+                        res.setAllRecords(DataAccessLayer.getAllRecords(clint.getEmail()));
+                        Gson jsonRecords = new Gson();
+                        String ms = jsonRecords.toJson(res);
+                        printedMessageToClient.println(ms);
+                        printedMessageToClient.flush();
 
                 }
             } catch (IOException | SQLException ex) {

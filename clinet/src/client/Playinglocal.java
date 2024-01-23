@@ -68,7 +68,7 @@ public class Playinglocal extends BorderPane {
     GamePlay game;
     boolean recordTheGame = false;
 
-    Record newRecord = new Record();
+    static Record newRecord = new Record();
 
     public Playinglocal(Stage stage) {
 

@@ -8,9 +8,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
-
-@XmlType(propOrder = {"LocalDate", "LocalTime", "recordTheSteps", "recordTheSign",})
 
 public class Record {
 
@@ -35,22 +32,18 @@ public class Record {
         this.sign = sign;
     }
 
-    @XmlElement
     public LocalDate getCurrentDate() {
         return currentDate;
     }
 
-    @XmlElement
     public LocalTime getCurrentTime() {
         return currentTime;
     }
 
-    @XmlElement
     public ArrayList<int[]> getRecordTheSteps() {
         return recordTheSteps;
     }
 
-    @XmlElement
     public ArrayList<Character> getRecordTheSign() {
         return recordTheSign;
     }

@@ -29,7 +29,29 @@ public class DataAccessLayer {
         con.close();
         return ret;
     }
-    
+
+    public static void addRecord(RequestDTO clint) throws SQLException {
+        int ret = 0;
+        Connection con = null;
+
+        try {
+            DriverManager.registerDriver(new ClientDriver());
+            con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe", "root", "root");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO records VALUES (?,?)");
+
+            ps.setString(1, clint.getEmail());
+            ps.setString(2, clint.getRecord());
+
+            ret = ps.executeUpdate();
+            System.out.print(ret);
+        } catch (SQLException e) {
+            // Handle the exception (log it, throw a custom exception, etc.)
+            e.printStackTrace();
+        } finally {
+            con.close();
+
+        }
+    }
 
     public static int isLogin(String loginEmail, String loginPass) throws SQLException {
         int res = -1;
@@ -120,6 +142,26 @@ public class DataAccessLayer {
 
         while (result.next()) {
             user = new UsersDTO(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4));
+            arr.add(user);
+        }
+
+        con.close();
+        System.out.println(arr.size());
+        return arr;
+    }
+
+    public static ArrayList<String> getAllRecords(String email) throws SQLException {
+
+        ArrayList<String> arr = new ArrayList<String>();
+        String user;
+        DriverManager.registerDriver(new ClientDriver());
+        Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/tictactoe", "root", "root");
+        PreparedStatement ps = con.prepareStatement("select * from records where email = ?");
+        ps.setString(1, email);
+        ResultSet result = ps.executeQuery();
+
+        while (result.next()) {
+            user = result.getString(2);
             arr.add(user);
         }
 

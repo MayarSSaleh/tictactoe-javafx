@@ -14,18 +14,29 @@ public class RequestDTO {
     private int row;
     private int col;
     private char move;
-        private boolean PlayerOneTurn;
+    private boolean PlayerOneTurn;
     private String playState;
-     private String playerWhoSendInvetationName;
+    private String playerWhoSendInvetationName;
     private int playerWhoSendInvetationScore;
     private String playerWhoSendInvetationEmail;
-    
-    private String invetPlayer;  
+
+    private String invetPlayer;
     private String sendInvetationToEmail;
-    
+
     private ArrayList<UsersDTO> availablePlayers;
-    
+
     private String record;
+    
+    private  ArrayList<String> allRecords;
+
+    public ArrayList<String> getAllRecords() {
+        return allRecords;
+    }
+
+    public void setAllRecords(ArrayList<String> allRecords) {
+        this.allRecords = allRecords;
+    }
+    
 
     public String getRecord() {
         return record;
@@ -47,12 +58,10 @@ public class RequestDTO {
         return PlayerOneTurn;
     }
 
-    
     public void setPlayerOneTurn(boolean PlayerOneTurn) {
         this.PlayerOneTurn = PlayerOneTurn;
     }
 
-    
     public int getRow() {
         return row;
     }
@@ -76,9 +85,7 @@ public class RequestDTO {
     public void setMove(char move) {
         this.move = move;
     }
-    
-  
-    
+
     public String getOpponentEmail() {
         return opponentEmail;
     }
@@ -86,7 +93,8 @@ public class RequestDTO {
     public void setOpponentEmail(String opponentEmail) {
         this.opponentEmail = opponentEmail;
 
-    }private String user; 
+    }
+    private String user;
 
     public String getUser() {
         return user;
@@ -103,9 +111,6 @@ public class RequestDTO {
     public void setPlayerWhoSendInvetationEmail(String playerWhoSendInvetationEmail) {
         this.playerWhoSendInvetationEmail = playerWhoSendInvetationEmail;
     }
-     
-   
-    
 
     public String getSendInvetationToEmail() {
         return sendInvetationToEmail;
@@ -131,10 +136,6 @@ public class RequestDTO {
         this.playerWhoSendInvetationScore = playerWhoSendInvetationScore;
     }
 
-    
-    
-    
-    
     private boolean invitationRespons;
 
     public boolean isInvitationRespons() {

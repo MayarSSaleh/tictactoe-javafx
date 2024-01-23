@@ -24,7 +24,17 @@ public class RequestDTO {
     private String sendInvetationToEmail;
 
     private ArrayList<UsersDTO> availablePlayers;
-       private String record;
+    private String record;
+
+    private ArrayList<String> allRecords;
+
+    public ArrayList<String> getAllRecords() {
+        return allRecords;
+    }
+
+    public void setAllRecords(ArrayList<String> allRecords) {
+        this.allRecords = allRecords;
+    }
 
     public String getRecord() {
         return record;

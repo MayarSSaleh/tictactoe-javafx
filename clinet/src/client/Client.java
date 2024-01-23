@@ -15,9 +15,9 @@ public class Client extends Application {
 
         // Parent root =new Profile();
 //      Parent root =new FirstPage(stage);
-        Parent root = new PlayingOnlineDemo(stage, "", "", 5, 'g');
+//        Parent root = new PlayingOnlineDemo(stage, "", "", 5, 'g');
 
-//       Parent root =new LoginUi(stage);
+       Parent root =new RecordList(stage);
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toString());
         stage.setScene(scene);
