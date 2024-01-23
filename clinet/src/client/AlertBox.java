@@ -161,7 +161,6 @@ public class AlertBox {
 //
 //            }
 //        });
-
         Button stopButton = new Button("cancel");
 //                closeButton.setOnAction((e) ->
 //                 Parent pane = new mainScreen(stage);
@@ -178,7 +177,7 @@ public class AlertBox {
 
         HBox buttonBox = new HBox(10); // Horizontal box for the buttons
         buttonBox.setAlignment(Pos.CENTER); // Center the buttons horizontally
-        buttonBox.getChildren().addAll( stopButton);
+        buttonBox.getChildren().addAll(stopButton);
 
         mediaPlayer = new MediaPlayer(new Media(getClass().getResource(video).toExternalForm()));
         mediaView = new MediaView(mediaPlayer);
@@ -236,6 +235,7 @@ public class AlertBox {
         window.setHeight(250);
         Label label = new Label("let's start new Game with " + recived.getPlayerWhoSendInvetationName() + " His Score: " + recived.getPlayerWhoSendInvetationScore());
         label.getStyleClass().add("alert-label");
+        System.out.println("show alert online actance ");
 
         Button yesButton = new Button("Yes");
         yesButton.getStyleClass().add("btn-stop");
@@ -248,6 +248,7 @@ public class AlertBox {
                 //franko:  convert to gson and sent al taer
                 ClintSide.printedMessageToServer.println(json.toJson(recived));
                 ClintSide.printedMessageToServer.flush();
+                System.out.println("show alert online actance , i said yes ");
 
                 window.close();
 //                System.out.print("inside yes to invetation and after close window");
@@ -278,7 +279,7 @@ public class AlertBox {
             ClintSide.printedMessageToServer.println(json.toJson(recived));
             ClintSide.printedMessageToServer.flush();
             threadWork(stage, json);
-
+            System.out.println("show alert online actance , i said NO ");
             window.close();
         });
         noButton.getStyleClass().add("btn-stop");

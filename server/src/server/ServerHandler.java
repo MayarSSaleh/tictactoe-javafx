@@ -406,11 +406,16 @@ class RouteHandler extends Thread {
                 resendIinvetation.setPlayerWhoSendInvetationName(clint.getPlayerWhoSendInvetationName());
                 resendIinvetation.setplayerWhoSendInvetationEmail(clint.getplayerWhoSendInvetationEmail());
                 resendIinvetation.setPlayerWhoSendInvetationScore(clint.getPlayerWhoSendInvetationScore());
+                System.out.println("i reach to inveted email , after resendInviation ");
 
                 Gson jsonAvailable = new Gson();
                 String msg = jsonAvailable.toJson(resendIinvetation);
+                System.out.println(msg);
+
                 root.printedMessageToClient.println(msg);
                 root.printedMessageToClient.flush();
+                System.out.println("i reach to inveted email, before break");
+
                 break;
             }
 

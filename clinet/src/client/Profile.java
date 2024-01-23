@@ -56,11 +56,10 @@ public class Profile extends BorderPane {
     protected final Image logo;
     protected ArrayList<UsersDTO> availablePlayersList;
     static String player2Email;
-    
-    public Profile(String userName, String email, int score, Stage stage) {
-        
-                stage.setTitle("Chosse your Competitor");
 
+    public Profile(String userName, String email, int score, Stage stage) {
+
+        stage.setTitle("Chosse your Competitor");
 
         recLogo = new Rectangle();
         hBox = new HBox();
@@ -259,57 +258,45 @@ public class Profile extends BorderPane {
     public static void threadWork(Stage stage, Gson json) {
         new Thread(() -> {
             try {
-                String response = ClintSide.listenFromServer.readLine();
-                System.out.println(response);
-                RequestDTO recived = json.fromJson(response, RequestDTO.class);
-                switch (recived.getRoute()) {
-                    case "youGetInvetation":
-//                        System.out.println("i get invetation");
-                        Platform.runLater(() -> {
-                            new AlertBox().onlineAcceptanceAlert(recived, stage);
-                        });
-                        break;
-                    case "youGetResponeOnInvetation":
-                        System.out.println("i get responseOnInvetation in profile");
-                        if (recived.isInvitationRespons()) {
-                            System.out.println("i get responseOnInvetation by yes" + "my email is : "+ player1Email+
-                                    "another email is: "+ player2Email );
-                            
-                            
-                            player2Email = recived.getSendInvetationToEmail();
-                            
-                            
-                            Platform.runLater(() -> {
-                                System.out.println("client.Profile.threadWork()" +recived.getUser());
-                                new AlertBox().onlineChooseTypeAlert("Choose X or O",
-                                        stage, "username", player1Email, 20);
-                                
-                                
-                                //  Parent pane = new PlayingScreenDemo(stage);
-                                //  stage.getScene().setRoot(pane);
+                while (true) {
 
-                            }
-                            );
-                        } else {
+                    String response = ClintSide.listenFromServer.readLine();
+                    System.out.println(response);
+                    RequestDTO recived = json.fromJson(response, RequestDTO.class);
+                    switch (recived.getRoute()) {
+                        case "youGetInvetation":
+                            System.out.println("i get invetation");
                             Platform.runLater(() -> {
-                                new AlertBox().onlineWaitingAlert("Invitation Response", "Sorry the invitation not accepted, let's player with another one", stage);
+                                new AlertBox().onlineAcceptanceAlert(recived, stage);
                             });
-                            System.out.println("i get responseOnInvetation by no");
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Invitation Response");
-                            alert.setHeaderText("");
-                            alert.getDialogPane().setPrefWidth(650);
-                            alert.getDialogPane().setPrefHeight(450);
-                            alert.setContentText("Sorry the invitation not accepted, let's player with another one");
-//                            alert.showAndWait();
+                            break;
+                        case "youGetResponeOnInvetation":
+                            System.out.println("i get responseOnInvetation in profile");
+                            if (recived.isInvitationRespons()) {
+                                System.out.println("i get responseOnInvetation by yes" + "my email is : " + player1Email
+                                        + "another email is: " + player2Email);
+                                player2Email = recived.getSendInvetationToEmail();
 
-                        }
-                        break;
+                                Platform.runLater(() -> {
+                                    System.out.println("client.Profile.threadWork()" + recived.getUser());
+                                    new AlertBox().onlineChooseTypeAlert("Choose X or O",
+                                            stage, "username", player1Email, 20);
+                                }
+                                );
+                            } else {
+                                Platform.runLater(() -> {
+                                    new AlertBox().onlineWaitingAlert("Invitation Response", "Sorry the invitation not accepted, let's player with another one", stage);
+                                });
+                                System.out.println("i get responseOnInvetation by no");
+                            }
+                            break;
+                    }
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }).start();
+        }).
+                start();
     }
 
 }
