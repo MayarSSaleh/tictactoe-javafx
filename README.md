@@ -1,6 +1,6 @@
 README.md for TIC-TAC-TOE Game
 # Overview:
-TIC-TAC-TOE is a classic game implemented in Java SE, offering both local and online multiplayer modes, as well as the option to play against a computer opponent.
+TIC-TAC-TOE is a classic game implemented in Java, offering both local and online multiplayer modes, as well as the option to play against a computer opponent.
 The game features a user-friendly interface, real-time updates, and the ability to record and replay games.
 
 # Key Features:
